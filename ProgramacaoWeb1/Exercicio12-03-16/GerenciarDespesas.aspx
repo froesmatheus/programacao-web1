@@ -20,7 +20,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Panel runat="server" GroupingText="Categoria de Despesas" Width="550px">
+            <asp:Panel runat="server" GroupingText="Categoria de Despesas" Width="560px">
                 <p>
                     <label>Categoria: </label>
                     <asp:TextBox ID="tbxCategoria" runat="server" Width="250px" MaxLength="255" />
@@ -29,10 +29,8 @@
 
                 <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
 
-                <p>
-                    <asp:Label runat="server" Visible="false" ID="lblCategoriaExistente" ForeColor="Red">Categoria já existe</asp:Label>
+                <asp:Button ID="btnCancelar" runat="server" Style="margin-left: 5px;" OnClick="btnCancelar_Click" Text="Cancelar" Visible="false" />
 
-                </p>
             </asp:Panel>
 
             <br />
@@ -41,9 +39,11 @@
                 <p>
                     <label>Categoria: </label>
                     <asp:TextBox ID="tbxBuscarDepesa" runat="server" Width="250px" MaxLength="255" Style="margin-right: 5px" />
-                    <asp:Button runat="server" ID="Button1" Text="Filtrar" />
+                    <asp:Button runat="server" ID="btnFiltrar0" Text="Filtrar" CausesValidation="False" OnClick="btnFiltrar_Click" />
 
-                    <asp:GridView ID="grdDespesas" runat="server" Width="509px" AutoGenerateColumns="False">
+                    <asp:Button ID="btnExcluirFiltro" Style="margin-left:5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
+
+                    <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False">
                         <Columns>
                             <asp:BoundField HeaderText="Categoria" DataField="categoria" />
                             <asp:BoundField HeaderText="Status" DataField="status">
@@ -51,7 +51,7 @@
                             </asp:BoundField>
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="ImageButton2" runat="server" Height="19px" ImageUrl="Imagens/editar.png" Width="19px" CommandArgument='<%# Eval("categoria") %>' />
+                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="Imagens/editar.png" Width="19px" CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnEditar_Click" />
                                 </ItemTemplate>
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -61,7 +61,8 @@
                                     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="Imagens/desativar.png" OnClientClick="if (!confirmacao()) return false;" CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnDesativar_Click" />
+                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="Imagens/desativar.png" OnClientClick="if (!confirmacao()) return false;"
+                                        CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnDesativar_Click" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>

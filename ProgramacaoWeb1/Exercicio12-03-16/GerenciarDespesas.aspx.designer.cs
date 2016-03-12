@@ -49,13 +49,13 @@ namespace Exercicio12_03_16 {
         protected global::System.Web.UI.WebControls.Button btnCadastrar;
         
         /// <summary>
-        /// lblCategoriaExistente control.
+        /// btnCancelar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategoriaExistente;
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
         
         /// <summary>
         /// tbxBuscarDepesa control.
@@ -67,13 +67,22 @@ namespace Exercicio12_03_16 {
         protected global::System.Web.UI.WebControls.TextBox tbxBuscarDepesa;
         
         /// <summary>
-        /// Button1 control.
+        /// btnFiltrar0 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnFiltrar0;
+        
+        /// <summary>
+        /// btnExcluirFiltro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcluirFiltro;
         
         /// <summary>
         /// grdDespesas control.
