@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\GerenciarDespesas.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -106,28 +107,36 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CadastrarCliente.aspx" />
-    <Content Include="GerenciarDespesas.aspx" />
+    <Content Include="Pages\CadastrarCliente.aspx" />
+    <Content Include="Pages\GerenciarCategoriaDespesas.aspx" />
     <Content Include="Imagens\editar.png" />
     <Content Include="Imagens\desativar.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CadastrarCliente.aspx.cs">
+    <Compile Include="Models\Despesa.cs" />
+    <Compile Include="Pages\CadastrarCliente.aspx.cs">
       <DependentUpon>CadastrarCliente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CadastrarCliente.aspx.designer.cs">
+    <Compile Include="Pages\CadastrarCliente.aspx.designer.cs">
       <DependentUpon>CadastrarCliente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cliente.cs" />
-    <Compile Include="CategoriaDespesa.cs" />
-    <Compile Include="GerenciarDespesas.aspx.cs">
+    <Compile Include="Pages\GerenciarDespesas.aspx.cs">
       <DependentUpon>GerenciarDespesas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="GerenciarDespesas.aspx.designer.cs">
+    <Compile Include="Pages\GerenciarDespesas.aspx.designer.cs">
       <DependentUpon>GerenciarDespesas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\CategoriaDespesa.cs" />
+    <Compile Include="Pages\GerenciarCategoriaDespesas.aspx.cs">
+      <DependentUpon>GerenciarCategoriaDespesas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\GerenciarCategoriaDespesas.aspx.designer.cs">
+      <DependentUpon>GerenciarCategoriaDespesas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

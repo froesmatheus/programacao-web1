@@ -25,5 +25,10 @@ namespace Exercicio12_03_16
             ATIVO,
             DESATIVADO
         }
+
+        public override string ToString()
+        {
+            return this.categoria;
+        }
     }
 }

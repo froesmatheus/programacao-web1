@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="GerenciarDespesas.aspx.cs" Inherits="Exercicio12_03_16.GerenciarDespesas" %>
+﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="GerenciarCategoriaDespesas.aspx.cs" Inherits="Exercicio12_03_16.GerenciarDespesas" %>
 
 <!DOCTYPE html>
 
@@ -51,7 +51,7 @@
                             </asp:BoundField>
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="Imagens/editar.png" Width="19px" CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnEditar_Click" />
+                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="../Imagens/editar.png" Width="19px" CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnEditar_Click" />
                                 </ItemTemplate>
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -61,7 +61,7 @@
                                     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="Imagens/desativar.png" OnClientClick="if (!confirmacao()) return false;"
+                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="../Imagens/desativar.png" OnClientClick="if (!confirmacao()) return false;"
                                         CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnDesativar_Click" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
