@@ -42,6 +42,25 @@ namespace Exercicio12_03_16
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
+            if (btnCadastrar.Text.Equals("Salvar"))
+            {
+                Despesa desp = GetTipoDespesa(btnCadastrar.CommandName, btnCadastrar.CommandArgument);
+                if (desp != null)
+                {
+                    desp.categoria.categoria = drpDownCategorias.SelectedValue;
+                    desp.tipoDespesa = tbxTipoDespesa.Text;
+                    desp.caracteristica = radBtnCaracteristicas.SelectedValue;
+                    btnCancelar.Visible = false;
+                    btnCadastrar.Text = "Cadastrar";
+                    grdDespesas.DataBind();
+                    tbxTipoDespesa.Text = String.Empty;
+                    return;
+                }
+
+            }
+
+
+
             string categoria = drpDownCategorias.SelectedItem.ToString();
             CategoriaDespesa categoriaDespesa = null;
             foreach (var item in listaCatDespesas)
@@ -87,7 +106,30 @@ namespace Exercicio12_03_16
 
         protected void btnEditar_Click(object sender, ImageClickEventArgs e)
         {
+            tbxTipoDespesa.Focus();
+            Despesa tipoDespesa = GetTipoDespesa(((ImageButton)sender).CommandArgument, ((ImageButton)sender).CommandName);
+            if (tipoDespesa == null) { return; }
 
+
+            tbxTipoDespesa.Text = tipoDespesa.tipoDespesa;
+
+            btnCadastrar.Text = "Salvar";
+            btnCancelar.Visible = true;
+            btnCadastrar.CommandArgument = tipoDespesa.tipoDespesa;
+            btnCadastrar.CommandName = tipoDespesa.categoria.categoria;
+        }
+
+        private Despesa GetTipoDespesa(string categoria, string tipoDespesa)
+        {
+
+            foreach (var item in listaTipoDespesas)
+            {
+                if (item.categoria.categoria.Equals(categoria) && item.tipoDespesa.Equals(tipoDespesa))
+                {
+                    return item;
+                }
+            }
+            return null;
         }
 
         protected void btnDesativar_Click(object sender, ImageClickEventArgs e)
@@ -100,17 +142,11 @@ namespace Exercicio12_03_16
             grdDespesas.DataBind();
         }
 
-        private Despesa GetTipoDespesa(string categoria, string tipoDespesa)
+        protected void btnCancelar_Click(object sender, EventArgs e)
         {
-
-            foreach (var item in listaTipoDespesas)
-            {
-                if (item.categoria.ToString().Equals(categoria) && item.tipoDespesa.Equals(tipoDespesa))
-                {
-                    return item;
-                }
-            }
-            return null;
+            tbxTipoDespesa.Text = String.Empty;
+            btnCadastrar.Text = "Cadastrar";
+            btnCancelar.Visible = false;
         }
     }
 }

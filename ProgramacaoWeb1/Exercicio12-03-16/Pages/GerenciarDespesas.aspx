@@ -5,24 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <style>
-        form {
-            display: table;
-            border-spacing: 10px;
-        }
 
-        p {
-            display: table-row;
-        }
-
-        label {
-            display: table-cell;
-        }
-
-        input {
-            display: table-cell;
-        }
-    </style>
 
     <script type="text/javascript">
         function confirmacao() {
@@ -53,10 +36,12 @@
                         <asp:ListItem Text="Aplicação em Investimentos" />
                         <asp:ListItem Text="Transferência entre Contas" />
                     </asp:RadioButtonList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radBtnCaracteristicas" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
 
                 <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
+                <asp:Button ID="btnCancelar" Style="margin-left:5px;"  Visible="false" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
             </asp:Panel>
             <br />
             <br />
@@ -91,7 +76,7 @@
                             </asp:BoundField>
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Imagens/editar.png" Width="19px" CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnEditar_Click" />
+                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Imagens/editar.png" Width="19px" CausesValidation="false" CommandName='<%# Eval("tipoDespesa") %>' CommandArgument='<%# Eval("categoria.categoria") %>' OnClick="btnEditar_Click" />
                                 </ItemTemplate>
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -108,6 +93,8 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+                    <p>
+                    </p>
                 </p>
             </asp:Panel>
         </div>
