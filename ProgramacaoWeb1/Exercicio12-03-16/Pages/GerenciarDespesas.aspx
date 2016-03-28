@@ -32,9 +32,9 @@
                 <p>
                     <label>Características: </label>
                     <asp:RadioButtonList ID="radBtnCaracteristicas" runat="server" RepeatLayout="Flow">
-                        <asp:ListItem Text="Gasto com Produto ou Serviço" />
-                        <asp:ListItem Text="Aplicação em Investimentos" />
-                        <asp:ListItem Text="Transferência entre Contas" />
+                        <asp:ListItem Text="Gasto com Produto ou Serviço" Value="0" />
+                        <asp:ListItem Text="Aplicação em Investimentos" Value="1"/>
+                        <asp:ListItem Text="Transferência entre Contas" Value="2"/>
                     </asp:RadioButtonList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radBtnCaracteristicas" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>

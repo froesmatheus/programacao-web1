@@ -36,8 +36,6 @@ namespace Exercicio12_03_16
                     drpDownCategorias2.DataBind();
                 }
             }
-
-
         }
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
@@ -69,6 +67,19 @@ namespace Exercicio12_03_16
                 {
                     categoriaDespesa = item;
                     break;
+                }
+            }
+
+
+            foreach (var item in listaTipoDespesas)
+            {
+                if (item.categoria.categoria.ToLower().Equals(drpDownCategorias.SelectedValue.ToLower()) && item.tipoDespesa.Trim().ToLower().Equals(tbxTipoDespesa.Text.Trim().ToLower()))
+                {
+                    tbxTipoDespesa.Text = String.Empty;
+                    string script = "<script> alert(\"Esse tipo de despesa já existe\");</script>";
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
+                    tbxTipoDespesa.Focus();
+                    return;
                 }
             }
 
@@ -112,6 +123,7 @@ namespace Exercicio12_03_16
 
 
             tbxTipoDespesa.Text = tipoDespesa.tipoDespesa;
+            radBtnCaracteristicas.SelectedValue = tipoDespesa.caracteristica;
 
             btnCadastrar.Text = "Salvar";
             btnCancelar.Visible = true;

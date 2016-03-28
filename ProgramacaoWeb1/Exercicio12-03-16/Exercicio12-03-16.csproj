@@ -94,6 +94,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\CadastrarDespesa.aspx" />
+    <Content Include="Pages\CadastrarReceita.aspx" />
     <Content Include="Pages\GerenciarDespesas.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -111,16 +113,32 @@
     <Content Include="Pages\GerenciarCategoriaDespesas.aspx" />
     <Content Include="Imagens\editar.png" />
     <Content Include="Imagens\desativar.png" />
+    <Content Include="Pages\ManutencaoReceitas.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Despesa.cs" />
+    <Compile Include="Models\TipoReceita.cs" />
     <Compile Include="Pages\CadastrarCliente.aspx.cs">
       <DependentUpon>CadastrarCliente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\CadastrarCliente.aspx.designer.cs">
       <DependentUpon>CadastrarCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CadastrarDespesa.aspx.cs">
+      <DependentUpon>CadastrarDespesa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\CadastrarDespesa.aspx.designer.cs">
+      <DependentUpon>CadastrarDespesa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CadastrarReceita.aspx.cs">
+      <DependentUpon>CadastrarReceita.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\CadastrarReceita.aspx.designer.cs">
+      <DependentUpon>CadastrarReceita.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\GerenciarDespesas.aspx.cs">
       <DependentUpon>GerenciarDespesas.aspx</DependentUpon>
@@ -137,6 +155,13 @@
     </Compile>
     <Compile Include="Pages\GerenciarCategoriaDespesas.aspx.designer.cs">
       <DependentUpon>GerenciarCategoriaDespesas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManutencaoReceitas.aspx.cs">
+      <DependentUpon>ManutencaoReceitas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ManutencaoReceitas.aspx.designer.cs">
+      <DependentUpon>ManutencaoReceitas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
