@@ -12,7 +12,7 @@
             <asp:Panel GroupingText="Cadastro de Receitas" Style="padding: 10px;" Width="989px" runat="server" Height="603px">
                 <p>
                     <label>Tipo de Receita: </label>
-                    <asp:DropDownList ID="drpDownTipoReceita" runat="server" Height="26px" Width="209px"></asp:DropDownList>
+                    <asp:DropDownList ID="drpDownTipoReceita" runat="server" Height="26px" Width="209px" OnLoad="drpDownTipoReceita_Load"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownTipoReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
@@ -61,7 +61,7 @@
 
 
                 <p>
-                    <asp:TextBox TextMode="MultiLine" runat="server" Height="92px" Width="963px" />
+                    <asp:TextBox TextMode="MultiLine" runat="server" Height="92px" Width="963px" ID="tbxObservacoes" />
                 </p>
 
 

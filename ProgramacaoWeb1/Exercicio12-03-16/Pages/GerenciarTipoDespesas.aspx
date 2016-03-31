@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="GerenciarDespesas.aspx.cs" Inherits="Exercicio12_03_16.CadastrarDespesa" %>
+﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="GerenciarTipoDespesas.aspx.cs" Inherits="Exercicio12_03_16.CadastrarDespesa" %>
 
 <!DOCTYPE html>
 

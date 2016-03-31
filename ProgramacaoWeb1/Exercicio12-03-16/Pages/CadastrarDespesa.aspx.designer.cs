@@ -166,6 +166,15 @@ namespace Exercicio12_03_16.Pages {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
+        /// tbxObservacoes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxObservacoes;
+        
+        /// <summary>
         /// btnCadastrar control.
         /// </summary>
         /// <remarks>

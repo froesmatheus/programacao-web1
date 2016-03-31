@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="ManutencaoReceitas.aspx.cs" Inherits="Exercicio12_03_16.Pages.ManutencaoReceitas" %>
+﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="ManutencaoTipoReceitas.aspx.cs" Inherits="Exercicio12_03_16.Pages.ManutencaoReceitas" %>
 
 <!DOCTYPE html>
 
@@ -14,7 +14,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Panel GroupingText="Manutenção de Receita" Width="650px" runat="server">
+            <asp:Panel GroupingText="Manutenção de Tipo de Receita" Width="650px" runat="server">
                 <p>
                     <label>Receita: </label>
                     <asp:TextBox ID="tbxTxtReceita" runat="server" MaxLength="255"></asp:TextBox>
@@ -22,8 +22,8 @@
                 </p>
 
                 <p>
-                    <label>Categoria de Receita: </label>
-                    <asp:DropDownList ID="drpDownCategoriaReceita" runat="server" Height="25px" Width="212px"></asp:DropDownList>
+                    <label>Categoria de Tipo Receita: </label>
+                    <asp:DropDownList ID="drpDownCategoriaReceita" runat="server" Height="25px" Width="212px" OnLoad="drpDownCategoriaReceita_Load"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategoriaReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
@@ -33,7 +33,7 @@
             <br />
             <br />
 
-            <asp:Panel runat="server" GroupingText="Lista Receita" Width="648px">
+            <asp:Panel runat="server" GroupingText="Lista Tipo Receita" Width="648px">
 
                 <p>
                     <label>Receita: </label>

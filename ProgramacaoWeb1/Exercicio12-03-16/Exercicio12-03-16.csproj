@@ -96,7 +96,9 @@
   <ItemGroup>
     <Content Include="Pages\CadastrarDespesa.aspx" />
     <Content Include="Pages\CadastrarReceita.aspx" />
-    <Content Include="Pages\GerenciarDespesas.aspx" />
+    <Content Include="Pages\ConsultarExtrato.aspx" />
+    <Content Include="Pages\Default.aspx" />
+    <Content Include="Pages\GerenciarTipoDespesas.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -113,11 +115,14 @@
     <Content Include="Pages\GerenciarCategoriaDespesas.aspx" />
     <Content Include="Imagens\editar.png" />
     <Content Include="Imagens\desativar.png" />
-    <Content Include="Pages\ManutencaoReceitas.aspx" />
+    <Content Include="Pages\ManutencaoTipoReceitas.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Despesa.cs" />
+    <Compile Include="Models\Lancamento.cs" />
+    <Compile Include="Models\Receita.cs" />
+    <Compile Include="Models\TipoDespesa.cs" />
     <Compile Include="Models\TipoReceita.cs" />
     <Compile Include="Pages\CadastrarCliente.aspx.cs">
       <DependentUpon>CadastrarCliente.aspx</DependentUpon>
@@ -140,12 +145,26 @@
     <Compile Include="Pages\CadastrarReceita.aspx.designer.cs">
       <DependentUpon>CadastrarReceita.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GerenciarDespesas.aspx.cs">
-      <DependentUpon>GerenciarDespesas.aspx</DependentUpon>
+    <Compile Include="Pages\ConsultarExtrato.aspx.cs">
+      <DependentUpon>ConsultarExtrato.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\GerenciarDespesas.aspx.designer.cs">
-      <DependentUpon>GerenciarDespesas.aspx</DependentUpon>
+    <Compile Include="Pages\ConsultarExtrato.aspx.designer.cs">
+      <DependentUpon>ConsultarExtrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GerenciarTipoDespesas.aspx.cs">
+      <DependentUpon>GerenciarTipoDespesas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\GerenciarTipoDespesas.aspx.designer.cs">
+      <DependentUpon>GerenciarTipoDespesas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\CategoriaDespesa.cs" />
@@ -156,12 +175,12 @@
     <Compile Include="Pages\GerenciarCategoriaDespesas.aspx.designer.cs">
       <DependentUpon>GerenciarCategoriaDespesas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ManutencaoReceitas.aspx.cs">
-      <DependentUpon>ManutencaoReceitas.aspx</DependentUpon>
+    <Compile Include="Pages\ManutencaoTipoReceitas.aspx.cs">
+      <DependentUpon>ManutencaoTipoReceitas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\ManutencaoReceitas.aspx.designer.cs">
-      <DependentUpon>ManutencaoReceitas.aspx</DependentUpon>
+    <Compile Include="Pages\ManutencaoTipoReceitas.aspx.designer.cs">
+      <DependentUpon>ManutencaoTipoReceitas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

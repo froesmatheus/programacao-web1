@@ -11,19 +11,19 @@ namespace Exercicio12_03_16
     public partial class CadastrarDespesa : System.Web.UI.Page
     {
         public List<CategoriaDespesa> listaCatDespesas;
-        public List<Despesa> listaTipoDespesas;
+        public List<TipoDespesa> listaTipoDespesas;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
             {
-                listaTipoDespesas = (List<Despesa>)Session["listaTipoDespesas"];
+                listaTipoDespesas = (List<TipoDespesa>)Session["listaTipoDespesas"];
                 listaCatDespesas = (List<CategoriaDespesa>)Session["listaCatDespesas"];
                 grdDespesas.DataSource = listaTipoDespesas;
                 grdDespesas.DataBind();
             }
             else
             {
-                listaTipoDespesas = new List<Despesa>();
+                listaTipoDespesas = new List<TipoDespesa>();
                 Session["listaTipoDespesas"] = listaTipoDespesas;
 
                 if (Session["listaCatDespesas"] != null)
@@ -42,7 +42,7 @@ namespace Exercicio12_03_16
         {
             if (btnCadastrar.Text.Equals("Salvar"))
             {
-                Despesa desp = GetTipoDespesa(btnCadastrar.CommandName, btnCadastrar.CommandArgument);
+                TipoDespesa desp = GetTipoDespesa(btnCadastrar.CommandName, btnCadastrar.CommandArgument);
                 if (desp != null)
                 {
                     desp.categoria.categoria = drpDownCategorias.SelectedValue;
@@ -86,7 +86,7 @@ namespace Exercicio12_03_16
             string tipoDespesa = tbxTipoDespesa.Text;
             string caracteristica = radBtnCaracteristicas.SelectedValue;
 
-            Despesa despesa = new Despesa(categoriaDespesa, tipoDespesa, caracteristica, CategoriaDespesa.Status.ATIVO);
+            TipoDespesa despesa = new TipoDespesa(categoriaDespesa, tipoDespesa, caracteristica, CategoriaDespesa.Status.ATIVO);
             listaTipoDespesas.Add(despesa);
             grdDespesas.DataBind();
 
@@ -118,7 +118,7 @@ namespace Exercicio12_03_16
         protected void btnEditar_Click(object sender, ImageClickEventArgs e)
         {
             tbxTipoDespesa.Focus();
-            Despesa tipoDespesa = GetTipoDespesa(((ImageButton)sender).CommandArgument, ((ImageButton)sender).CommandName);
+            TipoDespesa tipoDespesa = GetTipoDespesa(((ImageButton)sender).CommandArgument, ((ImageButton)sender).CommandName);
             if (tipoDespesa == null) { return; }
 
 
@@ -131,7 +131,7 @@ namespace Exercicio12_03_16
             btnCadastrar.CommandName = tipoDespesa.categoria.categoria;
         }
 
-        private Despesa GetTipoDespesa(string categoria, string tipoDespesa)
+        private TipoDespesa GetTipoDespesa(string categoria, string tipoDespesa)
         {
 
             foreach (var item in listaTipoDespesas)
@@ -147,7 +147,7 @@ namespace Exercicio12_03_16
         protected void btnDesativar_Click(object sender, ImageClickEventArgs e)
         {
             ImageButton btn = sender as ImageButton;
-            Despesa despesa = GetTipoDespesa(btn.CommandArgument, btn.CommandName);
+            TipoDespesa despesa = GetTipoDespesa(btn.CommandArgument, btn.CommandName);
             if (despesa == null) { return; }
 
             despesa.status = CategoriaDespesa.Status.DESATIVADO;

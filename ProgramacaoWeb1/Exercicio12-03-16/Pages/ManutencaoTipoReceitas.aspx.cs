@@ -10,40 +10,28 @@ namespace Exercicio12_03_16.Pages
 {
     public partial class ManutencaoReceitas : System.Web.UI.Page
     {
-        private List<TipoReceita> listaReceitas;
+        private List<TipoReceita> listaTipoReceitas;
         private List<string> listaCategoriaReceitas;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
             {
-                listaReceitas = (List<TipoReceita>)Session["listaReceitas"];
-                listaCategoriaReceitas = (List<string>)Session["listaTipoReceitas"];
-                grdReceitas.DataSource = listaReceitas;
+                listaTipoReceitas = (List<TipoReceita>)Session["listaTipoReceitas"];
+                listaCategoriaReceitas = (List<string>)Session["listaCategoriaReceitas"];
+                grdReceitas.DataSource = listaTipoReceitas;
                 grdReceitas.DataBind();
             }
             else
             {
-                listaReceitas = new List<TipoReceita>();
-                Session["listaReceitas"] = listaReceitas;
+                listaTipoReceitas = new List<TipoReceita>();
+                Session["listaTipoReceitas"] = listaTipoReceitas;
 
-                listaCategoriaReceitas = new List<string>();
-                listaCategoriaReceitas.Add("Receitas em Geral");
-                listaCategoriaReceitas.Add("Transferência entre Contas");
-                drpDownCategoriaReceita.DataSource = listaCategoriaReceitas;
-                drpDownCategoriaReceita.DataBind();
 
                 drpDownCategoriaReceita2.DataSource = listaCategoriaReceitas;
                 drpDownCategoriaReceita2.DataBind();
 
-                if (Session["listaTipoReceitas"] != null)
-                {
-                    listaCategoriaReceitas = (List<string>)Session["listaTipoReceitas"];
-                    drpDownCategoriaReceita.DataSource = listaCategoriaReceitas;
-                    drpDownCategoriaReceita.DataBind();
-
-                    drpDownCategoriaReceita2.DataSource = listaCategoriaReceitas;
-                    drpDownCategoriaReceita2.DataBind();
-                }
+                drpDownCategoriaReceita.DataSource = listaCategoriaReceitas;
+                drpDownCategoriaReceita.DataBind();
             }
         }
 
@@ -67,7 +55,7 @@ namespace Exercicio12_03_16.Pages
 
 
 
-            foreach (var item in listaReceitas)
+            foreach (var item in listaTipoReceitas)
             {
                 if (item.tipoReceita.ToLower().Equals(drpDownCategoriaReceita.SelectedValue.Trim().ToLower()) && item.receita.Trim().ToLower().Equals(tbxTxtReceita.Text.Trim().ToLower()))
                 {
@@ -84,7 +72,7 @@ namespace Exercicio12_03_16.Pages
             string tipoReceita = drpDownCategoriaReceita.SelectedItem.ToString();
 
             TipoReceita receita = new TipoReceita(receitaStr, tipoReceita);
-            listaReceitas.Add(receita);
+            listaTipoReceitas.Add(receita);
             grdReceitas.DataBind();
 
             tbxTxtReceita.Text = String.Empty;
@@ -97,7 +85,7 @@ namespace Exercicio12_03_16.Pages
             string query = tbxReceita.Text;
 
             btnExcluirFiltro.Visible = true;
-            var results = listaReceitas.Where(x => x.receita.ToLower().Contains(query.ToLower()) &&
+            var results = listaTipoReceitas.Where(x => x.receita.ToLower().Contains(query.ToLower()) &&
             x.tipoReceita.ToString().Equals(drpDownCategoriaReceita2.SelectedValue));
 
             grdReceitas.DataSource = results;
@@ -106,7 +94,7 @@ namespace Exercicio12_03_16.Pages
 
         protected void btnExcluirFiltro_Click(object sender, EventArgs e)
         {
-            grdReceitas.DataSource = listaReceitas;
+            grdReceitas.DataSource = listaTipoReceitas;
             grdReceitas.DataBind();
             btnExcluirFiltro.Visible = false;
             tbxReceita.Text = String.Empty;
@@ -131,7 +119,7 @@ namespace Exercicio12_03_16.Pages
         private TipoReceita GetTipoReceita(string tipoReceita, string receita)
         {
 
-            foreach (var item in listaReceitas)
+            foreach (var item in listaTipoReceitas)
             {
                 if (item.receita.Equals(receita) && item.tipoReceita.Equals(tipoReceita))
                 {
@@ -156,6 +144,18 @@ namespace Exercicio12_03_16.Pages
             tbxTxtReceita.Text = String.Empty;
             btnCadastrar.Text = "Cadastrar";
             btnCancelar.Visible = false;
+        }
+
+        protected void drpDownCategoriaReceita_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                listaCategoriaReceitas = new List<string>();
+                listaCategoriaReceitas.Add("Receitas em Geral");
+                listaCategoriaReceitas.Add("Transferência entre Contas");
+                drpDownCategoriaReceita.DataSource = listaCategoriaReceitas;
+                drpDownCategoriaReceita.DataBind();
+            }
         }
     }
 }

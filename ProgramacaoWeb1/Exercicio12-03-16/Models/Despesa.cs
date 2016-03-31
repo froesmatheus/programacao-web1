@@ -5,24 +5,13 @@ using System.Web;
 
 namespace Exercicio12_03_16.Models
 {
-    public class Despesa
+    public class Despesa : Lancamento
     {
-        public CategoriaDespesa categoria { get; set; }
-        public string tipoDespesa { get; set; }
-        public string caracteristica { get; set; }
-        public CategoriaDespesa.Status status { get; set; }
+        public Despesa(string tipo, string formaRecebimento, float valor,
+                DateTime dataVencimento, DateTime dataRecebimento,
+                Lancamento.TipoParcelamento tipoParcelamento, int qtdParcelas, string observacoes)
 
-        public Despesa(CategoriaDespesa categoria, string despesa, string caracteristica, CategoriaDespesa.Status status)
-        {
-            this.categoria = categoria;
-            this.tipoDespesa = despesa;
-            this.caracteristica = caracteristica;
-            this.status = status;
-        }
-
-        public override string ToString()
-        {
-            return this.categoria.ToString();
-        }
+     : base(tipo, formaRecebimento, valor, dataVencimento, dataRecebimento, tipoParcelamento, qtdParcelas, observacoes)
+        { }
     }
 }

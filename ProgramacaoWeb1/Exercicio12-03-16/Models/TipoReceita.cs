@@ -17,5 +17,10 @@ namespace Exercicio12_03_16.Models
             this.receita = receita;
             this.tipoReceita = tipoReceita;
         }
+
+        public override string ToString()
+        {
+            return this.receita;
+        }
     }
 }
