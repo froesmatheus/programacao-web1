@@ -14,6 +14,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
+
             <asp:Panel GroupingText="Manutenção de Tipo de Receita" Width="650px" runat="server">
                 <p>
                     <label>Receita: </label>

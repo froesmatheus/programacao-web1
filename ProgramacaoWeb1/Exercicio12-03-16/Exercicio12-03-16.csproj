@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Imagens\voltar.png" />
     <Content Include="Pages\CadastrarDespesa.aspx" />
     <Content Include="Pages\CadastrarReceita.aspx" />
     <Content Include="Pages\ConsultarExtrato.aspx" />

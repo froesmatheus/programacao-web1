@@ -39,14 +39,14 @@ namespace Exercicio12_03_16.Pages
             DateTime dataFim = new DateTime(dataAtual.Year, dataAtual.Month, DateTime.DaysInMonth(dataAtual.Year, dataAtual.Month));
 
             filtrarGridView(dataIni, dataFim);
-           
+
         }
 
         private void filtrarGridView(DateTime dataIni, DateTime dataFim)
         {
             var listaFiltrada = lancamentos
-                                    .Where(x => x.dataRecebimento >= dataIni && x.dataRecebimento <= dataFim)
-                                    .OrderBy(x => x.dataRecebimento);
+                                    .Where(x => x.dataVencimento >= dataIni && x.dataVencimento <= dataFim)
+                                    .OrderBy(x => x.dataVencimento);
 
 
             grdExtrato.DataSource = listaFiltrada;
@@ -89,7 +89,25 @@ namespace Exercicio12_03_16.Pages
                     e.Row.BackColor = System.Drawing.Color.Red;
                     e.Row.ForeColor = System.Drawing.Color.White;
                 }
+
+
+                Lancamento lanc = e.Row.DataItem as Lancamento;
+
+                if (lanc.dataRecebimento == DateTime.Parse("01/01/0001"))
+                {
+                    e.Row.Cells[1].Text = "------";
+                }
+
+                if (lanc.tipoParcelamento == Lancamento.PARCELADO)
+                {
+                    e.Row.Cells[4].Text = lanc.parcela + "/" + lanc.qtParcelas;
+                }
             }
+        }
+
+        protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Default.aspx", true);
         }
     }
 }

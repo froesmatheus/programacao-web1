@@ -15,9 +15,17 @@ namespace Exercicio12_03_16.Pages
         {
             if (!IsPostBack)
             {
-                listaDespesas = new List<Despesa>();
-                Session["listaDespesas"] = listaDespesas;
-            } else
+                if (Session["listaDespesas"] == null)
+                {
+                    listaDespesas = new List<Despesa>();
+                    Session["listaDespesas"] = listaDespesas;
+                } else
+                {
+                    listaDespesas = (List<Despesa>)Session["listaDespesas"];
+                }
+                
+            }
+            else
             {
                 listaDespesas = (List<Despesa>)Session["listaDespesas"];
             }
@@ -48,14 +56,19 @@ namespace Exercicio12_03_16.Pages
             String formaRecebimento = drpDownFormaRecebimento.SelectedValue;
             float valor = float.Parse(tbxValor.Text);
             DateTime dataVenc = DateTime.Parse(tbxDataVenc.Text);
-            DateTime dataReceb = DateTime.Parse(tbxDataRecebimento.Text);
+
+            DateTime result = DateTime.Parse("01/01/0001");
+            DateTime.TryParse(tbxDataRecebimento.Text, out result);
+
+            //DateTime dataReceb = DateTime.Parse(tbxDataRecebimento.Text);
             string tipoParcelamento;
             if (rdParcelamento.SelectedValue.Equals("Único"))
             {
-               tipoParcelamento = Lancamento.UNICO;
-            } else
+                tipoParcelamento = Lancamento.UNICO;
+            }
+            else
             {
-               tipoParcelamento = Lancamento.PARCELADO;
+                tipoParcelamento = Lancamento.PARCELADO;
             }
 
             string observacoes = tbxObservacoes.Text;
@@ -63,19 +76,33 @@ namespace Exercicio12_03_16.Pages
 
             String tipo = tipoDespesaStr + "/" + tipoDespesa.categoria;
 
-            Despesa despesa = new Despesa(tipo, formaRecebimento, valor, 
-                                          dataVenc, dataReceb, tipoParcelamento, 
+            Despesa despesa;
+            if (tipoParcelamento == Lancamento.PARCELADO)
+            {
+                float valorParcela = valor / qtdParcelas;
+                DateTime dataVencimento = dataVenc;
+                despesa = new Despesa(tipo, formaRecebimento, valorParcela,
+                                          dataVencimento, result, tipoParcelamento,
                                           qtdParcelas, observacoes);
-
-            listaDespesas.Add(despesa);
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-
-
-
-
+                despesa.parcela = 1;
+                listaDespesas.Add(despesa);
+                for (int i = 2; i <= qtdParcelas; i++)
+                {
+                    dataVencimento = dataVencimento.AddMonths(1);
+                    despesa = new Despesa(tipo, formaRecebimento, valorParcela,
+                                          dataVencimento, new DateTime(), tipoParcelamento,
+                                          qtdParcelas, observacoes);
+                    despesa.parcela = i;
+                    listaDespesas.Add(despesa);
+                }
+            }
+            else
+            {
+                despesa = new Despesa(tipo, formaRecebimento, valor,
+                                          dataVenc, result, tipoParcelamento,
+                                          qtdParcelas, observacoes);
+                listaDespesas.Add(despesa);
+            }
         }
 
         protected void rdParcelamento_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,13 +155,18 @@ namespace Exercicio12_03_16.Pages
                     return;
                 }
 
-                List<TipoDespesa> tiposDespesa = (List<TipoDespesa>) Session["listaTipoDespesas"];
+                List<TipoDespesa> tiposDespesa = (List<TipoDespesa>)Session["listaTipoDespesas"];
                 if (tiposDespesa != null)
                 {
                     drpDownTipoDespesa.DataSource = tiposDespesa;
                     drpDownTipoDespesa.DataBind();
                 }
             }
+        }
+
+        protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Default.aspx", true);
         }
     }
 }

@@ -20,6 +20,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
+
             <asp:Panel runat="server" GroupingText="Categoria de Despesas" Width="560px">
                 <p>
                     <label>Categoria: </label>
@@ -41,7 +43,7 @@
                     <asp:TextBox ID="tbxBuscarDepesa" runat="server" Width="250px" MaxLength="255" Style="margin-right: 5px" />
                     <asp:Button runat="server" ID="btnFiltrar0" Text="Filtrar" CausesValidation="False" OnClick="btnFiltrar_Click" />
 
-                    <asp:Button ID="btnExcluirFiltro" Style="margin-left:5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
+                    <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
 
                     <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False">
                         <Columns>

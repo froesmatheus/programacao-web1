@@ -16,9 +16,6 @@ namespace Exercicio12_03_16
 
         }
 
-        
-
-
 
         private string GetMD5Hash(string senha)
         {
@@ -45,6 +42,11 @@ namespace Exercicio12_03_16
             string senha = GetMD5Hash(tbxSenha.Text);
 
             Cliente cliente = new Cliente(nome, dataNasc, email, senha);
+        }
+
+        protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Default.aspx", true);
         }
     }
 }

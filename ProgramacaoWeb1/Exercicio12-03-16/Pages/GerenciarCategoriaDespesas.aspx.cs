@@ -136,5 +136,10 @@ namespace Exercicio12_03_16
             btnExcluirFiltro.Visible = false;
             tbxBuscarDepesa.Text = String.Empty;
         }
+
+        protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Default.aspx", true);
+        }
     }
 }

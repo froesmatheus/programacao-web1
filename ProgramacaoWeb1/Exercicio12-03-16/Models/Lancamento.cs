@@ -18,6 +18,7 @@ namespace Exercicio12_03_16.Models
         public DateTime dataRecebimento { get; set; }
         public string tipoParcelamento { get; set; }
         public int qtParcelas { get; set; }
+        public int parcela { get; set; }
         public string observacoes { get; set; }
 
         public Lancamento(string tipo, string formaRecebimento, float valor,

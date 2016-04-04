@@ -23,8 +23,18 @@ namespace Exercicio12_03_16
             }
             else
             {
-                listaTipoDespesas = new List<TipoDespesa>();
-                Session["listaTipoDespesas"] = listaTipoDespesas;
+                if (Session["listaCatDespesas"] == null)
+                {
+                    listaTipoDespesas = new List<TipoDespesa>();
+                    Session["listaTipoDespesas"] = listaTipoDespesas;
+                }
+                else
+                {
+                    listaTipoDespesas = (List<TipoDespesa>)Session["listaTipoDespesas"];
+                    grdDespesas.DataSource = listaTipoDespesas;
+                    grdDespesas.DataBind();
+                }
+
 
                 if (Session["listaCatDespesas"] != null)
                 {
@@ -100,7 +110,7 @@ namespace Exercicio12_03_16
             string query = tbxTpDespesa.Text;
 
             btnExcluirFiltro.Visible = true;
-            var results = listaTipoDespesas.Where(x => x.tipoDespesa.ToLower().Contains(query.ToLower()) && 
+            var results = listaTipoDespesas.Where(x => x.tipoDespesa.ToLower().Contains(query.ToLower()) &&
             x.categoria.ToString().Equals(drpDownCategorias2.SelectedValue));
 
             grdDespesas.DataSource = results;
@@ -159,6 +169,11 @@ namespace Exercicio12_03_16
             tbxTipoDespesa.Text = String.Empty;
             btnCadastrar.Text = "Cadastrar";
             btnCancelar.Visible = false;
+        }
+
+        protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Default.aspx", true);
         }
     }
 }

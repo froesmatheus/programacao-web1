@@ -16,6 +16,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
+
             <asp:Panel GroupingText="Tipos de Despesas" Width="650px" runat="server">
                 <p>
                     <label>Categoria: </label>
@@ -33,15 +35,15 @@
                     <label>Características: </label>
                     <asp:RadioButtonList ID="radBtnCaracteristicas" runat="server" RepeatLayout="Flow">
                         <asp:ListItem Text="Gasto com Produto ou Serviço" Value="0" />
-                        <asp:ListItem Text="Aplicação em Investimentos" Value="1"/>
-                        <asp:ListItem Text="Transferência entre Contas" Value="2"/>
+                        <asp:ListItem Text="Aplicação em Investimentos" Value="1" />
+                        <asp:ListItem Text="Transferência entre Contas" Value="2" />
                     </asp:RadioButtonList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radBtnCaracteristicas" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
 
                 <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
-                <asp:Button ID="btnCancelar" Style="margin-left:5px;"  Visible="false" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
+                <asp:Button ID="btnCancelar" Style="margin-left: 5px;" Visible="false" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
             </asp:Panel>
             <br />
             <br />
@@ -55,7 +57,7 @@
 
                     <p>
                         <label>Tipo de despesa: </label>
-                        <asp:TextBox runat="server" ID="tbxTpDespesa"  />
+                        <asp:TextBox runat="server" ID="tbxTpDespesa" />
                         <asp:Button Style="margin-left: 5px;" runat="server" ID="btnFiltrar" Text="Filtrar" CausesValidation="False" OnClick="btnFiltrar_Click" />
                         <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
                     </p>

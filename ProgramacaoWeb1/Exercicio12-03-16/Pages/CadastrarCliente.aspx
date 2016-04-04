@@ -27,6 +27,9 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" style="margin:5px;" OnClick="btnVoltar_Click"/>
+
+
             <asp:Panel GroupingText="Meus Dados" runat="server" Width="800px">
                 <div class="container">
                     <p>

@@ -9,6 +9,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
+
             <asp:Panel GroupingText="Cadastro de Despesas" Style="padding: 10px;" Width="989px" runat="server" Height="603px">
                 <p>
                     <label>Tipo de Despesa: </label>
@@ -65,7 +67,6 @@
 
 
                 <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
-                <asp:Button ID="btnCancelar" Style="margin-left: 5px;" Visible="false" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
             </asp:Panel>
         </div>
     </form>

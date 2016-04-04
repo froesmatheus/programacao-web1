@@ -16,8 +16,14 @@ namespace Exercicio12_03_16.Pages
         {
             if (!IsPostBack)
             {
-                listaReceitas = new List<Receita>();
-                Session["listaReceitas"] = listaReceitas;
+                if (Session["listaReceitas"] == null)
+                {
+                    listaReceitas = new List<Receita>();
+                    Session["listaReceitas"] = listaReceitas;
+                } else
+                {
+                    listaReceitas = (List<Receita>)Session["listaReceitas"];
+                }
             }
             else
             {
@@ -38,18 +44,20 @@ namespace Exercicio12_03_16.Pages
             TipoReceita tipoReceita = null;
             foreach (var item in tiposReceita)
             {
-                if (item.tipoReceita.Equals(tipoReceitaStr))
+                if (item.receita.Equals(tipoReceitaStr))
                 {
                     tipoReceita = item;
                 }
             }
 
 
-
             String formaRecebimento = drpDownFormaRecebimento.SelectedValue;
             float valor = float.Parse(tbxValor.Text);
             DateTime dataVenc = DateTime.Parse(tbxDataVenc.Text);
-            DateTime dataReceb = DateTime.Parse(tbxDataRecebimento.Text);
+
+            DateTime result = DateTime.Parse("01/01/0001");
+            DateTime.TryParse(tbxDataRecebimento.Text, out result);
+
             string tipoParcelamento;
             if (rdParcelamento.SelectedValue.Equals("Único"))
             {
@@ -63,17 +71,37 @@ namespace Exercicio12_03_16.Pages
             string observacoes = tbxObservacoes.Text;
             int qtdParcelas = int.Parse(drpDownParcelas.SelectedValue);
 
-            Receita receita = new Receita(tipoReceitaStr, formaRecebimento, valor,
-                                          dataVenc, dataReceb, tipoParcelamento,
+
+            tipoReceitaStr = tipoReceita.tipoReceita + "/" + tipoReceitaStr;
+            Receita receita;
+            if (tipoParcelamento == Lancamento.PARCELADO)
+            {
+                float valorParcela = valor / qtdParcelas;
+                DateTime dataVencimento = dataVenc;
+                receita = new Receita(tipoReceitaStr, formaRecebimento, valorParcela,
+                                          dataVencimento, result, tipoParcelamento,
                                           qtdParcelas, observacoes);
-
-            listaReceitas.Add(receita);
+                receita.parcela = 1;
+                listaReceitas.Add(receita);
+                for (int i = 2; i <= qtdParcelas; i++)
+                {
+                    dataVencimento = dataVencimento.AddMonths(1);
+                    receita = new Receita(tipoReceitaStr, formaRecebimento, valorParcela,
+                                          dataVencimento, new DateTime(), tipoParcelamento,
+                                          qtdParcelas, observacoes);
+                    receita.parcela = i;
+                    listaReceitas.Add(receita);
+                }
+            }
+            else
+            {
+                receita = new Receita(tipoReceitaStr, formaRecebimento, valor,
+                                          dataVenc, result, tipoParcelamento,
+                                          qtdParcelas, observacoes);
+                listaReceitas.Add(receita);
+            }
         }
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-
-        }
 
         protected void rdParcelamento_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -131,6 +159,11 @@ namespace Exercicio12_03_16.Pages
                 }
 
             }
+        }
+
+        protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Default.aspx", true);
         }
     }
 }

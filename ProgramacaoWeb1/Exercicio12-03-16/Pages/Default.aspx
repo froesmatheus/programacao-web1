@@ -11,13 +11,13 @@
         <div>
             <asp:Menu ID="Menu1" runat="server">
                 <Items>
-                    <asp:MenuItem Text="Cadastrar Cliente" Target="_blank" NavigateUrl="~/Pages/CadastrarCliente.aspx" />
-                    <asp:MenuItem Text="Gerenciar Categoria de Despesa" Target="_blank" NavigateUrl="~/Pages/GerenciarCategoriaDespesas.aspx" />
-                    <asp:MenuItem Text="Gerenciar Tipo de Despesa" Target="_blank" NavigateUrl="~/Pages/GerenciarTipoDespesas.aspx" />
-                    <asp:MenuItem Text="Manutenção de Tipo de Receitas" Target="_blank" NavigateUrl="~/Pages/ManutencaoTipoReceitas.aspx" />
-                    <asp:MenuItem Text="Cadastrar Despesa" Target="_blank" NavigateUrl="~/Pages/CadastrarDespesa.aspx" />
-                    <asp:MenuItem Text="Cadastrar Receita" Target="_blank" NavigateUrl="~/Pages/CadastrarReceita.aspx" />
-                    <asp:MenuItem Text="Consultar Extrato" Target="_blank" NavigateUrl="~/Pages/ConsultarExtrato.aspx" />
+                    <asp:MenuItem Text="Cadastrar Cliente" NavigateUrl="~/Pages/CadastrarCliente.aspx" />
+                    <asp:MenuItem Text="Gerenciar Categoria de Despesa" NavigateUrl="~/Pages/GerenciarCategoriaDespesas.aspx" />
+                    <asp:MenuItem Text="Gerenciar Tipo de Despesa" NavigateUrl="~/Pages/GerenciarTipoDespesas.aspx" />
+                    <asp:MenuItem Text="Manutenção de Tipo de Receitas" NavigateUrl="~/Pages/ManutencaoTipoReceitas.aspx" />
+                    <asp:MenuItem Text="Cadastrar Despesa" NavigateUrl="~/Pages/CadastrarDespesa.aspx" />
+                    <asp:MenuItem Text="Cadastrar Receita" NavigateUrl="~/Pages/CadastrarReceita.aspx" />
+                    <asp:MenuItem Text="Consultar Extrato" NavigateUrl="~/Pages/ConsultarExtrato.aspx" />
                 </Items>
             </asp:Menu>
         </div>

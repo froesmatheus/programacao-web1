@@ -23,8 +23,17 @@ namespace Exercicio12_03_16.Pages
             }
             else
             {
-                listaTipoReceitas = new List<TipoReceita>();
-                Session["listaTipoReceitas"] = listaTipoReceitas;
+                if (Session["listaTipoReceitas"] == null)
+                {
+                    listaTipoReceitas = new List<TipoReceita>();
+                    Session["listaTipoReceitas"] = listaTipoReceitas;
+                } else
+                {
+                    listaTipoReceitas = (List<TipoReceita>)Session["listaTipoReceitas"];
+                    grdReceitas.DataSource = listaTipoReceitas;
+                    grdReceitas.DataBind();
+                }
+
 
 
                 drpDownCategoriaReceita2.DataSource = listaCategoriaReceitas;
@@ -156,6 +165,11 @@ namespace Exercicio12_03_16.Pages
                 drpDownCategoriaReceita.DataSource = listaCategoriaReceitas;
                 drpDownCategoriaReceita.DataBind();
             }
+        }
+
+        protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Default.aspx", true);
         }
     }
 }
