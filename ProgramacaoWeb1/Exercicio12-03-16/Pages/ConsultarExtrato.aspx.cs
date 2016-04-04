@@ -10,6 +10,7 @@ namespace Exercicio12_03_16.Pages
 {
     public partial class ConsultarExtrato : System.Web.UI.Page
     {
+        private List<Lancamento> lancamentos;
         private List<Receita> receitas;
         private List<Despesa> despesas;
         protected void Page_Load(object sender, EventArgs e)
@@ -20,27 +21,40 @@ namespace Exercicio12_03_16.Pages
 
         protected void btnPesquisar_Click(object sender, EventArgs e)
         {
-            
+            DateTime dataIni = DateTime.Parse(tbxDataIni.Text);
+            DateTime dataFim = DateTime.Parse(tbxDataFim.Text);
+            filtrarGridView(dataIni, dataFim);
         }
 
         protected void grdExtrato_Load(object sender, EventArgs e)
         {
-            SortedList<DateTime, Lancamento> lancamentos = new SortedList<DateTime, Lancamento>();
-            foreach (var item in receitas)
-            {
-                lancamentos.Add(item.dataRecebimento, item);
-            }
+            lancamentos = new List<Lancamento>();
+            lancamentos.AddRange(receitas);
+            lancamentos.AddRange(despesas);
 
-            foreach (var item in despesas)
-            {
-                lancamentos.Add(item.dataRecebimento, item);
-            }
+            DateTime dataAtual = DateTime.Today;
 
-            grdExtrato.DataSource = lancamentos;
+
+            DateTime dataIni = new DateTime(dataAtual.Year, dataAtual.Month, 1);
+            DateTime dataFim = new DateTime(dataAtual.Year, dataAtual.Month, DateTime.DaysInMonth(dataAtual.Year, dataAtual.Month));
+
+            filtrarGridView(dataIni, dataFim);
+           
+        }
+
+        private void filtrarGridView(DateTime dataIni, DateTime dataFim)
+        {
+            var listaFiltrada = lancamentos
+                                    .Where(x => x.dataRecebimento >= dataIni && x.dataRecebimento <= dataFim)
+                                    .OrderBy(x => x.dataRecebimento);
+
+
+            grdExtrato.DataSource = listaFiltrada;
             grdExtrato.DataBind();
 
-            double totalReceita = GetTotalReceita(receitas);
-            double totalDespesa = GetTotalDespesa(despesas);
+
+            double totalReceita = GetTotalCusto(listaFiltrada.Where(x => x is Receita).ToList());
+            double totalDespesa = GetTotalCusto(listaFiltrada.Where(x => x is Despesa).ToList());
             tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceita);
             tbxTotalDespesa.Text = String.Format("Total de Despesas R$ {0:0.00}", totalDespesa);
 
@@ -49,20 +63,10 @@ namespace Exercicio12_03_16.Pages
 
 
 
-        private double GetTotalReceita(List<Receita> receitas)
+        private double GetTotalCusto(List<Lancamento> lista)
         {
             double total = 0.0;
-            foreach (var item in receitas)
-            {
-                total += item.valor;
-            }
-            return total;
-        }
-
-        private double GetTotalDespesa(List<Despesa> despesas)
-        {
-            double total = 0.0;
-            foreach (var item in despesas)
+            foreach (var item in lista)
             {
                 total += item.valor;
             }
@@ -77,10 +81,13 @@ namespace Exercicio12_03_16.Pages
                 {
                     Receita receita = (Receita)e.Row.DataItem;
                     e.Row.BackColor = System.Drawing.Color.Green;
-                } else if (e.Row.DataItem is Despesa)
+                    e.Row.ForeColor = System.Drawing.Color.White;
+                }
+                else if (e.Row.DataItem is Despesa)
                 {
                     Despesa despesa = (Despesa)e.Row.DataItem;
                     e.Row.BackColor = System.Drawing.Color.Red;
+                    e.Row.ForeColor = System.Drawing.Color.White;
                 }
             }
         }

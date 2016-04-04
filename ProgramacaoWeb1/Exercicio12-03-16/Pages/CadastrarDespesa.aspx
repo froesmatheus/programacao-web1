@@ -37,10 +37,9 @@
                 </p>
 
                 <p>
-                    <label>Data de recebimento: </label>
+                    <label>Data de pagamento: </label>
                     <asp:TextBox ID="tbxDataRecebimento" TextMode="Date" runat="server" MaxLength="255"></asp:TextBox>
                     <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="tbxDataRecebimento" ErrorMessage="Data inválida" ForeColor="Red" ValueToCompare="01/01/1900" Operator="GreaterThan"></asp:CompareValidator>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="tbxDataRecebimento" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
                 <p>

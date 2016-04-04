@@ -50,14 +50,14 @@ namespace Exercicio12_03_16.Pages
             float valor = float.Parse(tbxValor.Text);
             DateTime dataVenc = DateTime.Parse(tbxDataVenc.Text);
             DateTime dataReceb = DateTime.Parse(tbxDataRecebimento.Text);
-            Despesa.TipoParcelamento tipoParcelamento;
+            string tipoParcelamento;
             if (rdParcelamento.SelectedValue.Equals("Único"))
             {
-                tipoParcelamento = Despesa.TipoParcelamento.UNICO;
+                tipoParcelamento = Lancamento.UNICO;
             }
             else
             {
-                tipoParcelamento = Despesa.TipoParcelamento.DIVIDIDO;
+                tipoParcelamento = Lancamento.PARCELADO;
             }
 
             string observacoes = tbxObservacoes.Text;

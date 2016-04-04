@@ -40,15 +40,15 @@
                     <asp:Label runat="server" ID="tbxSaldo" Text="Saldo R$ 0,00" />
                 </p>
 
-                <asp:GridView ID="grdExtrato" runat="server" Style="margin: 20px;"  AutoGenerateColumns="False"  OnLoad="grdExtrato_Load" OnRowDataBound="grdExtrato_RowDataBound">
+                <asp:GridView ID="grdExtrato" runat="server" Style="margin: 20px;"  AutoGenerateColumns="False"  OnLoad="grdExtrato_Load" OnRowDataBound="grdExtrato_RowDataBound" Enabled="False">
                     <Columns>
-                        <asp:BoundField HeaderText="Valor (R$)" DataField="Lancamento.valor" >
+                        <asp:BoundField HeaderText="Valor (R$)" DataField="valor" DataFormatString="{0:N2}" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
-                        <asp:BoundField HeaderText="Data de Realização" DataField="dataRecebimento" DataFormatString="{0:dd/M/yyyy}">
+                        <asp:BoundField HeaderText="Data de Realização" DataField="dataRecebimento" DataFormatString="{0:dd/MM/yyyy}">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
-                        <asp:BoundField HeaderText="Vencimento" DataField="dataVencimento" DataFormatString="{0:dd/M/yyyy}" >
+                        <asp:BoundField HeaderText="Vencimento" DataField="dataVencimento" DataFormatString="{0:dd/MM/yyyy}" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
                         <asp:BoundField HeaderText="Tipo/Categoria" DataField="tipo" >
