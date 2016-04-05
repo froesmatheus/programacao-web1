@@ -49,17 +49,20 @@ namespace Exercicio12_03_16
             };
             Session["listaTipoReceitas"] = listaTipoReceitas;
 
-            
+
 
 
             List<Despesa> listaDespesas = new List<Despesa>()
             {
                 new Despesa(listaCatDespesas[0] + "/" + listaTipoDespesas[0], "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(2016, 3, 25), Lancamento.UNICO, 0, ""),
                 new Despesa("Universidade", "Dinheiro", 150, new DateTime(2016, 3, 24), new DateTime(2016, 3, 24), Lancamento.UNICO, 0, ""),
-                new Despesa("Saúde", "Dinheiro", 5000, new DateTime(2016, 3, 13), new DateTime(2016, 3, 12), Lancamento.UNICO, 0, ""),
-                new Despesa("Casa", "Dinheiro", 350, new DateTime(2016, 3, 25), new DateTime(2016, 4, 5), Lancamento.UNICO, 0, ""),
-                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(2016, 4, 30), Lancamento.UNICO, 0, ""),
-                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(2016, 4, 30), Lancamento.UNICO, 0, ""),
+                new Despesa("Saúde", "Dinheiro", 5000, new DateTime(2016, 4, 10), new DateTime(), Lancamento.UNICO, 0, ""),
+                new Despesa("Casa", "Dinheiro", 350, new DateTime(2016, 4, 6), new DateTime(), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 4, 5), new DateTime(), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
 
             };
 
@@ -67,6 +70,8 @@ namespace Exercicio12_03_16
             {
                 new Receita("Salário", "Dinheiro", 1000, new DateTime(2016, 3, 25), new DateTime(2016, 3, 25), Lancamento.UNICO, 0, ""),
                 new Receita("Estágio", "Dinheiro", 300, new DateTime(2016, 3, 25), new DateTime(2016, 3, 25), Lancamento.UNICO, 0, ""),
+                new Receita("Salário", "Dinheiro", 2000, new DateTime(2016, 4, 1), new DateTime(2016, 3, 25), Lancamento.UNICO, 0, ""),
+
             };
 
             Session["listaDespesas"] = listaDespesas;

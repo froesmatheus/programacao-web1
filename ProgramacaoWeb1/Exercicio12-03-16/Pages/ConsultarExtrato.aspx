@@ -16,7 +16,6 @@
                     <label>Data Início: </label>
                     <asp:TextBox ID="tbxDataIni" TextMode="Date" runat="server" Width="250px" MaxLength="255" />
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="tbxDataIni" ErrorMessage="* Data inválida" ForeColor="Red" Operator="GreaterThan" ValueToCompare="01/01/1900"></asp:CompareValidator>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbxDataIni" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
                 <p>
@@ -25,10 +24,16 @@
                     <asp:TextBox ID="tbxDataFim" TextMode="Date" runat="server" MaxLength="255" Style="margin-left: 12px" Width="250px" />
                     </label>
                     <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="* Data inválida" ForeColor="Red" ControlToValidate="tbxDataFim" Operator="GreaterThan" ValueToCompare="01/01/1900"></asp:CompareValidator>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxDataFim" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
 
+                <p>
+                    <label>Lançamentos: </label>
+                    <asp:RadioButtonList runat="server" RepeatLayout="Table" ID="rdLancamentosFiltro"> 
+                        <asp:ListItem Text="Vencidos" />
+                        <asp:ListItem Text="Vencimento Próximo"/>
+                    </asp:RadioButtonList>
+                </p>
                 <asp:Button runat="server" ID="btnPesquisar" Text="Pesquisar" OnClick="btnPesquisar_Click" />
             </asp:Panel>
 
@@ -59,6 +64,7 @@
                         <asp:BoundField HeaderText="Pgto" DataField="tipoParcelamento">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
+                        <asp:BoundField HeaderText="Saldo Parcial" />
                     </Columns>
                 </asp:GridView>
             </asp:Panel>

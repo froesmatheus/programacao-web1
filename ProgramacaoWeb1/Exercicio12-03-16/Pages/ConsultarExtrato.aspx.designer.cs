@@ -49,15 +49,6 @@ namespace Exercicio12_03_16.Pages {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        /// <summary>
         /// tbxDataFim control.
         /// </summary>
         /// <remarks>
@@ -76,13 +67,13 @@ namespace Exercicio12_03_16.Pages {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
         
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// rdLancamentosFiltro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RadioButtonList rdLancamentosFiltro;
         
         /// <summary>
         /// btnPesquisar control.
