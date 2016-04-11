@@ -1,18 +1,18 @@
-﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="ManutencaoTipoReceitas.aspx.cs" Inherits="Exercicio12_03_16.Pages.ManutencaoReceitas" %>
+﻿<%@ Page MasterPageFile="~/MasterPage.Master" Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="ManutencaoTipoReceitas.aspx.cs" Inherits="Exercicio12_03_16.Pages.ManutencaoReceitas" %>
 
-<!DOCTYPE html>
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <script type="text/javascript">
-        function confirmacao() {
-            return confirm("Você realmente deseja desativar essa receita?");
-        }
-    </script>
-</head>
-<body>
-    <form id="form1" runat="server">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <script type="text/javascript">
+            function confirmacao() {
+                return confirm("Você realmente deseja desativar essa receita?");
+            }
+        </script>
+    </head>
+    <body>
         <div>
             <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
@@ -87,6 +87,7 @@
                 </p>
             </asp:Panel>
         </div>
-    </form>
-</body>
-</html>
+    </body>
+    </html>
+</asp:Content>
+

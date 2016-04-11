@@ -1,13 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CadastrarDespesa.aspx.cs" Inherits="Exercicio12_03_16.Pages.CadastrarDespesa" %>
+﻿<%@ Page MasterPageFile="~/MasterPage.Master" Language="C#" AutoEventWireup="true" CodeBehind="CadastrarDespesa.aspx.cs" Inherits="Exercicio12_03_16.Pages.CadastrarDespesa" %>
 
-<!DOCTYPE html>
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+    <body>
         <div>
             <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
@@ -69,6 +69,7 @@
                 <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
             </asp:Panel>
         </div>
-    </form>
-</body>
-</html>
+    </body>
+    </html>
+
+</asp:Content>

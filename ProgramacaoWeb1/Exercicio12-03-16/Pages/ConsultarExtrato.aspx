@@ -1,13 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ConsultarExtrato.aspx.cs" Inherits="Exercicio12_03_16.Pages.ConsultarExtrato" %>
+﻿<%@ Page MasterPageFile="~/MasterPage.Master" Language="C#" AutoEventWireup="true" CodeBehind="ConsultarExtrato.aspx.cs" Inherits="Exercicio12_03_16.Pages.ConsultarExtrato" %>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <!DOCTYPE html>
+
+
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+    <body>
         <div>
             <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
@@ -29,9 +32,9 @@
 
                 <p>
                     <label>Lançamentos: </label>
-                    <asp:RadioButtonList runat="server" RepeatLayout="Table" ID="rdLancamentosFiltro"> 
+                    <asp:RadioButtonList runat="server" RepeatLayout="Table" ID="rdLancamentosFiltro">
                         <asp:ListItem Text="Vencidos" />
-                        <asp:ListItem Text="Vencimento Próximo"/>
+                        <asp:ListItem Text="Vencimento Próximo" />
                     </asp:RadioButtonList>
                 </p>
                 <asp:Button runat="server" ID="btnPesquisar" Text="Pesquisar" OnClick="btnPesquisar_Click" />
@@ -69,6 +72,6 @@
                 </asp:GridView>
             </asp:Panel>
         </div>
-    </form>
-</body>
-</html>
+    </body>
+    </html>
+</asp:Content>

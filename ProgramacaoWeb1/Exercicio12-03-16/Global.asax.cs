@@ -63,6 +63,12 @@ namespace Exercicio12_03_16
                 new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(), Lancamento.UNICO, 0, ""),
                 new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(), Lancamento.UNICO, 0, ""),
                 new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 3, 25), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 4, 9), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 4, 8), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 4, 10), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 4, 10), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
+                new Despesa("Alimentação", "Dinheiro", 50, new DateTime(2016, 4, 7), new DateTime(2016, 4, 3), Lancamento.UNICO, 0, ""),
 
             };
 
