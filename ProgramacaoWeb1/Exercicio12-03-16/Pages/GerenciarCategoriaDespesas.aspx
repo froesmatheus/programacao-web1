@@ -8,7 +8,7 @@
         <title></title>
         <style>
             table {
-                margin: 10px;
+                margin: 10px 11px 10px 10px;
             }
         </style>
 
@@ -20,7 +20,7 @@
     </head>
     <body>
         <div>
-            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
+            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
             <asp:Panel runat="server" GroupingText="Categoria de Despesas" Width="560px">
                 <p>
@@ -45,31 +45,28 @@
 
                     <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
 
-                    <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False">
+                    <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
                         <Columns>
-                            <asp:BoundField HeaderText="Categoria" DataField="categoria" />
-                            <asp:BoundField HeaderText="Status" DataField="status">
+                            <asp:BoundField HeaderText="Categoria" DataField="categoria" SortExpression="categoria">
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:BoundField>
-                            <asp:TemplateField ShowHeader="False">
+                            <asp:BoundField DataField="status" HeaderText="Status" SortExpression="status">
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            </asp:BoundField>
+                            <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="../Imagens/editar.png" Width="19px" CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnEditar_Click" />
+                                    <asp:ImageButton ID="btnEditar" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="18px" />
                                 </ItemTemplate>
-                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                             <asp:TemplateField>
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                                </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="../Imagens/desativar.png" OnClientClick="if (!confirmacao()) return false;"
-                                        CausesValidation="false" CommandArgument='<%# Eval("categoria") %>' OnClick="btnDesativar_Click" />
+                                    <asp:ImageButton ID="btnDesativar" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" Width="18px" />
                                 </ItemTemplate>
-                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.CategoriaDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCategorias" TypeName="Exercicio12_03_16.Database.DAOs.CategoriaDespesaDAO" UpdateMethod="Update"></asp:ObjectDataSource>
 
                 </p>
             </asp:Panel>

@@ -1,4 +1,5 @@
-﻿using Exercicio12_03_16.Models;
+﻿using Exercicio12_03_16.Database.DAOs;
+using Exercicio12_03_16.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace Exercicio12_03_16.Pages
     public partial class CadastrarReceita : System.Web.UI.Page
     {
         private List<Receita> listaReceitas;
+        private ReceitaDAO dao;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            dao = new ReceitaDAO();
             if (!IsPostBack)
             {
                 if (Session["listaReceitas"] == null)
@@ -91,6 +94,7 @@ namespace Exercicio12_03_16.Pages
                                           qtdParcelas, observacoes);
                     receita.parcela = i;
                     listaReceitas.Add(receita);
+                    dao.Insert(receita);
                 }
             }
             else
@@ -99,6 +103,7 @@ namespace Exercicio12_03_16.Pages
                                           dataVenc, result, tipoParcelamento,
                                           qtdParcelas, observacoes);
                 listaReceitas.Add(receita);
+                dao.Insert(receita);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Exercicio12_03_16.Models;
+﻿using Exercicio12_03_16.Database;
+using Exercicio12_03_16.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,12 @@ namespace Exercicio12_03_16.Pages
     public partial class CadastrarDespesa : System.Web.UI.Page
     {
         private List<Despesa> listaDespesas;
+        private DespesaDAO dao;
         protected void Page_Load(object sender, EventArgs e)
         {
+            dao = new DespesaDAO();
+
+            dao.GetDespesas();
             if (!IsPostBack)
             {
                 if (Session["listaDespesas"] == null)
@@ -94,14 +99,16 @@ namespace Exercicio12_03_16.Pages
                                           qtdParcelas, observacoes);
                     despesa.parcela = i;
                     listaDespesas.Add(despesa);
+                    dao.Insert(despesa);
                 }
             }
             else
             {
                 despesa = new Despesa(tipo, formaRecebimento, valor,
                                           dataVenc, result, tipoParcelamento,
-                                          qtdParcelas, observacoes);
+                                          0, observacoes);
                 listaDespesas.Add(despesa);
+                dao.Insert(despesa);
             }
         }
 

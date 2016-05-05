@@ -19,11 +19,14 @@ namespace Exercicio12_03_16
             this.status = status;
         }
 
-        
+        public CategoriaDespesa()
+        {
+        }
+
         public enum Status
         {
-            ATIVO,
-            DESATIVADO
+            ATIVO = 0,
+            DESATIVADO = 1
         }
 
         public override string ToString()

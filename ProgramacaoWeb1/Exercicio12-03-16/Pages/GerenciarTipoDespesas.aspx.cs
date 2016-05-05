@@ -1,4 +1,5 @@
-﻿using Exercicio12_03_16.Models;
+﻿using Exercicio12_03_16.Database.DAOs;
+using Exercicio12_03_16.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,14 @@ namespace Exercicio12_03_16
 {
     public partial class CadastrarDespesa : System.Web.UI.Page
     {
+        private TipoDespesaDAO dao;
+        private CategoriaDespesaDAO categoriasDAO;
         public List<CategoriaDespesa> listaCatDespesas;
         public List<TipoDespesa> listaTipoDespesas;
         protected void Page_Load(object sender, EventArgs e)
         {
+            dao = new TipoDespesaDAO();
+            categoriasDAO = new CategoriaDespesaDAO();
             if (IsPostBack)
             {
                 listaTipoDespesas = (List<TipoDespesa>)Session["listaTipoDespesas"];
@@ -98,6 +103,7 @@ namespace Exercicio12_03_16
 
             TipoDespesa despesa = new TipoDespesa(categoriaDespesa, tipoDespesa, caracteristica, CategoriaDespesa.Status.ATIVO);
             listaTipoDespesas.Add(despesa);
+            dao.Insert(despesa);
             grdDespesas.DataBind();
 
 
@@ -174,6 +180,11 @@ namespace Exercicio12_03_16
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Default.aspx", true);
+        }
+
+        protected void drpDownCategorias_Load(object sender, EventArgs e)
+        {
+            drpDownCategorias.DataSource = categoriasDAO.GetCategorias();
         }
     }
 }

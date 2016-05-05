@@ -16,12 +16,12 @@
     </head>
     <body>
         <div>
-            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Imagens/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
+            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
             <asp:Panel GroupingText="Tipos de Despesas" Width="650px" runat="server">
                 <p>
                     <label>Categoria: </label>
-                    <asp:DropDownList ID="drpDownCategorias" runat="server" Height="23px" Width="146px"></asp:DropDownList>
+                    <asp:DropDownList ID="drpDownCategorias" runat="server" Height="23px" Width="146px" OnLoad="drpDownCategorias_Load"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategorias" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
@@ -78,7 +78,7 @@
                             </asp:BoundField>
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Imagens/editar.png" Width="19px" CausesValidation="false" CommandName='<%# Eval("tipoDespesa") %>' CommandArgument='<%# Eval("categoria.categoria") %>' OnClick="btnEditar_Click" />
+                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Images/editar.png" Width="19px" CausesValidation="false" CommandName='<%# Eval("tipoDespesa") %>' CommandArgument='<%# Eval("categoria.categoria") %>' OnClick="btnEditar_Click" />
                                 </ItemTemplate>
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -88,13 +88,15 @@
                                     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="~/Imagens/desativar.png" OnClientClick="if (!confirmacao()) return false;"
+                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="~/Images/desativar.png" OnClientClick="if (!confirmacao()) return false;"
                                         CausesValidation="false" CommandName='<%# Eval("tipoDespesa") %>' CommandArgument='<%# Eval("categoria.categoria") %>' OnClick="btnDesativar_Click" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+                    <p>
+                    </p>
                     <p>
                     </p>
                 </p>

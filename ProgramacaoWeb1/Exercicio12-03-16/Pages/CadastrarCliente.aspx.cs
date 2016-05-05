@@ -6,14 +6,16 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Security.Cryptography;
 using System.Text;
+using Exercicio12_03_16.Database;
 
 namespace Exercicio12_03_16
 {
     public partial class CadastrarCliente : System.Web.UI.Page
     {
+        private ClienteDAO dao;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            dao = new ClienteDAO();
         }
 
 
@@ -42,6 +44,8 @@ namespace Exercicio12_03_16
             string senha = GetMD5Hash(tbxSenha.Text);
 
             Cliente cliente = new Cliente(nome, dataNasc, email, senha);
+
+            dao.Insert(cliente);
         }
 
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)

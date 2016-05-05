@@ -1,4 +1,5 @@
-﻿using Exercicio12_03_16.Models;
+﻿using Exercicio12_03_16.Database.DAOs;
+using Exercicio12_03_16.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace Exercicio12_03_16.Pages
         private List<Lancamento> lancamentosTR;
         private List<Lancamento> lancamentos;
         private List<Receita> receitas;
+        private LancamentoDAO dao;
         private List<Despesa> despesas;
       
         protected void Page_Load(object sender, EventArgs e)
         {
+            dao = new LancamentoDAO();
             receitas = (Session["listaReceitas"] != null) ? (List<Receita>)Session["listaReceitas"] : new List<Receita>();
             despesas = (Session["listaDespesas"] != null) ? (List<Despesa>)Session["listaDespesas"] : new List<Despesa>();
             lancamentosTR = new List<Lancamento>();
@@ -78,40 +81,23 @@ namespace Exercicio12_03_16.Pages
 
         protected void grdExtrato_Load(object sender, EventArgs e)
         {
-            lancamentosTR = new List<Lancamento>();
-
-            lancamentos = new List<Lancamento>();
-            lancamentos.AddRange(receitas);
-            lancamentos.AddRange(despesas);
-            lancamentos = lancamentos.OrderBy(x => x.dataVencimento).ToList();
-            
-         
-
-
             DateTime dataAtual = DateTime.Today;
-
-
             DateTime dataIni = new DateTime(dataAtual.Year, dataAtual.Month, 1);
             DateTime dataFim = new DateTime(dataAtual.Year, dataAtual.Month, DateTime.DaysInMonth(dataAtual.Year, dataAtual.Month));
 
             filtrarGridView(dataIni, dataFim);
-
         }
 
         private void filtrarGridView(DateTime dataIni, DateTime dataFim)
         {
-            var listaFiltrada = lancamentos
-                                    .Where(x => x.dataVencimento >= dataIni && x.dataVencimento <= dataFim)
-                                    .OrderBy(x => x.dataVencimento);
-
-
-            grdExtrato.DataSource = listaFiltrada;
+            List<Lancamento> lancamentos = dao.FiltrarLancamentos(dataIni, dataFim);
+            grdExtrato.DataSource = lancamentos;
             grdExtrato.DataBind();
             lancamentosTR.Clear();
 
 
-            double totalReceita = GetTotalCusto(listaFiltrada.Where(x => x is Receita).ToList());
-            double totalDespesa = GetTotalCusto(listaFiltrada.Where(x => x is Despesa).ToList());
+            double totalReceita = GetTotalCusto(lancamentos.Where(x => x is Receita).ToList());
+            double totalDespesa = GetTotalCusto(lancamentos.Where(x => x is Despesa).ToList());
             tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceita);
             tbxTotalDespesa.Text = String.Format("Total de Despesas R$ {0:0.00}", totalDespesa);
 
