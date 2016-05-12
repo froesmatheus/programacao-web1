@@ -70,6 +70,7 @@
                         <asp:BoundField HeaderText="Saldo Parcial" />
                     </Columns>
                 </asp:GridView>
+                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
             </asp:Panel>
         </div>
     </body>

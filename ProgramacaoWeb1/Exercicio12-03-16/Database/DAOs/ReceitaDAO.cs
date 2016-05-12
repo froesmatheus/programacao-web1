@@ -10,10 +10,12 @@ namespace Exercicio12_03_16.Database.DAOs
     public class ReceitaDAO
     {
         private SqlConnection cn;
+        private TipoReceitaDAO tpReceitaDao;
 
         public ReceitaDAO()
         {
             cn = new ConnectionFactory().getConnection();
+            tpReceitaDao = new TipoReceitaDAO();
         }
 
 
@@ -35,7 +37,7 @@ namespace Exercicio12_03_16.Database.DAOs
             sql.Parameters.Add(new SqlParameter("@QtdParcelas", receita.qtParcelas));
             sql.Parameters.Add(new SqlParameter("@Parcela", receita.parcela));
             sql.Parameters.Add(new SqlParameter("@Observacoes", receita.observacoes));
-            sql.Parameters.Add(new SqlParameter("@Tipo", receita.tipo));
+            sql.Parameters.Add(new SqlParameter("@Tipo", tpReceitaDao.GetTipoReceitaId(receita.tipo)));
 
 
             cn.Open();
@@ -43,11 +45,22 @@ namespace Exercicio12_03_16.Database.DAOs
             cn.Close();
         }
 
-        public List<Receita> GetDespesas()
+        public List<Receita> GetReceitas()
         {
             List<Receita> listaReceitas = new List<Receita>();
 
-            string str = "select * from Receitas";
+            string str = @"select t.Id, 
+                                  FormaRecebimento, 
+                                  Valor, 
+                                  DataVencimento, 
+                                  DataRecebimento, 
+                                  TipoParcelamento, 
+                                  QtdParcelas, 
+                                  Parcela, 
+                                  Observacoes, 
+                                  t.TipoReceita
+                           from Receitas r 
+                           join TipoReceita t on r.TipoReceita = t.Id;s";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
@@ -60,13 +73,13 @@ namespace Exercicio12_03_16.Database.DAOs
                 Receita receita = new Receita();
                 receita.formaRecebimento = sdr["FormaRecebimento"] as string;
                 receita.valor = float.Parse(sdr["Valor"].ToString());
-                receita.dataVencimento = (DateTime)sdr["DataVencimento"];
-                receita.dataRecebimento = (DateTime)sdr["DataRecebimento"];
+                receita.dataVencimento = DateTime.Parse(sdr["DataVencimento"].ToString());
+                receita.dataRecebimento = DateTime.Parse(sdr["DataRecebimento"].ToString());
                 receita.tipoParcelamento = sdr["TipoParcelamento"] as string;
                 receita.qtParcelas = int.Parse(sdr["QtdParcelas"].ToString());
                 receita.parcela = int.Parse(sdr["Parcela"].ToString());
                 receita.observacoes = sdr["Observacoes"] as string;
-                receita.tipo = sdr["Tipo"] as string;
+                receita.tipo = sdr["TipoReceita"].ToString();
 
                 listaReceitas.Add(receita);
             }

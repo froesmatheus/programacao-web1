@@ -13,58 +13,25 @@ namespace Exercicio12_03_16
     {
         private TipoDespesaDAO dao;
         private CategoriaDespesaDAO categoriasDAO;
-        public List<CategoriaDespesa> listaCatDespesas;
-        public List<TipoDespesa> listaTipoDespesas;
         protected void Page_Load(object sender, EventArgs e)
         {
             dao = new TipoDespesaDAO();
             categoriasDAO = new CategoriaDespesaDAO();
-            if (IsPostBack)
-            {
-                listaTipoDespesas = (List<TipoDespesa>)Session["listaTipoDespesas"];
-                listaCatDespesas = (List<CategoriaDespesa>)Session["listaCatDespesas"];
-                grdDespesas.DataSource = listaTipoDespesas;
-                grdDespesas.DataBind();
-            }
-            else
-            {
-                if (Session["listaCatDespesas"] == null)
-                {
-                    listaTipoDespesas = new List<TipoDespesa>();
-                    Session["listaTipoDespesas"] = listaTipoDespesas;
-                }
-                else
-                {
-                    listaTipoDespesas = (List<TipoDespesa>)Session["listaTipoDespesas"];
-                    grdDespesas.DataSource = listaTipoDespesas;
-                    grdDespesas.DataBind();
-                }
-
-
-                if (Session["listaCatDespesas"] != null)
-                {
-                    listaCatDespesas = (List<CategoriaDespesa>)Session["listaCatDespesas"];
-                    drpDownCategorias.DataSource = listaCatDespesas;
-                    drpDownCategorias.DataBind();
-
-                    drpDownCategorias2.DataSource = listaCatDespesas;
-                    drpDownCategorias2.DataBind();
-                }
-            }
         }
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
             if (btnCadastrar.Text.Equals("Salvar"))
             {
-                TipoDespesa desp = GetTipoDespesa(btnCadastrar.CommandName, btnCadastrar.CommandArgument);
+                TipoDespesa desp = dao.GetTipoDespesa(btnCadastrar.CommandName, btnCadastrar.CommandArgument);
                 if (desp != null)
                 {
-                    desp.categoria.categoria = drpDownCategorias.SelectedValue;
+                    desp.categoria = categoriasDAO.Get(drpDownCategorias.SelectedValue);
                     desp.tipoDespesa = tbxTipoDespesa.Text;
                     desp.caracteristica = radBtnCaracteristicas.SelectedValue;
                     btnCancelar.Visible = false;
                     btnCadastrar.Text = "Cadastrar";
+                    dao.Update(desp);
                     grdDespesas.DataBind();
                     tbxTipoDespesa.Text = String.Empty;
                     return;
@@ -73,36 +40,19 @@ namespace Exercicio12_03_16
             }
 
 
-
-            string categoria = drpDownCategorias.SelectedItem.ToString();
-            CategoriaDespesa categoriaDespesa = null;
-            foreach (var item in listaCatDespesas)
-            {
-                if (item.categoria.Equals(categoria))
-                {
-                    categoriaDespesa = item;
-                    break;
-                }
+            if (dao.GetTipoDespesa(drpDownCategorias.SelectedValue.ToString(), tbxTipoDespesa.Text.ToString()) != null) {
+                tbxTipoDespesa.Text = String.Empty;
+                string script = "<script> alert(\"Esse tipo de despesa já existe\");</script>";
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
+                tbxTipoDespesa.Focus();
+                return;
             }
 
-
-            foreach (var item in listaTipoDespesas)
-            {
-                if (item.categoria.categoria.ToLower().Equals(drpDownCategorias.SelectedValue.ToLower()) && item.tipoDespesa.Trim().ToLower().Equals(tbxTipoDespesa.Text.Trim().ToLower()))
-                {
-                    tbxTipoDespesa.Text = String.Empty;
-                    string script = "<script> alert(\"Esse tipo de despesa já existe\");</script>";
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
-                    tbxTipoDespesa.Focus();
-                    return;
-                }
-            }
 
             string tipoDespesa = tbxTipoDespesa.Text;
             string caracteristica = radBtnCaracteristicas.SelectedValue;
 
-            TipoDespesa despesa = new TipoDespesa(categoriaDespesa, tipoDespesa, caracteristica, CategoriaDespesa.Status.ATIVO);
-            listaTipoDespesas.Add(despesa);
+            TipoDespesa despesa = new TipoDespesa(categoriasDAO.Get(drpDownCategorias.Text), tipoDespesa, caracteristica, CategoriaDespesa.Status.ATIVO);
             dao.Insert(despesa);
             grdDespesas.DataBind();
 
@@ -113,28 +63,20 @@ namespace Exercicio12_03_16
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            string query = tbxTpDespesa.Text;
-
             btnExcluirFiltro.Visible = true;
-            var results = listaTipoDespesas.Where(x => x.tipoDespesa.ToLower().Contains(query.ToLower()) &&
-            x.categoria.ToString().Equals(drpDownCategorias2.SelectedValue));
-
-            grdDespesas.DataSource = results;
-            grdDespesas.DataBind();
         }
 
         protected void btnExcluirFiltro_Click(object sender, EventArgs e)
         {
-            grdDespesas.DataSource = listaTipoDespesas;
-            grdDespesas.DataBind();
             btnExcluirFiltro.Visible = false;
             tbxTpDespesa.Text = String.Empty;
+            drpDownCategorias2.SelectedValue = "null";
         }
 
         protected void btnEditar_Click(object sender, ImageClickEventArgs e)
         {
             tbxTipoDespesa.Focus();
-            TipoDespesa tipoDespesa = GetTipoDespesa(((ImageButton)sender).CommandArgument, ((ImageButton)sender).CommandName);
+            TipoDespesa tipoDespesa = dao.GetTipoDespesa(((ImageButton)sender).CommandArgument, ((ImageButton)sender).CommandName);
             if (tipoDespesa == null) { return; }
 
 
@@ -147,26 +89,15 @@ namespace Exercicio12_03_16
             btnCadastrar.CommandName = tipoDespesa.categoria.categoria;
         }
 
-        private TipoDespesa GetTipoDespesa(string categoria, string tipoDespesa)
-        {
-
-            foreach (var item in listaTipoDespesas)
-            {
-                if (item.categoria.categoria.Equals(categoria) && item.tipoDespesa.Equals(tipoDespesa))
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
         protected void btnDesativar_Click(object sender, ImageClickEventArgs e)
         {
             ImageButton btn = sender as ImageButton;
-            TipoDespesa despesa = GetTipoDespesa(btn.CommandArgument, btn.CommandName);
-            if (despesa == null) { return; }
+            TipoDespesa tipoDespesa = dao.GetTipoDespesa(btn.CommandArgument, btn.CommandName);
+            if (tipoDespesa == null) { return; }
 
-            despesa.status = CategoriaDespesa.Status.DESATIVADO;
+            tipoDespesa.status = CategoriaDespesa.Status.DESATIVADO;
+            dao.Update(tipoDespesa);
+
             grdDespesas.DataBind();
         }
 
@@ -180,11 +111,6 @@ namespace Exercicio12_03_16
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Default.aspx", true);
-        }
-
-        protected void drpDownCategorias_Load(object sender, EventArgs e)
-        {
-            drpDownCategorias.DataSource = categoriasDAO.GetCategorias();
         }
     }
 }

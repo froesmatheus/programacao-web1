@@ -86,13 +86,21 @@ namespace Exercicio12_03_16.Database.DAOs
         }
 
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<CategoriaDespesa> GetCategorias()
+        public List<CategoriaDespesa> GetCategorias(string query)
         {
             List<CategoriaDespesa> listaCategorias = new List<CategoriaDespesa>();
 
-            string str = "select * from CategoriaDespesa";
+            string str = "select * from CategoriaDespesa where Categoria like '%'+@Query+'%' or @Query is null";
 
             SqlCommand sql = new SqlCommand(str, cn);
+
+            if (String.IsNullOrEmpty(query))
+            {
+                sql.Parameters.Add(new SqlParameter("@Query", DBNull.Value));
+            } else
+            {
+                sql.Parameters.Add(new SqlParameter("@Query", query));
+            }
 
             cn.Open();
 
@@ -114,41 +122,6 @@ namespace Exercicio12_03_16.Database.DAOs
 
                 listaCategorias.Add(categoriaDespesa);
             }
-            sdr.Close();
-            cn.Close();
-
-            return listaCategorias;
-        }
-
-
-        public List<CategoriaDespesa> FiltrarCategorias(string categoria)
-        {
-            List<CategoriaDespesa> listaCategorias = new List<CategoriaDespesa>();
-
-            string str = "select * from CategoriaDespesa where Categoria like '%@categoria%'";
-
-            SqlCommand sql = new SqlCommand(str, cn);
-
-            cn.Open();
-            SqlDataReader sdr = sql.ExecuteReader();
-            
-            while (sdr.Read())
-            {
-                CategoriaDespesa categoriaDespesa = new CategoriaDespesa();
-                categoriaDespesa.id = int.Parse(sdr["Id"].ToString());
-                categoriaDespesa.categoria = sdr["Categoria"].ToString();
-
-                int status = int.Parse(sdr["Status"].ToString());
-
-                if (status == 0)
-                {
-                    categoriaDespesa.status = CategoriaDespesa.Status.ATIVO;
-                } else
-                {
-                    categoriaDespesa.status = CategoriaDespesa.Status.DESATIVADO;
-                }
-            }
-
             sdr.Close();
             cn.Close();
 

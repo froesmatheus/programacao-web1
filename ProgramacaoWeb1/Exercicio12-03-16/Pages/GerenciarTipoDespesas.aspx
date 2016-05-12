@@ -21,7 +21,7 @@
             <asp:Panel GroupingText="Tipos de Despesas" Width="650px" runat="server">
                 <p>
                     <label>Categoria: </label>
-                    <asp:DropDownList ID="drpDownCategorias" runat="server" Height="23px" Width="146px" OnLoad="drpDownCategorias_Load"></asp:DropDownList>
+                    <asp:DropDownList ID="drpDownCategorias" runat="server" Height="23px" Width="146px" DataSourceID="ObjectDataSource2" DataTextField="categoria" DataValueField="categoria"></asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategorias" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
@@ -33,6 +33,7 @@
 
                 <p>
                     <label>Características: </label>
+                    <br />
                     <asp:RadioButtonList ID="radBtnCaracteristicas" runat="server" RepeatLayout="Flow">
                         <asp:ListItem Text="Gasto com Produto ou Serviço" Value="0" />
                         <asp:ListItem Text="Aplicação em Investimentos" Value="1" />
@@ -44,26 +45,33 @@
 
                 <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
                 <asp:Button ID="btnCancelar" Style="margin-left: 5px;" Visible="false" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
+                <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCategorias" TypeName="Exercicio12_03_16.Database.DAOs.CategoriaDespesaDAO">
+                    <SelectParameters>
+                        <asp:Parameter Name="query" Type="String" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
             </asp:Panel>
             <br />
             <br />
 
-            <asp:Panel runat="server" GroupingText="Lista de Tipos de Despesas" Width="648px">
+            <asp:Panel runat="server" GroupingText="Lista de Tipos de Despesas" Width="648px" style="padding:5px;">
+                <label>
+                    Categoria: 
+                    <asp:DropDownList ID="drpDownCategorias2" runat="server" MaxLength="255" Style="margin-right: 5px" Width="250px" DataSourceID="ObjectDataSource2" DataTextField="categoria" DataValueField="categoria" AppendDataBoundItems="True" >
+                        <asp:ListItem Selected="True" Value="null">Todos</asp:ListItem>
+                </asp:DropDownList>
+                </label>
+
                 <p>
-                    <label>
-                        Categoria: 
-                    <asp:DropDownList ID="drpDownCategorias2" runat="server" MaxLength="255" Style="margin-right: 5px" Width="250px" />
-                    </label>
-
-                    <p>
-                        <label>Tipo de despesa: </label>
-                        <asp:TextBox runat="server" ID="tbxTpDespesa" />
-                        <asp:Button Style="margin-left: 5px;" runat="server" ID="btnFiltrar" Text="Filtrar" CausesValidation="False" OnClick="btnFiltrar_Click" />
-                        <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
-                    </p>
+                    <label>Tipo de despesa: </label>
+                    <asp:TextBox runat="server" ID="tbxTpDespesa" />
+                    <asp:Button Style="margin-left: 5px;" runat="server" ID="btnFiltrar" Text="Filtrar" CausesValidation="False" OnClick="btnFiltrar_Click" />
+                    <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
+                </p>
 
 
-                    <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" Style="margin: 10px;" AutoGenerateColumns="False">
+                <p>
+                    <asp:GridView ID="grdDespesas" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Style="margin: 10px;" Width="582px" DataSourceID="ObjectDataSource1">
                         <Columns>
                             <asp:TemplateField HeaderText="Categoria">
                                 <ItemTemplate>
@@ -72,13 +80,13 @@
                                     </p>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField HeaderText="Tipo" DataField="tipoDespesa" />
-                            <asp:BoundField HeaderText="Status" DataField="status">
+                            <asp:BoundField DataField="tipoDespesa" HeaderText="Tipo" />
+                            <asp:BoundField DataField="status" HeaderText="Status">
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:BoundField>
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Images/editar.png" Width="19px" CausesValidation="false" CommandName='<%# Eval("tipoDespesa") %>' CommandArgument='<%# Eval("categoria.categoria") %>' OnClick="btnEditar_Click" />
+                                    <asp:ImageButton ID="btnEditar" runat="server" CausesValidation="false" CommandArgument='<%# Eval("categoria.categoria") %>' CommandName='<%# Eval("tipoDespesa") %>' Height="19px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="19px" />
                                 </ItemTemplate>
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -88,17 +96,18 @@
                                     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="~/Images/desativar.png" OnClientClick="if (!confirmacao()) return false;"
-                                        CausesValidation="false" CommandName='<%# Eval("tipoDespesa") %>' CommandArgument='<%# Eval("categoria.categoria") %>' OnClick="btnDesativar_Click" />
+                                    <asp:ImageButton ID="btnDesativar" runat="server" CausesValidation="false" CommandArgument='<%# Eval("categoria.categoria") %>' CommandName='<%# Eval("tipoDespesa") %>' Height="19px" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" OnClientClick="if (!confirmacao()) return false;" />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-                    <p>
-                    </p>
-                    <p>
-                    </p>
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.TipoDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetTiposDespesa" TypeName="Exercicio12_03_16.Database.DAOs.TipoDespesaDAO" UpdateMethod="Update">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="drpDownCategorias2" Name="categoria" PropertyName="SelectedValue" Type="String" />
+                            <asp:ControlParameter ControlID="tbxTpDespesa" Name="query" PropertyName="Text" Type="String" />
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
                 </p>
             </asp:Panel>
         </div>

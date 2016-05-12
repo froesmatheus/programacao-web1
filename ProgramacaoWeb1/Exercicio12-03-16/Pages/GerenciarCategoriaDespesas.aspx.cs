@@ -60,7 +60,8 @@ namespace Exercicio12_03_16
             CategoriaDespesa categoria = dao.Get(((ImageButton)sender).CommandArgument);
             if (categoria == null) { return; }
 
-            categoria.status = CategoriaDespesa.Status.DESATIVADO;
+            categoria.status = 
+                    (categoria.status == CategoriaDespesa.Status.ATIVO) ? CategoriaDespesa.Status.DESATIVADO : CategoriaDespesa.Status.ATIVO;
             dao.Update(categoria);
             grdDespesas.DataBind();
         }

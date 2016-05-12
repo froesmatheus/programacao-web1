@@ -7,20 +7,25 @@ namespace Exercicio12_03_16.Models
 {
     public class TipoReceita
     {
-        public string receita { get; set; }
+        public int id { get; set; }
         public string tipoReceita { get; set; }
+        public string categoria { get; set; }
         public CategoriaDespesa.Status status { get; set; }
 
 
-        public TipoReceita(string receita, string tipoReceita)
+        public TipoReceita(string tipoReceita, string categoria)
         {
-            this.receita = receita;
+            this.categoria = categoria;
             this.tipoReceita = tipoReceita;
+        }
+
+        public TipoReceita()
+        {
         }
 
         public override string ToString()
         {
-            return this.receita;
+            return this.tipoReceita;
         }
     }
 }

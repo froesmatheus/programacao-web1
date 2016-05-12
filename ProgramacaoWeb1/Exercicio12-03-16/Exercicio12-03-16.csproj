@@ -84,6 +84,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
@@ -111,6 +112,7 @@
     <Content Include="Controls\ListarLancamentos.ascx" />
     <Content Include="Global.asax" />
     <Content Include="Images\voltar.png" />
+    <Content Include="MeuRelatorio.aspx" />
     <Content Include="Pages\CadastrarDespesa.aspx" />
     <Content Include="Pages\CadastrarReceita.aspx" />
     <Content Include="Pages\ConsultarExtrato.aspx" />
@@ -125,7 +127,7 @@
     <Content Include="Pages\GerenciarCategoriaDespesas.aspx" />
     <Content Include="Images\editar.png" />
     <Content Include="Images\desativar.png" />
-    <Content Include="Pages\ManutencaoTipoReceitas.aspx" />
+    <Content Include="Pages\GerenciarTipoReceitas.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ListarLancamentos.ascx.cs">
@@ -143,8 +145,20 @@
     <Compile Include="Database\DAOs\ReceitaDAO.cs" />
     <Compile Include="Database\DAOs\TipoDespesaDAO.cs" />
     <Compile Include="Database\DAOs\TipoReceitaDAO.cs" />
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MeuRelatorio.aspx.cs">
+      <DependentUpon>MeuRelatorio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MeuRelatorio.aspx.designer.cs">
+      <DependentUpon>MeuRelatorio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Despesa.cs" />
     <Compile Include="Models\Lancamento.cs" />
@@ -202,12 +216,12 @@
     <Compile Include="Pages\GerenciarCategoriaDespesas.aspx.designer.cs">
       <DependentUpon>GerenciarCategoriaDespesas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ManutencaoTipoReceitas.aspx.cs">
-      <DependentUpon>ManutencaoTipoReceitas.aspx</DependentUpon>
+    <Compile Include="Pages\GerenciarTipoReceitas.aspx.cs">
+      <DependentUpon>GerenciarTipoReceitas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\ManutencaoTipoReceitas.aspx.designer.cs">
-      <DependentUpon>ManutencaoTipoReceitas.aspx</DependentUpon>
+    <Compile Include="Pages\GerenciarTipoReceitas.aspx.designer.cs">
+      <DependentUpon>GerenciarTipoReceitas.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
@@ -229,6 +243,17 @@
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -238,6 +263,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Relatorios\Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

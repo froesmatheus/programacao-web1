@@ -13,9 +13,13 @@ namespace Exercicio12_03_16
         public string categoria { get; set; }
         public Status status { get; set; }
 
-        public CategoriaDespesa(string categoria, Status status)
+        public CategoriaDespesa(string categoria)
         {
             this.categoria = categoria;
+        }
+
+        public CategoriaDespesa(string categoria, Status status):this(categoria)
+        {
             this.status = status;
         }
 

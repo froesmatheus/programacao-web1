@@ -7,10 +7,17 @@ namespace Exercicio12_03_16.Models
 {
     public class TipoDespesa
     {
+        public int id { get; set; }
         public CategoriaDespesa categoria { get; set; }
         public string tipoDespesa { get; set; }
         public string caracteristica { get; set; }
         public CategoriaDespesa.Status status { get; set; }
+
+
+        public TipoDespesa()
+        {
+
+        }
 
         public TipoDespesa(CategoriaDespesa categoria, string despesa, string caracteristica, CategoriaDespesa.Status status)
         {

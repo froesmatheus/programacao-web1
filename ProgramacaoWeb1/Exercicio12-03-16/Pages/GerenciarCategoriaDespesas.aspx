@@ -48,25 +48,35 @@
                     <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
                         <Columns>
                             <asp:BoundField HeaderText="Categoria" DataField="categoria" SortExpression="categoria">
-                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" ForeColor="Black" />
                             </asp:BoundField>
                             <asp:BoundField DataField="status" HeaderText="Status" SortExpression="status">
+                            <HeaderStyle BackColor="Black" ForeColor="White" />
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:BoundField>
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:ImageButton ID="btnEditar" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="18px" />
                                 </ItemTemplate>
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:ImageButton ID="btnDesativar" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" Width="18px" />
                                 </ItemTemplate>
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
 
-                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.CategoriaDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCategorias" TypeName="Exercicio12_03_16.Database.DAOs.CategoriaDespesaDAO" UpdateMethod="Update"></asp:ObjectDataSource>
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.CategoriaDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCategorias" TypeName="Exercicio12_03_16.Database.DAOs.CategoriaDespesaDAO" UpdateMethod="Update">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="tbxBuscarDepesa" DefaultValue="" Name="query" PropertyName="Text" Type="String" />
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
 
                 </p>
             </asp:Panel>

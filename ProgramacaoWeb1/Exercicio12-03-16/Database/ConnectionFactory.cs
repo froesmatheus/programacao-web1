@@ -10,7 +10,7 @@ namespace Exercicio12_03_16.Database
 {
     public class ConnectionFactory
     {
-        private SqlConnection sqlConnection;
+        private static SqlConnection sqlConnection;
 
         public SqlConnection getConnection()
         {

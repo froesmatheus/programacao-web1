@@ -14,13 +14,18 @@
             <asp:Panel GroupingText="Cadastro de Despesas" Style="padding: 10px;" Width="989px" runat="server" Height="603px">
                 <p>
                     <label>Tipo de Despesa: </label>
-                    <asp:DropDownList ID="drpDownTipoDespesa" runat="server" Height="26px" Width="209px" OnLoad="drpDownTipoDespesa_Load"></asp:DropDownList>
+                    <asp:DropDownList ID="drpDownTipoDespesa" runat="server" Height="26px" Width="209px" DataSourceID="ObjectDataSource1" DataTextField="tipoDespesa" DataValueField="tipoDespesa"></asp:DropDownList>
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetTiposDespesa" TypeName="Exercicio12_03_16.Database.DAOs.TipoDespesaDAO"></asp:ObjectDataSource>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownTipoDespesa" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
                 <p>
                     <label>Forma recebimento: </label>
-                    <asp:DropDownList ID="drpDownFormaRecebimento" runat="server" Height="29px" Width="202px" OnLoad="drpDownFormaRecebimento_Load"></asp:DropDownList>
+                    <asp:DropDownList ID="drpDownFormaRecebimento" runat="server" Height="29px" Width="202px">
+                        <asp:ListItem>Cheque</asp:ListItem>
+                        <asp:ListItem>Dinheiro</asp:ListItem>
+                        <asp:ListItem>Cartão</asp:ListItem>
+                    </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="drpDownFormaRecebimento" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
@@ -54,7 +59,19 @@
                 </p>
                 <p>
                     <label>Parcelas: </label>
-                    <asp:DropDownList ID="drpDownParcelas" runat="server" Height="25px" Width="213px" Enabled="False" OnLoad="drpDownParcelas_Load"></asp:DropDownList>
+                    <asp:DropDownList ID="drpDownParcelas" runat="server" Height="25px" Width="213px" Enabled="False">
+                        <asp:ListItem>2</asp:ListItem>
+                        <asp:ListItem>3</asp:ListItem>
+                        <asp:ListItem>4</asp:ListItem>
+                        <asp:ListItem>5</asp:ListItem>
+                        <asp:ListItem>6</asp:ListItem>
+                        <asp:ListItem>7</asp:ListItem>
+                        <asp:ListItem>8</asp:ListItem>
+                        <asp:ListItem>9</asp:ListItem>
+                        <asp:ListItem>10</asp:ListItem>
+                        <asp:ListItem>11</asp:ListItem>
+                        <asp:ListItem>12</asp:ListItem>
+                    </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="drpDownParcelas" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                 </p>
 
