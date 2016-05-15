@@ -21,44 +21,44 @@ namespace Exercicio12_03_16
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
-            if (btnCadastrar.Text.Equals("Salvar"))
-            {
-                TipoDespesa desp = dao.GetTipoDespesa(btnCadastrar.CommandName, btnCadastrar.CommandArgument);
-                if (desp != null)
-                {
-                    desp.categoria = categoriasDAO.Get(drpDownCategorias.SelectedValue);
-                    desp.tipoDespesa = tbxTipoDespesa.Text;
-                    desp.caracteristica = radBtnCaracteristicas.SelectedValue;
-                    btnCancelar.Visible = false;
-                    btnCadastrar.Text = "Cadastrar";
-                    dao.Update(desp);
-                    grdDespesas.DataBind();
-                    tbxTipoDespesa.Text = String.Empty;
-                    return;
-                }
+            //if (btnCadastrar.Text.Equals("Salvar"))
+            //{
+            //    TipoDespesa desp = dao.GetTipoDespesa(btnCadastrar.CommandName, btnCadastrar.CommandArgument);
+            //    if (desp != null)
+            //    {
+            //        desp.categoria = categoriasDAO.Get(drpDownCategorias.SelectedValue);
+            //        desp.tipoDespesa = tbxTipoDespesa.Text;
+            //        desp.caracteristica = radBtnCaracteristicas.SelectedValue;
+            //        btnCancelar.Visible = false;
+            //        btnCadastrar.Text = "Cadastrar";
+            //        dao.Update(desp);
+            //        grdDespesas.DataBind();
+            //        tbxTipoDespesa.Text = String.Empty;
+            //        return;
+            //    }
 
-            }
-
-
-            if (dao.GetTipoDespesa(drpDownCategorias.SelectedValue.ToString(), tbxTipoDespesa.Text.ToString()) != null) {
-                tbxTipoDespesa.Text = String.Empty;
-                string script = "<script> alert(\"Esse tipo de despesa já existe\");</script>";
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
-                tbxTipoDespesa.Focus();
-                return;
-            }
+            //}
 
 
-            string tipoDespesa = tbxTipoDespesa.Text;
-            string caracteristica = radBtnCaracteristicas.SelectedValue;
+            //if (dao.GetTipoDespesa(drpDownCategorias.SelectedValue.ToString(), tbxTipoDespesa.Text.ToString()) != null) {
+            //    tbxTipoDespesa.Text = String.Empty;
+            //    string script = "<script> alert(\"Esse tipo de despesa já existe\");</script>";
+            //    ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
+            //    tbxTipoDespesa.Focus();
+            //    return;
+            //}
 
-            TipoDespesa despesa = new TipoDespesa(categoriasDAO.Get(drpDownCategorias.Text), tipoDespesa, caracteristica, CategoriaDespesa.Status.ATIVO);
-            dao.Insert(despesa);
-            grdDespesas.DataBind();
+
+            //string tipoDespesa = tbxTipoDespesa.Text;
+            //string caracteristica = radBtnCaracteristicas.SelectedValue;
+
+            //TipoDespesa despesa = new TipoDespesa(categoriasDAO.Get(drpDownCategorias.Text), tipoDespesa, caracteristica, CategoriaDespesa.Status.ATIVO);
+            //dao.Insert(despesa);
+            //grdDespesas.DataBind();
 
 
-            tbxTipoDespesa.Text = String.Empty;
-            drpDownCategorias.Focus();
+            //tbxTipoDespesa.Text = String.Empty;
+            //drpDownCategorias.Focus();
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
@@ -75,18 +75,19 @@ namespace Exercicio12_03_16
 
         protected void btnEditar_Click(object sender, ImageClickEventArgs e)
         {
-            tbxTipoDespesa.Focus();
-            TipoDespesa tipoDespesa = dao.GetTipoDespesa(((ImageButton)sender).CommandArgument, ((ImageButton)sender).CommandName);
-            if (tipoDespesa == null) { return; }
+            FormView1.ChangeMode(FormViewMode.Edit);
+            //tbxTipoDespesa.Focus();
+            //TipoDespesa tipoDespesa = dao.GetTipoDespesa(((ImageButton)sender).CommandArgument, ((ImageButton)sender).CommandName);
+            //if (tipoDespesa == null) { return; }
 
 
-            tbxTipoDespesa.Text = tipoDespesa.tipoDespesa;
-            radBtnCaracteristicas.SelectedValue = tipoDespesa.caracteristica;
+            //tbxTipoDespesa.Text = tipoDespesa.tipoDespesa;
+            //radBtnCaracteristicas.SelectedValue = tipoDespesa.caracteristica;
 
-            btnCadastrar.Text = "Salvar";
-            btnCancelar.Visible = true;
-            btnCadastrar.CommandArgument = tipoDespesa.tipoDespesa;
-            btnCadastrar.CommandName = tipoDespesa.categoria.categoria;
+            //btnCadastrar.Text = "Salvar";
+            //btnCancelar.Visible = true;
+            //btnCadastrar.CommandArgument = tipoDespesa.tipoDespesa;
+            //btnCadastrar.CommandName = tipoDespesa.categoria.categoria;
         }
 
         protected void btnDesativar_Click(object sender, ImageClickEventArgs e)
@@ -103,14 +104,24 @@ namespace Exercicio12_03_16
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            tbxTipoDespesa.Text = String.Empty;
-            btnCadastrar.Text = "Cadastrar";
-            btnCancelar.Visible = false;
+            //tbxTipoDespesa.Text = String.Empty;
+            //btnCadastrar.Text = "Cadastrar";
+            //btnCancelar.Visible = false;
         }
 
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Default.aspx", true);
+        }
+
+        protected void FormView1_ItemInserting(object sender, FormViewInsertEventArgs e)
+        {
+            e.Values[0] = categoriasDAO.Get(e.Values[0].ToString());
+        }
+
+        protected void FormView1_ItemUpdating(object sender, FormViewUpdateEventArgs e)
+        {
+            e.NewValues[0] = categoriasDAO.Get(e.NewValues[0].ToString());
         }
     }
 }

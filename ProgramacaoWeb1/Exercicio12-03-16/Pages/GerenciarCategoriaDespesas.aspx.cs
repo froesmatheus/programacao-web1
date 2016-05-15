@@ -16,44 +16,44 @@ namespace Exercicio12_03_16
             dao = new CategoriaDespesaDAO();
         }
 
-        protected void btnCadastrar_Click(object sender, EventArgs e)
-        {
-            if (btnCadastrar.Text.Equals("Salvar"))
-            {
-                CategoriaDespesa catDespesa = dao.Get(btnCadastrar.CommandArgument);
-                if (catDespesa != null)
-                {
-                    catDespesa.categoria = tbxCategoria.Text;
-                    btnCancelar.Visible = false;
-                    btnCadastrar.Text = "Cadastrar";
-                    dao.Update(catDespesa);
-                    grdDespesas.DataBind();
-                    tbxCategoria.Text = String.Empty;
-                    return;
-                }
+        //protected void btnCadastrar_Click(object sender, EventArgs e)
+        //{
+        //    if (btnCadastrar.Text.Equals("Salvar"))
+        //    {
+        //        CategoriaDespesa catDespesa = dao.Get(btnCadastrar.CommandArgument);
+        //        if (catDespesa != null)
+        //        {
+        //            catDespesa.categoria = tbxCategoria.Text;
+        //            btnCancelar.Visible = false;
+        //            btnCadastrar.Text = "Cadastrar";
+        //            dao.Update(catDespesa);
+        //            grdDespesas.DataBind();
+        //            tbxCategoria.Text = String.Empty;
+        //            return;
+        //        }
                 
-            }
+        //    }
 
             
-            if (dao.Get(tbxCategoria.Text.Trim()) != null)
-            {
-                tbxCategoria.Text = String.Empty;
-                string script = "<script> alert(\"Essa categoria já existe\");</script>";
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
-                tbxCategoria.Focus();
-                return;
-            }
+        //    if (dao.Get(tbxCategoria.Text.Trim()) != null)
+        //    {
+        //        tbxCategoria.Text = String.Empty;
+        //        string script = "<script> alert(\"Essa categoria já existe\");</script>";
+        //        ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
+        //        tbxCategoria.Focus();
+        //        return;
+        //    }
 
-            string categoria = tbxCategoria.Text.Trim();
+        //    string categoria = tbxCategoria.Text.Trim();
 
-            CategoriaDespesa categoriaDespesa = new CategoriaDespesa(categoria, CategoriaDespesa.Status.ATIVO);
-            dao.Insert(categoriaDespesa);
-            grdDespesas.DataBind();
+        //    CategoriaDespesa categoriaDespesa = new CategoriaDespesa(categoria, CategoriaDespesa.Status.ATIVO);
+        //    dao.Insert(categoriaDespesa);
+        //    grdDespesas.DataBind();
 
            
-            tbxCategoria.Text = String.Empty;
-            tbxCategoria.Focus();
-        }
+        //    tbxCategoria.Text = String.Empty;
+        //    tbxCategoria.Focus();
+        //}
 
         protected void btnDesativar_Click(object sender, ImageClickEventArgs e)
         {
@@ -68,23 +68,7 @@ namespace Exercicio12_03_16
 
         protected void btnEditar_Click(object sender, ImageClickEventArgs e)
         {
-            tbxCategoria.Focus();
-            CategoriaDespesa categoria = dao.Get(((ImageButton)sender).CommandArgument);
-            if (categoria == null) { return; }
-
-
-            tbxCategoria.Text = categoria.categoria;
-
-            btnCadastrar.Text = "Salvar";
-            btnCancelar.Visible = true;
-            btnCadastrar.CommandArgument = categoria.categoria;
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            tbxCategoria.Text = String.Empty;
-            btnCadastrar.Text = "Cadastrar";
-            btnCancelar.Visible = false;
+            FormView1.ChangeMode(FormViewMode.Edit);
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)

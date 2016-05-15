@@ -1,12 +1,15 @@
 ﻿using Exercicio12_03_16.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace Exercicio12_03_16.Database.DAOs
 {
+    [DataObject(true)]
+
     public class ReceitaDAO
     {
         private SqlConnection cn;
@@ -19,7 +22,7 @@ namespace Exercicio12_03_16.Database.DAOs
         }
 
 
-
+        [DataObjectMethod(DataObjectMethodType.Insert)]
         public void Insert(Receita receita)
         {
             string str =
@@ -45,6 +48,7 @@ namespace Exercicio12_03_16.Database.DAOs
             cn.Close();
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Receita> GetReceitas()
         {
             List<Receita> listaReceitas = new List<Receita>();
@@ -60,7 +64,7 @@ namespace Exercicio12_03_16.Database.DAOs
                                   Observacoes, 
                                   t.TipoReceita
                            from Receitas r 
-                           join TipoReceita t on r.TipoReceita = t.Id;s";
+                           join TipoReceita t on r.Tipo = t.Id";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
@@ -89,7 +93,45 @@ namespace Exercicio12_03_16.Database.DAOs
             return listaReceitas;
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Receita> FiltrarReceitasVencProximo(DateTime dataIni, DateTime dataFim)
+        {
+            List<Receita> listaReceitas = new List<Receita>();
 
+            string str = "select * from Receitas where DataVencimento >= @DataIni and DataVencimento <= @DataFim and DataRecebimento = @DataNull";
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@DataIni", dataIni));
+            sql.Parameters.Add(new SqlParameter("@DataFim", dataFim));
+            sql.Parameters.Add(new SqlParameter("@DataNull", "01/01/0001"));
+
+            cn.Open();
+
+            SqlDataReader sdr = sql.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                Receita receita = new Receita();
+                receita.formaRecebimento = sdr["FormaRecebimento"] as string;
+                receita.valor = float.Parse(sdr["Valor"].ToString());
+                receita.dataVencimento = (DateTime)sdr["DataVencimento"];
+                receita.dataRecebimento = (DateTime)sdr["DataRecebimento"];
+                receita.tipoParcelamento = sdr["TipoParcelamento"] as string;
+                receita.qtParcelas = int.Parse(sdr["QtdParcelas"].ToString());
+                receita.parcela = int.Parse(sdr["Parcela"].ToString());
+                receita.observacoes = sdr["Observacoes"] as string;
+                receita.tipo = sdr["Tipo"] as string;
+
+                listaReceitas.Add(receita);
+            }
+            sdr.Close();
+            cn.Close();
+
+            return listaReceitas;
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Receita> FiltrarReceitas(DateTime dataIni, DateTime dataFim)
         {
             List<Receita> listaReceitas = new List<Receita>();
@@ -126,7 +168,7 @@ namespace Exercicio12_03_16.Database.DAOs
             return listaReceitas;
         }
 
-
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Receita> FiltrarReceitasVencidas(DateTime dataIni, DateTime dataFim)
         {
             List<Receita> listaReceitas = new List<Receita>();

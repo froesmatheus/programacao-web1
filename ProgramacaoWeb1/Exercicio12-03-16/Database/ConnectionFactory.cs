@@ -17,7 +17,7 @@ namespace Exercicio12_03_16.Database
             if (sqlConnection == null)
             {
                 ConnectionStringSettingsCollection strConnection = ConfigurationManager.ConnectionStrings;
-                sqlConnection = new SqlConnection(strConnection["ConnectionString"].ConnectionString);
+                sqlConnection = new SqlConnection(strConnection["ConnectionString2"].ConnectionString);
             }
 
             return sqlConnection;

@@ -23,67 +23,69 @@ namespace Exercicio12_03_16.Pages
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
-            String tipoDespesaStr = drpDownTipoDespesa.SelectedValue;
+            //String tipoDespesaStr = drpDownTipoDespesa.SelectedValue;
 
             
-            TipoDespesa tipoDespesa = null;
+            //TipoDespesa tipoDespesa = null;
 
-            tipoDespesa = tipoDespesaDAO.GetTipoDespesa(tipoDespesaStr);
+            //tipoDespesa = tipoDespesaDAO.GetTipoDespesa(tipoDespesaStr);
 
 
-            String formaRecebimento = drpDownFormaRecebimento.SelectedValue;
-            float valor = float.Parse(tbxValor.Text);
-            DateTime dataVenc = DateTime.Parse(tbxDataVenc.Text);
+            //String formaRecebimento = drpDownFormaRecebimento.SelectedValue;
+            //float valor = float.Parse(tbxValor.Text);
+            //DateTime dataVenc = DateTime.Parse(tbxDataVenc.Text);
 
-            DateTime result = DateTime.Parse("01/01/0001");
-            DateTime.TryParse(tbxDataRecebimento.Text, out result);
+            //DateTime result = DateTime.Parse("01/01/0001");
+            //DateTime.TryParse(tbxDataRecebimento.Text, out result);
 
-            //DateTime dataReceb = DateTime.Parse(tbxDataRecebimento.Text);
-            string tipoParcelamento;
-            if (rdParcelamento.SelectedValue.Equals("Único"))
-            {
-                tipoParcelamento = Lancamento.UNICO;
-            }
-            else
-            {
-                tipoParcelamento = Lancamento.PARCELADO;
-            }
+            ////DateTime dataReceb = DateTime.Parse(tbxDataRecebimento.Text);
+            //string tipoParcelamento;
+            //if (rdParcelamento.SelectedValue.Equals("Único"))
+            //{
+            //    tipoParcelamento = Lancamento.UNICO;
+            //}
+            //else
+            //{
+            //    tipoParcelamento = Lancamento.PARCELADO;
+            //}
 
-            string observacoes = tbxObservacoes.Text;
-            int qtdParcelas = int.Parse(drpDownParcelas.SelectedValue);
+            //string observacoes = tbxObservacoes.Text;
+            //int qtdParcelas = int.Parse(drpDownParcelas.SelectedValue);
 
-            String tipo = tipoDespesaStr + "/" + tipoDespesa.categoria;
+            //String tipo = tipoDespesaStr + "/" + tipoDespesa.categoria;
 
-            Despesa despesa;
-            if (tipoParcelamento == Lancamento.PARCELADO)
-            {
-                float valorParcela = valor / qtdParcelas;
-                DateTime dataVencimento = dataVenc;
-                despesa = new Despesa(tipo, formaRecebimento, valorParcela,
-                                          dataVencimento, result, tipoParcelamento,
-                                          qtdParcelas, observacoes);
-                despesa.parcela = 1;
-                for (int i = 2; i <= qtdParcelas; i++)
-                {
-                    dataVencimento = dataVencimento.AddMonths(1);
-                    despesa = new Despesa(tipo, formaRecebimento, valorParcela,
-                                          dataVencimento, new DateTime(), tipoParcelamento,
-                                          qtdParcelas, observacoes);
-                    despesa.parcela = i;
-                    dao.Insert(despesa);
-                }
-            }
-            else
-            {
-                despesa = new Despesa(tipo, formaRecebimento, valor,
-                                          dataVenc, result, tipoParcelamento,
-                                          0, observacoes);
-                dao.Insert(despesa);
-            }
+            //Despesa despesa;
+            //if (tipoParcelamento == Lancamento.PARCELADO)
+            //{
+            //    float valorParcela = valor / qtdParcelas;
+            //    DateTime dataVencimento = dataVenc;
+            //    despesa = new Despesa(tipo, formaRecebimento, valorParcela,
+            //                              dataVencimento, result, tipoParcelamento,
+            //                              qtdParcelas, observacoes);
+            //    despesa.parcela = 1;
+            //    for (int i = 2; i <= qtdParcelas; i++)
+            //    {
+            //        dataVencimento = dataVencimento.AddMonths(1);
+            //        despesa = new Despesa(tipo, formaRecebimento, valorParcela,
+            //                              dataVencimento, new DateTime(), tipoParcelamento,
+            //                              qtdParcelas, observacoes);
+            //        despesa.parcela = i;
+            //        dao.Insert(despesa);
+            //    }
+            //}
+            //else
+            //{
+            //    despesa = new Despesa(tipo, formaRecebimento, valor,
+            //                              dataVenc, result, tipoParcelamento,
+            //                              0, observacoes);
+            //    dao.Insert(despesa);
+            //}
         }
 
         protected void rdParcelamento_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DropDownList drpDownParcelas = (DropDownList) FormView1.FindControl("drpDownParcelas");
+            RadioButtonList rdParcelamento = (RadioButtonList) FormView1.FindControl("rdParcelamento");
             if (rdParcelamento.SelectedIndex == 1)
             {
                 drpDownParcelas.Enabled = true;
@@ -98,6 +100,11 @@ namespace Exercicio12_03_16.Pages
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Default.aspx", true);
+        }
+
+        protected void FormView1_ItemInserting(object sender, FormViewInsertEventArgs e)
+        {
+
         }
     }
 }

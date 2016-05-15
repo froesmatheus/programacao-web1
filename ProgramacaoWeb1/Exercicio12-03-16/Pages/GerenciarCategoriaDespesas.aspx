@@ -23,15 +23,45 @@
             <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
             <asp:Panel runat="server" GroupingText="Categoria de Despesas" Width="560px">
-                <p>
-                    <label>Categoria: </label>
-                    <asp:TextBox ID="tbxCategoria" runat="server" Width="250px" MaxLength="255" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbxCategoria" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                </p>
+                <label>&nbsp;</label><asp:FormView ID="FormView1" runat="server" AllowPaging="True" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="531px">
+                    <EditItemTemplate>
+                        <label>Categoria: </label>
+                        <asp:TextBox ID="tbxCategoria" Text='<%# Bind("categoria") %>' runat="server" Width="250px" MaxLength="255" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbxCategoria" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        <br />
+                        <asp:TextBox ID="tbxId" runat="server" MaxLength="255" Text='<%# Bind("id") %>' Width="250px" Visible="False" />
+                        <p>
+                            <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Atualizar" />
+                            &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
+                        </p>
 
-                <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
+                    </EditItemTemplate>
 
-                <asp:Button ID="btnCancelar" runat="server" Style="margin-left: 5px;" OnClick="btnCancelar_Click" Text="Cancelar" Visible="false" />
+                    <InsertItemTemplate>
+                        <label>Categoria: </label>
+                        <asp:TextBox ID="tbxCategoria" Text='<%# Bind("categoria") %>' runat="server" Width="250px" MaxLength="255" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbxCategoria" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        <p>
+                            <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Adicionar" />
+                            &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
+                        </p>
+                    </InsertItemTemplate>
+
+
+                    <ItemTemplate>
+                        id:
+                            <asp:Label ID="idLabel" runat="server" Text='<%# Bind("id") %>' />
+                        <br />
+                        categoria:
+                            <asp:Label ID="categoriaLabel" runat="server" Text='<%# Bind("categoria") %>' />
+                        <br />
+                        status:
+                            <asp:Label ID="statusLabel" runat="server" Text='<%# Bind("status") %>' />
+                        <br />
+                        <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
+                        &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
+                    </ItemTemplate>
+                </asp:FormView>
 
             </asp:Panel>
 
@@ -52,19 +82,19 @@
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" ForeColor="Black" />
                             </asp:BoundField>
                             <asp:BoundField DataField="status" HeaderText="Status" SortExpression="status">
-                            <HeaderStyle BackColor="Black" ForeColor="White" />
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:BoundField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="18px" />
+                                    <asp:ImageButton ID="btnEditar" CommandName='<%# Eval("id") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="18px" />
                                 </ItemTemplate>
                                 <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDesativar" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" Width="18px" />
+                                    <asp:ImageButton ID="btnDesativar" CommandName='<%# Eval("id") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" Width="18px" />
                                 </ItemTemplate>
                                 <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />

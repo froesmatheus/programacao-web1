@@ -17,23 +17,72 @@
             <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
             <asp:Panel GroupingText="Manutenção de Tipo de Receita" Width="650px" runat="server">
-                <p>
-                    <label>Tipo de Receita: </label>
-                    <asp:TextBox ID="tbxTxtReceita" runat="server" MaxLength="255"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxTxtReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                </p>
+                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="632px" Height="103px" AllowPaging="True">
 
-                <p>
-                    <label>Categoria de Tipo Receita: </label>
-                    <asp:DropDownList ID="drpDownCategoriaReceita" runat="server" Height="25px" Width="212px">
-                        <asp:ListItem>Receitas em Geral</asp:ListItem>
-                        <asp:ListItem>Transferência entre Contas</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategoriaReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                </p>
 
-                <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
-                <asp:Button ID="btnCancelar" Style="margin-left: 5px;" Visible="false" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
+                    <EditItemTemplate>
+                        id:
+                            <asp:TextBox ID="idTextBox" Visible="false" runat="server" Text='<%# Bind("id") %>' />
+                        <br />
+                        <p>
+                            <label>Tipo de Receita: </label>
+                            <asp:TextBox ID="tbxTxtReceita" Text='<%# Bind("tipoReceita") %>' runat="server" MaxLength="255"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxTxtReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        </p>
+
+                        <p>
+                            <label>Categoria de Tipo Receita: </label>
+                            <asp:DropDownList Text='<%# Bind("categoria") %>' ID="drpDownCategoriaReceita" runat="server" Height="25px" Width="212px">
+                                <asp:ListItem>Receitas em Geral</asp:ListItem>
+                                <asp:ListItem>Transferência entre Contas</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategoriaReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                       </p>     
+                        <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Atualizar" />
+                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
+                    </EditItemTemplate>
+
+
+                    <InsertItemTemplate>
+                        <p>
+                            <label>Tipo de Receita: </label>
+                            <asp:TextBox ID="tbxTxtReceita" Text='<%# Bind("tipoReceita") %>' runat="server" MaxLength="255"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxTxtReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        </p>
+
+                        <p>
+                            <label>Categoria de Tipo Receita: </label>
+                            <asp:DropDownList Text='<%# Bind("categoria") %>' ID="drpDownCategoriaReceita" runat="server" Height="25px" Width="212px">
+                                <asp:ListItem>Receitas em Geral</asp:ListItem>
+                                <asp:ListItem>Transferência entre Contas</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategoriaReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                       </p>     
+                       
+                            <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Adicionar" />
+                            &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
+                    </InsertItemTemplate>
+
+
+                    <ItemTemplate>
+                        id:
+                            <asp:Label ID="idLabel" runat="server" Text='<%# Bind("id") %>' />
+                        <br />
+                        tipoReceita:
+                            <asp:Label ID="tipoReceitaLabel" runat="server" Text='<%# Bind("tipoReceita") %>' />
+                        <br />
+                        categoria:
+                            <asp:Label ID="categoriaLabel" runat="server" Text='<%# Bind("categoria") %>' />
+                        <br />
+                        status:
+                            <asp:Label ID="statusLabel" runat="server" Text='<%# Bind("status") %>' />
+                        <br />
+                        <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
+                        &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
+                    </ItemTemplate>
+                </asp:FormView>
+
+
             </asp:Panel>
             <br />
             <br />
@@ -59,11 +108,11 @@
 
                 <asp:GridView ID="grdReceitas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" Style="margin: 10px;" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" AllowPaging="True">
                     <Columns>
-                        <asp:BoundField HeaderText="Tipo de Receita" DataField="tipoReceita" SortExpression="tipoReceita" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        <asp:BoundField HeaderText="Tipo de Receita" DataField="tipoReceita" SortExpression="tipoReceita">
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
                         <asp:BoundField DataField="categoria" HeaderText="Categoria" SortExpression="categoria">
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
                         <asp:BoundField HeaderText="Status" DataField="status">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />

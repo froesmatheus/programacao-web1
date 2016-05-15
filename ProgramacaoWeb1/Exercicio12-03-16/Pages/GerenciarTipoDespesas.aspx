@@ -19,47 +19,108 @@
             <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
             <asp:Panel GroupingText="Tipos de Despesas" Width="650px" runat="server">
-                <p>
-                    <label>Categoria: </label>
-                    <asp:DropDownList ID="drpDownCategorias" runat="server" Height="23px" Width="146px" DataSourceID="ObjectDataSource2" DataTextField="categoria" DataValueField="categoria"></asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategorias" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                </p>
-
-                <p>
-                    <label>Tipo de despesa: </label>
-                    <asp:TextBox ID="tbxTipoDespesa" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxTipoDespesa" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                </p>
-
-                <p>
-                    <label>Características: </label>
-                    <br />
-                    <asp:RadioButtonList ID="radBtnCaracteristicas" runat="server" RepeatLayout="Flow">
-                        <asp:ListItem Text="Gasto com Produto ou Serviço" Value="0" />
-                        <asp:ListItem Text="Aplicação em Investimentos" Value="1" />
-                        <asp:ListItem Text="Transferência entre Contas" Value="2" />
-                    </asp:RadioButtonList>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radBtnCaracteristicas" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                </p>
-
-
-                <asp:Button runat="server" ID="btnCadastrar" Text="Cadastrar" OnClick="btnCadastrar_Click" />
-                <asp:Button ID="btnCancelar" Style="margin-left: 5px;" Visible="false" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
                 <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCategorias" TypeName="Exercicio12_03_16.Database.DAOs.CategoriaDespesaDAO">
                     <SelectParameters>
                         <asp:Parameter Name="query" Type="String" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
+                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" OnItemInserting="FormView1_ItemInserting" AllowPaging="True" OnItemUpdating="FormView1_ItemUpdating" Width="641px">
+
+
+
+                    <EditItemTemplate>
+                        <p>
+                            <label>Categoria: </label>
+                            <asp:DropDownList Text='<%# Bind("categoria") %>' ID="drpDownCategorias" runat="server" Height="23px" Width="146px" DataSourceID="ObjectDataSource2" DataTextField="categoria" DataValueField="categoria"></asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategorias" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        </p>
+
+                        <p>
+                            <label>Tipo de despesa: </label>
+                            <asp:TextBox ID="tbxTipoDespesa" Text='<%# Bind("tipoDespesa") %>' runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxTipoDespesa" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        </p>
+
+                        <p>
+                            <label>Características: </label>
+                            <br />
+                            <asp:RadioButtonList ID="radBtnCaracteristicas" Text='<%# Bind("caracteristica") %>' runat="server" RepeatLayout="Flow">
+                                <asp:ListItem Text="Gasto com Produto ou Serviço" Value="0" />
+                                <asp:ListItem Text="Aplicação em Investimentos" Value="1" />
+                                <asp:ListItem Text="Transferência entre Contas" Value="2" />
+                            </asp:RadioButtonList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radBtnCaracteristicas" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                            <asp:TextBox ID="tbxTipoDespesa0" runat="server" Text='<%# Bind("id") %>' Visible="False"></asp:TextBox>
+                        </p>
+                        <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Atualizar" />
+                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
+                    </EditItemTemplate>
+
+
+
+
+                    <InsertItemTemplate>
+                        <p>
+                            <label>Categoria: </label>
+                            <asp:DropDownList Text='<%# Bind("categoria") %>' ID="drpDownCategorias" runat="server" Height="23px" Width="146px" DataSourceID="ObjectDataSource2" DataTextField="categoria" DataValueField="categoria"></asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategorias" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        </p>
+
+                        <p>
+                            <label>Tipo de despesa: </label>
+                            <asp:TextBox ID="tbxTipoDespesa" Text='<%# Bind("tipoDespesa") %>' runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxTipoDespesa" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        </p>
+
+                        <p>
+                            <label>Características: </label>
+                            <br />
+                            <asp:RadioButtonList ID="radBtnCaracteristicas" Text='<%# Bind("caracteristica") %>' runat="server" RepeatLayout="Flow">
+                                <asp:ListItem Text="Gasto com Produto ou Serviço" Value="0" />
+                                <asp:ListItem Text="Aplicação em Investimentos" Value="1" />
+                                <asp:ListItem Text="Transferência entre Contas" Value="2" />
+                            </asp:RadioButtonList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="radBtnCaracteristicas" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
+                        </p>
+
+                        <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Adicionar" />
+                        &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
+                    </InsertItemTemplate>
+
+
+
+
+
+                    <ItemTemplate>
+                        id:
+                        <asp:Label ID="idLabel" runat="server" Text='<%# Bind("id") %>' />
+                        <br />
+                        categoria:
+                        <asp:Label ID="categoriaLabel" runat="server" Text='<%# Bind("categoria") %>' />
+                        <br />
+                        tipoDespesa:
+                        <asp:Label ID="tipoDespesaLabel" runat="server" Text='<%# Bind("tipoDespesa") %>' />
+                        <br />
+                        caracteristica:
+                        <asp:Label ID="caracteristicaLabel" runat="server" Text='<%# Bind("caracteristica") %>' />
+                        <br />
+                        status:
+                        <asp:Label ID="statusLabel" runat="server" Text='<%# Bind("status") %>' />
+                        <br />
+                        <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
+                        &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
+                    </ItemTemplate>
+                </asp:FormView>
             </asp:Panel>
             <br />
             <br />
 
-            <asp:Panel runat="server" GroupingText="Lista de Tipos de Despesas" Width="648px" style="padding:5px;">
+            <asp:Panel runat="server" GroupingText="Lista de Tipos de Despesas" Width="648px" Style="padding: 5px;">
                 <label>
                     Categoria: 
-                    <asp:DropDownList ID="drpDownCategorias2" runat="server" MaxLength="255" Style="margin-right: 5px" Width="250px" DataSourceID="ObjectDataSource2" DataTextField="categoria" DataValueField="categoria" AppendDataBoundItems="True" >
+                    <asp:DropDownList ID="drpDownCategorias2" runat="server" MaxLength="255" Style="margin-right: 5px" Width="250px" DataSourceID="ObjectDataSource2" DataTextField="categoria" DataValueField="categoria" AppendDataBoundItems="True">
                         <asp:ListItem Selected="True" Value="null">Todos</asp:ListItem>
-                </asp:DropDownList>
+                    </asp:DropDownList>
                 </label>
 
                 <p>

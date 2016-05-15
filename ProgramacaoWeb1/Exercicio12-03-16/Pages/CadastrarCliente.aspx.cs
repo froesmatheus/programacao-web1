@@ -36,21 +36,11 @@ namespace Exercicio12_03_16
             return builder.ToString();
         }
 
-        protected void btnSalvar_Click(object sender, EventArgs e)
-        {
-            string nome = tbxNome.Text;
-            DateTime dataNasc = DateTime.Parse(tbxDataNasc.Text);
-            string email = tbxEmail.Text;
-            string senha = GetMD5Hash(tbxSenha.Text);
-
-            Cliente cliente = new Cliente(nome, dataNasc, email, senha);
-
-            dao.Insert(cliente);
-        }
-
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Default.aspx", true);
         }
+
+
     }
 }

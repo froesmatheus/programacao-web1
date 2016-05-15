@@ -8,6 +8,7 @@ namespace Exercicio12_03_16
 {
     public class Cliente
     {
+        public int id { get; set; }
         public string nome { get; set; }
         public DateTime dataNasc { get; set; }
         public string email { get; set; }
@@ -20,6 +21,10 @@ namespace Exercicio12_03_16
             this.dataNasc = dataNasc;
             this.email = email;
             this.senha = senha;
+        }
+
+        public Cliente()
+        {
         }
     }
 }

@@ -50,7 +50,7 @@
                     <asp:Label runat="server" ID="tbxSaldo" Text="Saldo R$ 0,00" />
                 </p>
 
-                <asp:GridView ID="grdExtrato" runat="server" Style="margin: 20px;" AutoGenerateColumns="False" OnLoad="grdExtrato_Load" OnRowDataBound="grdExtrato_RowDataBound" Enabled="False">
+                <asp:GridView ID="grdExtrato" runat="server" Style="margin: 20px;" AutoGenerateColumns="False" OnRowDataBound="grdExtrato_RowDataBound" Enabled="False" DataSourceID="ObjectDataSource1">
                     <Columns>
                         <asp:BoundField HeaderText="Valor (R$)" DataField="valor" DataFormatString="{0:N2}">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -70,7 +70,13 @@
                         <asp:BoundField HeaderText="Saldo Parcial" />
                     </Columns>
                 </asp:GridView>
-                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
+                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetLancamentos" TypeName="Exercicio12_03_16.Database.DAOs.LancamentoDAO">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="tbxDataIni" Name="dataInicial" PropertyName="Text" Type="DateTime" />
+                        <asp:ControlParameter ControlID="tbxDataFim" Name="dataFinal" PropertyName="Text" Type="DateTime" />
+                        <asp:ControlParameter ControlID="rdLancamentosFiltro" Name="tpFiltro" PropertyName="SelectedValue" Type="String" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
             </asp:Panel>
         </div>
     </body>

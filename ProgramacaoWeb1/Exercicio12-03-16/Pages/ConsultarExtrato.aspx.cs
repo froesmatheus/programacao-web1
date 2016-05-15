@@ -12,110 +12,31 @@ namespace Exercicio12_03_16.Pages
     public partial class ConsultarExtrato : System.Web.UI.Page
     {
         private List<Lancamento> lancamentosTR;
-        private List<Lancamento> lancamentos;
-        private List<Receita> receitas;
         private LancamentoDAO dao;
-        private List<Despesa> despesas;
-      
+        private List<Lancamento> lancamentos;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             dao = new LancamentoDAO();
-            receitas = (Session["listaReceitas"] != null) ? (List<Receita>)Session["listaReceitas"] : new List<Receita>();
-            despesas = (Session["listaDespesas"] != null) ? (List<Despesa>)Session["listaDespesas"] : new List<Despesa>();
             lancamentosTR = new List<Lancamento>();
+            lancamentos = new List<Lancamento>();
+
+            if (!IsPostBack)
+            {
+                DateTime hoje = DateTime.Today;
+                DateTime primeiroDiaMes = new DateTime(hoje.Year, hoje.Month, 1);
+                DateTime ultimoDiaMes = primeiroDiaMes.AddMonths(1).AddDays(-1);
+                tbxDataIni.Text = primeiroDiaMes.ToShortDateString();
+                tbxDataFim.Text = ultimoDiaMes.ToShortDateString(); 
+            }
         }
 
         protected void btnPesquisar_Click(object sender, EventArgs e)
         {
-            string lancamentoFiltroStr = rdLancamentosFiltro.SelectedValue;
-            if (!String.IsNullOrEmpty(lancamentoFiltroStr))
-            {
-                if (lancamentoFiltroStr.Equals("Vencidos"))
-                {
-                    DateTime dataIniVencidos = new DateTime();
-                    DateTime dataFimVencidos = DateTime.Today.Subtract(TimeSpan.FromDays(1));
-                    filtrarVencidosGridView(dataIniVencidos, dataFimVencidos);
-                    return;
-                }
-                else
-                {
-                    DateTime dataIniProximos = DateTime.Today;
-                    DateTime dataFimProximos = DateTime.Today.AddDays(5);
-                    filtrarGridViewVencProximos(dataIniProximos, dataFimProximos);
-                    return;
-                }
-            }
-            if (tbxDataIni.Text.Equals("") || tbxDataFim.Text.Equals(""))
-            {
-                string script = "<script> alert(\"Ambas as datas devem ser preenchidas\");</script>";
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertDataVazia", script, false);
-                return;
-            }
-       
-            DateTime dataIni = DateTime.Parse(tbxDataIni.Text);
-            DateTime dataFim = DateTime.Parse(tbxDataFim.Text);
-            filtrarGridView(dataIni, dataFim);
+            
         }
-
-        private void filtrarGridViewVencProximos(DateTime dataIniProximos, DateTime dataFimProximos)
+        private void AtualizarEstatisticas(List<Lancamento> listaFiltrada)
         {
-            var listaFiltrada = lancamentos
-                                    .Where(x => x.dataVencimento >= dataIniProximos && x.dataVencimento <= dataFimProximos && x.dataRecebimento == DateTime.Parse("01/01/0001"))
-                                    .OrderBy(x => x.dataVencimento);
-
-
-            grdExtrato.DataSource = listaFiltrada;
-            grdExtrato.DataBind();
-            lancamentosTR.Clear();
-
-
-
-            double totalReceita = GetTotalCusto(listaFiltrada.Where(x => x is Receita).ToList());
-            double totalDespesa = GetTotalCusto(listaFiltrada.Where(x => x is Despesa).ToList());
-            tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceita);
-            tbxTotalDespesa.Text = String.Format("Total de Despesas R$ {0:0.00}", totalDespesa);
-
-            tbxSaldo.Text = String.Format("Saldo R$ {0:0.00}", (totalReceita - totalDespesa));
-        }
-
-
-        protected void grdExtrato_Load(object sender, EventArgs e)
-        {
-            DateTime dataAtual = DateTime.Today;
-            DateTime dataIni = new DateTime(dataAtual.Year, dataAtual.Month, 1);
-            DateTime dataFim = new DateTime(dataAtual.Year, dataAtual.Month, DateTime.DaysInMonth(dataAtual.Year, dataAtual.Month));
-
-            filtrarGridView(dataIni, dataFim);
-        }
-
-        private void filtrarGridView(DateTime dataIni, DateTime dataFim)
-        {
-            List<Lancamento> lancamentos = dao.FiltrarLancamentos(dataIni, dataFim);
-            grdExtrato.DataSource = lancamentos;
-            grdExtrato.DataBind();
-            lancamentosTR.Clear();
-
-
-            double totalReceita = GetTotalCusto(lancamentos.Where(x => x is Receita).ToList());
-            double totalDespesa = GetTotalCusto(lancamentos.Where(x => x is Despesa).ToList());
-            tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceita);
-            tbxTotalDespesa.Text = String.Format("Total de Despesas R$ {0:0.00}", totalDespesa);
-
-            tbxSaldo.Text = String.Format("Saldo R$ {0:0.00}", (totalReceita - totalDespesa));
-        }
-
-        private void filtrarVencidosGridView(DateTime dataIni, DateTime dataFim)
-        {
-            var listaFiltrada = lancamentos
-                                    .Where(x => x.dataVencimento <= dataFim && x.dataRecebimento == DateTime.Parse("01/01/0001"))
-                                    .OrderBy(x => x.dataVencimento);
-
-
-            grdExtrato.DataSource = listaFiltrada;
-            grdExtrato.DataBind();
-            lancamentosTR.Clear();
-
-
             double totalReceita = GetTotalCusto(listaFiltrada.Where(x => x is Receita).ToList());
             double totalDespesa = GetTotalCusto(listaFiltrada.Where(x => x is Despesa).ToList());
             tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceita);

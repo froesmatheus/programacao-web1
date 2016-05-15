@@ -1,12 +1,14 @@
 ﻿using Exercicio12_03_16.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace Exercicio12_03_16.Database
 {
+    [DataObject(true)]
     public class DespesaDAO
     {
         private SqlConnection cn;
@@ -17,7 +19,7 @@ namespace Exercicio12_03_16.Database
         }
 
 
-
+        [DataObjectMethod(DataObjectMethodType.Insert)]
         public void Insert(Despesa despesa)
         {
             string str = 
@@ -43,7 +45,7 @@ namespace Exercicio12_03_16.Database
             cn.Close();
         }
 
-
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Despesa> GetDespesas()
         {
             List<Despesa> listaDespesas = new List<Despesa>();
@@ -78,6 +80,46 @@ namespace Exercicio12_03_16.Database
         }
 
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Despesa> FiltrarDespesasVencProximo(DateTime dataIni, DateTime dataFim)
+        {
+            List<Despesa> listaDespesas = new List<Despesa>();
+
+            string str = "select * from Despesas where DataVencimento >= @DataIni and DataVencimento <= @DataFim and DataRecebimento = @DataNull";
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@DataIni", dataIni));
+            sql.Parameters.Add(new SqlParameter("@DataFim", dataFim));
+            sql.Parameters.Add(new SqlParameter("@DataNull", "01/01/0001"));
+
+            cn.Open();
+
+            SqlDataReader sdr = sql.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                Despesa despesa = new Despesa();
+                despesa.formaRecebimento = sdr["FormaRecebimento"] as string;
+                despesa.valor = float.Parse(sdr["Valor"].ToString());
+                despesa.dataVencimento = (DateTime)sdr["DataVencimento"];
+                despesa.dataRecebimento = (DateTime)sdr["DataRecebimento"];
+                despesa.tipoParcelamento = sdr["TipoParcelamento"] as string;
+                despesa.qtParcelas = int.Parse(sdr["QtdParcelas"].ToString());
+                despesa.parcela = int.Parse(sdr["Parcela"].ToString());
+                despesa.observacoes = sdr["Observacoes"] as string;
+                despesa.tipo = sdr["Tipo"] as string;
+
+                listaDespesas.Add(despesa);
+            }
+            sdr.Close();
+            cn.Close();
+
+            return listaDespesas;
+        }
+
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Despesa> FiltrarDespesas(DateTime dataIni, DateTime dataFim)
         {
             List<Despesa> listaDespesas = new List<Despesa>();
@@ -114,7 +156,7 @@ namespace Exercicio12_03_16.Database
             return listaDespesas;
         }
 
-
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Despesa> FiltrarDespesasVencidas(DateTime dataIni, DateTime dataFim)
         {
             List<Despesa> listaDespesas = new List<Despesa>();
