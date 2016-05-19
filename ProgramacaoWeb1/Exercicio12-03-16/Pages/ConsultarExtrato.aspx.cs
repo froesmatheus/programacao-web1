@@ -59,7 +59,7 @@ namespace Exercicio12_03_16.Pages
             double total = 0.0;
             foreach (var item in lista)
             {
-                total += item.valor;
+                total += item.Valor;
             }
             return total;
         }
@@ -83,14 +83,14 @@ namespace Exercicio12_03_16.Pages
 
                 Lancamento lanc = e.Row.DataItem as Lancamento;
                 lancamentosTR.Add(lanc);
-                if (lanc.dataRecebimento == DateTime.Parse("01/01/0001"))
+                if (lanc.DataRecebimento == DateTime.Parse("01/01/0001"))
                 {
                     e.Row.Cells[1].Text = "------";
                 }
 
-                if (lanc.tipoParcelamento == Lancamento.PARCELADO)
+                if (lanc.TipoParcelamento == Lancamento.PARCELADO)
                 {
-                    e.Row.Cells[4].Text = lanc.parcela + "/" + lanc.qtParcelas;
+                    e.Row.Cells[4].Text = lanc.Parcela + "/" + lanc.QtdParcelas;
                 }
                 e.Row.Cells[5].Text = GetSaldoParcial(lancamentosTR) + "";
 
@@ -100,6 +100,11 @@ namespace Exercicio12_03_16.Pages
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Default.aspx", true);
+        }
+
+        protected void btnLimparFiltro_Click(object sender, EventArgs e)
+        {
+            rdLancamentosFiltro.ClearSelection();
         }
     }
 }

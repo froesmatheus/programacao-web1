@@ -29,52 +29,52 @@ namespace Exercicio12_03_16.Pages
             //TipoReceita tipoReceita = tipoReceitaDao.GetTipoReceita(tipoReceitaStr);
 
 
-            //String formaRecebimento = drpDownFormaRecebimento.SelectedValue;
-            //float valor = float.Parse(tbxValor.Text);
+            //String FormaRecebimento = drpDownFormaRecebimento.SelectedValue;
+            //float Valor = float.Parse(tbxValor.Text);
             //DateTime dataVenc = DateTime.Parse(tbxDataVenc.Text);
 
             //DateTime result = DateTime.Parse("01/01/1753");
             //DateTime.TryParse(tbxDataRecebimento.Text, out result);
 
-            //string tipoParcelamento;
+            //string TipoParcelamento;
             //if (rdParcelamento.SelectedValue.Equals("Único"))
             //{
-            //    tipoParcelamento = Lancamento.UNICO;
+            //    TipoParcelamento = Lancamento.UNICO;
             //}
             //else
             //{
-            //    tipoParcelamento = Lancamento.PARCELADO;
+            //    TipoParcelamento = Lancamento.PARCELADO;
             //}
 
-            //string observacoes = tbxObservacoes.Text;
+            //string Observacoes = tbxObservacoes.Text;
             //int qtdParcelas = int.Parse(drpDownParcelas.SelectedValue);
 
 
             //tipoReceitaStr = tipoReceita.categoria + "/" + tipoReceitaStr;
             //Receita receita;
-            //if (tipoParcelamento == Lancamento.PARCELADO)
+            //if (TipoParcelamento == Lancamento.PARCELADO)
             //{
-            //    float valorParcela = valor / qtdParcelas;
-            //    DateTime dataVencimento = dataVenc;
-            //    receita = new Receita(tipoReceitaStr, formaRecebimento, valorParcela,
-            //                              dataVencimento, result, tipoParcelamento,
-            //                              qtdParcelas, observacoes);
-            //    receita.parcela = 1;
+            //    float valorParcela = Valor / qtdParcelas;
+            //    DateTime DataVencimento = dataVenc;
+            //    receita = new Receita(tipoReceitaStr, FormaRecebimento, valorParcela,
+            //                              DataVencimento, result, TipoParcelamento,
+            //                              qtdParcelas, Observacoes);
+            //    receita.Parcela = 1;
             //    for (int i = 2; i <= qtdParcelas; i++)
             //    {
-            //        dataVencimento = dataVencimento.AddMonths(1);
-            //        receita = new Receita(tipoReceitaStr, formaRecebimento, valorParcela,
-            //                              dataVencimento, new DateTime(), tipoParcelamento,
-            //                              qtdParcelas, observacoes);
-            //        receita.parcela = i;
+            //        DataVencimento = DataVencimento.AddMonths(1);
+            //        receita = new Receita(tipoReceitaStr, FormaRecebimento, valorParcela,
+            //                              DataVencimento, new DateTime(), TipoParcelamento,
+            //                              qtdParcelas, Observacoes);
+            //        receita.Parcela = i;
             //        dao.Insert(receita);
             //    }
             //}
             //else
             //{
-            //    receita = new Receita(tipoReceitaStr, formaRecebimento, valor,
-            //                              dataVenc, result, tipoParcelamento,
-            //                              0, observacoes);
+            //    receita = new Receita(tipoReceitaStr, FormaRecebimento, Valor,
+            //                              dataVenc, result, TipoParcelamento,
+            //                              0, Observacoes);
             //    dao.Insert(receita);
             //}
         }

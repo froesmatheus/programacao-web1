@@ -76,6 +76,15 @@ namespace Exercicio12_03_16.Pages {
         protected global::System.Web.UI.WebControls.Button btnPesquisar;
         
         /// <summary>
+        /// btnLimparFiltro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLimparFiltro;
+        
+        /// <summary>
         /// tbxTotalReceita control.
         /// </summary>
         /// <remarks>

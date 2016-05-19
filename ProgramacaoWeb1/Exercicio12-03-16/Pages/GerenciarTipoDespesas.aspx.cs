@@ -42,7 +42,7 @@ namespace Exercicio12_03_16
 
             //if (dao.GetTipoDespesa(drpDownCategorias.SelectedValue.ToString(), tbxTipoDespesa.Text.ToString()) != null) {
             //    tbxTipoDespesa.Text = String.Empty;
-            //    string script = "<script> alert(\"Esse tipo de despesa já existe\");</script>";
+            //    string script = "<script> alert(\"Esse Tipo de despesa já existe\");</script>";
             //    ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
             //    tbxTipoDespesa.Focus();
             //    return;

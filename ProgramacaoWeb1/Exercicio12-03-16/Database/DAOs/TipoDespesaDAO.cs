@@ -280,5 +280,29 @@ namespace Exercicio12_03_16.Database.DAOs
             sql.ExecuteNonQuery();
             cn.Close();
         }
+
+        public int GetTipoDespesaId(string tpDespesa)
+        {
+            string str = @"select Id from TipoDespesa
+                            where lower(TipoDespesa) = lower(@TipoDespesa)";
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@TipoDespesa", tpDespesa));
+
+            cn.Open();
+
+            SqlDataReader sdr = sql.ExecuteReader();
+
+            int id = -1;
+            if (sdr.Read())
+            {
+                id = int.Parse(sdr["Id"].ToString());
+            }
+            sdr.Close();
+            cn.Close();
+
+            return id;
+        }
     }
 }

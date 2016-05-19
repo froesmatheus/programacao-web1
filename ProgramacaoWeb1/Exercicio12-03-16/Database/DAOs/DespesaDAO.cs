@@ -1,4 +1,5 @@
-﻿using Exercicio12_03_16.Models;
+﻿using Exercicio12_03_16.Database.DAOs;
+using Exercicio12_03_16.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,33 +13,81 @@ namespace Exercicio12_03_16.Database
     public class DespesaDAO
     {
         private SqlConnection cn;
+        private TipoDespesaDAO tpDespesaDao;
 
         public DespesaDAO()
         {
             cn = new ConnectionFactory().getConnection();
+            tpDespesaDao = new TipoDespesaDAO();
         }
 
 
         [DataObjectMethod(DataObjectMethodType.Insert)]
         public void Insert(Despesa despesa)
         {
-            string str = 
+            string str =
                 @"INSERT INTO Despesas 
                         (FormaRecebimento, Valor, DataVencimento, DataRecebimento, TipoParcelamento, QtdParcelas, Parcela, Observacoes, Tipo)
                 VALUES  (@FormaRecebimento, @Valor, @DataVencimento, @DataRecebimento, @TipoParcelamento, @QtdParcelas, @Parcela, @Observacoes, @Tipo)";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
-            sql.Parameters.Add(new SqlParameter("@FormaRecebimento", despesa.formaRecebimento));
-            sql.Parameters.Add(new SqlParameter("@Valor", despesa.valor));
-            sql.Parameters.Add(new SqlParameter("@DataVencimento", despesa.dataVencimento));
-            sql.Parameters.Add(new SqlParameter("@DataRecebimento", despesa.dataRecebimento));
-            sql.Parameters.Add(new SqlParameter("@TipoParcelamento", despesa.tipoParcelamento));
-            sql.Parameters.Add(new SqlParameter("@QtdParcelas", despesa.qtParcelas));
-            sql.Parameters.Add(new SqlParameter("@Parcela", despesa.parcela));
-            sql.Parameters.Add(new SqlParameter("@Observacoes", despesa.observacoes));
-            sql.Parameters.Add(new SqlParameter("@Tipo", despesa.tipo));
+            sql.Parameters.Add(new SqlParameter("@FormaRecebimento", despesa.FormaRecebimento));
+            sql.Parameters.Add(new SqlParameter("@Valor", despesa.Valor));
+            sql.Parameters.Add(new SqlParameter("@DataVencimento", despesa.DataVencimento));
+            sql.Parameters.Add(new SqlParameter("@DataRecebimento", despesa.DataRecebimento));
+            sql.Parameters.Add(new SqlParameter("@TipoParcelamento", despesa.TipoParcelamento));
+            sql.Parameters.Add(new SqlParameter("@QtdParcelas", despesa.QtdParcelas));
+            sql.Parameters.Add(new SqlParameter("@Parcela", despesa.Parcela));
+            sql.Parameters.Add(new SqlParameter("@Observacoes", despesa.Observacoes));
+            sql.Parameters.Add(new SqlParameter("@Tipo", tpDespesaDao.GetTipoDespesaId(despesa.Tipo)));
 
+
+            cn.Open();
+            sql.ExecuteNonQuery();
+            cn.Close();
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Delete)]
+        public void Delete(Despesa despesa)
+        {
+            string str = "delete from Despesas where Id = @Id";
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@Id", despesa.Id));
+
+            cn.Open();
+            sql.ExecuteNonQuery();
+            cn.Close();
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        public void Update(Despesa despesa)
+        {
+            string str = @"update Despesas set FormaRecebimento = @FormaRecebimento,
+                                               Valor = @Valor,
+                                               DataVencimento = @DataVencimento,
+                                               DataRecebimento = @DataRecebimento,
+                                               TipoParcelamento = @TipoParcelamento,
+                                               QtdParcelas = @QtdParcelas,
+                                               Parcela = @Parcela,
+                                               Observacoes = @Observacoes,
+                                               Tipo = @Tipo
+                           where Id = @Id";
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@FormaRecebimento", despesa.FormaRecebimento));
+            sql.Parameters.Add(new SqlParameter("@Valor", despesa.Valor));
+            sql.Parameters.Add(new SqlParameter("@DataVencimento", despesa.DataVencimento));
+            sql.Parameters.Add(new SqlParameter("@DataRecebimento", despesa.DataRecebimento));
+            sql.Parameters.Add(new SqlParameter("@TipoParcelamento", despesa.TipoParcelamento));
+            sql.Parameters.Add(new SqlParameter("@QtdParcelas", despesa.QtdParcelas));
+            sql.Parameters.Add(new SqlParameter("@Parcela", despesa.Parcela));
+            sql.Parameters.Add(new SqlParameter("@Observacoes", despesa.Observacoes));
+            sql.Parameters.Add(new SqlParameter("@Tipo", tpDespesaDao.GetTipoDespesaId(despesa.Tipo)));
+            sql.Parameters.Add(new SqlParameter("@Id", despesa.Id));
 
             cn.Open();
             sql.ExecuteNonQuery();
@@ -57,19 +106,19 @@ namespace Exercicio12_03_16.Database
             cn.Open();
 
             SqlDataReader sdr = sql.ExecuteReader();
-            
+
             while (sdr.Read())
             {
                 Despesa despesa = new Despesa();
-                despesa.formaRecebimento = sdr["FormaRecebimento"] as string;
-                despesa.valor = float.Parse(sdr["Valor"].ToString());
-                despesa.dataVencimento = (DateTime) sdr["DataVencimento"];
-                despesa.dataRecebimento = (DateTime)sdr["DataRecebimento"];
-                despesa.tipoParcelamento = sdr["TipoParcelamento"] as string;
-                despesa.qtParcelas = int.Parse(sdr["QtdParcelas"].ToString());
-                despesa.parcela = int.Parse(sdr["Parcela"].ToString());
-                despesa.observacoes = sdr["Observacoes"] as string;
-                despesa.tipo = sdr["Tipo"] as string;
+                despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
+                despesa.Valor = float.Parse(sdr["Valor"].ToString());
+                despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
+                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+                despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
+                despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
+                despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
+                despesa.Observacoes = sdr["Observacoes"] as string;
+                despesa.Tipo = sdr["Tipo"] as string;
 
                 listaDespesas.Add(despesa);
             }
@@ -100,15 +149,15 @@ namespace Exercicio12_03_16.Database
             while (sdr.Read())
             {
                 Despesa despesa = new Despesa();
-                despesa.formaRecebimento = sdr["FormaRecebimento"] as string;
-                despesa.valor = float.Parse(sdr["Valor"].ToString());
-                despesa.dataVencimento = (DateTime)sdr["DataVencimento"];
-                despesa.dataRecebimento = (DateTime)sdr["DataRecebimento"];
-                despesa.tipoParcelamento = sdr["TipoParcelamento"] as string;
-                despesa.qtParcelas = int.Parse(sdr["QtdParcelas"].ToString());
-                despesa.parcela = int.Parse(sdr["Parcela"].ToString());
-                despesa.observacoes = sdr["Observacoes"] as string;
-                despesa.tipo = sdr["Tipo"] as string;
+                despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
+                despesa.Valor = float.Parse(sdr["Valor"].ToString());
+                despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
+                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+                despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
+                despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
+                despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
+                despesa.Observacoes = sdr["Observacoes"] as string;
+                despesa.Tipo = sdr["Tipo"] as string;
 
                 listaDespesas.Add(despesa);
             }
@@ -138,15 +187,15 @@ namespace Exercicio12_03_16.Database
             while (sdr.Read())
             {
                 Despesa despesa = new Despesa();
-                despesa.formaRecebimento = sdr["FormaRecebimento"] as string;
-                despesa.valor = float.Parse(sdr["Valor"].ToString());
-                despesa.dataVencimento = (DateTime)sdr["DataVencimento"];
-                despesa.dataRecebimento = (DateTime)sdr["DataRecebimento"];
-                despesa.tipoParcelamento = sdr["TipoParcelamento"] as string;
-                despesa.qtParcelas = int.Parse(sdr["QtdParcelas"].ToString());
-                despesa.parcela = int.Parse(sdr["Parcela"].ToString());
-                despesa.observacoes = sdr["Observacoes"] as string;
-                despesa.tipo = sdr["Tipo"] as string;
+                despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
+                despesa.Valor = float.Parse(sdr["Valor"].ToString());
+                despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
+                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+                despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
+                despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
+                despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
+                despesa.Observacoes = sdr["Observacoes"] as string;
+                despesa.Tipo = sdr["Tipo"] as string;
 
                 listaDespesas.Add(despesa);
             }
@@ -175,15 +224,15 @@ namespace Exercicio12_03_16.Database
             while (sdr.Read())
             {
                 Despesa despesa = new Despesa();
-                despesa.formaRecebimento = sdr["FormaRecebimento"] as string;
-                despesa.valor = float.Parse(sdr["Valor"].ToString());
-                despesa.dataVencimento = (DateTime)sdr["DataVencimento"];
-                despesa.dataRecebimento = (DateTime)sdr["DataRecebimento"];
-                despesa.tipoParcelamento = sdr["TipoParcelamento"] as string;
-                despesa.qtParcelas = int.Parse(sdr["QtdParcelas"].ToString());
-                despesa.parcela = int.Parse(sdr["Parcela"].ToString());
-                despesa.observacoes = sdr["Observacoes"] as string;
-                despesa.tipo = sdr["Tipo"] as string;
+                despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
+                despesa.Valor = float.Parse(sdr["Valor"].ToString());
+                despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
+                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+                despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
+                despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
+                despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
+                despesa.Observacoes = sdr["Observacoes"] as string;
+                despesa.Tipo = sdr["Tipo"] as string;
 
                 listaDespesas.Add(despesa);
             }

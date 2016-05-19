@@ -38,6 +38,8 @@
                     </asp:RadioButtonList>
                 </p>
                 <asp:Button runat="server" ID="btnPesquisar" Text="Pesquisar" OnClick="btnPesquisar_Click" />
+                &nbsp;&nbsp;
+                <asp:Button ID="btnLimparFiltro" runat="server" CausesValidation="False" OnClick="btnLimparFiltro_Click" Text="Limpar Filtro" />
             </asp:Panel>
 
 

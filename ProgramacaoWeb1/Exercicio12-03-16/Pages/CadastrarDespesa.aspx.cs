@@ -31,53 +31,53 @@ namespace Exercicio12_03_16.Pages
             //tipoDespesa = tipoDespesaDAO.GetTipoDespesa(tipoDespesaStr);
 
 
-            //String formaRecebimento = drpDownFormaRecebimento.SelectedValue;
-            //float valor = float.Parse(tbxValor.Text);
+            //String FormaRecebimento = drpDownFormaRecebimento.SelectedValue;
+            //float Valor = float.Parse(tbxValor.Text);
             //DateTime dataVenc = DateTime.Parse(tbxDataVenc.Text);
 
             //DateTime result = DateTime.Parse("01/01/0001");
             //DateTime.TryParse(tbxDataRecebimento.Text, out result);
 
             ////DateTime dataReceb = DateTime.Parse(tbxDataRecebimento.Text);
-            //string tipoParcelamento;
+            //string TipoParcelamento;
             //if (rdParcelamento.SelectedValue.Equals("Único"))
             //{
-            //    tipoParcelamento = Lancamento.UNICO;
+            //    TipoParcelamento = Lancamento.UNICO;
             //}
             //else
             //{
-            //    tipoParcelamento = Lancamento.PARCELADO;
+            //    TipoParcelamento = Lancamento.PARCELADO;
             //}
 
-            //string observacoes = tbxObservacoes.Text;
+            //string Observacoes = tbxObservacoes.Text;
             //int qtdParcelas = int.Parse(drpDownParcelas.SelectedValue);
 
-            //String tipo = tipoDespesaStr + "/" + tipoDespesa.categoria;
+            //String Tipo = tipoDespesaStr + "/" + tipoDespesa.categoria;
 
             //Despesa despesa;
-            //if (tipoParcelamento == Lancamento.PARCELADO)
+            //if (TipoParcelamento == Lancamento.PARCELADO)
             //{
-            //    float valorParcela = valor / qtdParcelas;
-            //    DateTime dataVencimento = dataVenc;
-            //    despesa = new Despesa(tipo, formaRecebimento, valorParcela,
-            //                              dataVencimento, result, tipoParcelamento,
-            //                              qtdParcelas, observacoes);
-            //    despesa.parcela = 1;
+            //    float valorParcela = Valor / qtdParcelas;
+            //    DateTime DataVencimento = dataVenc;
+            //    despesa = new Despesa(Tipo, FormaRecebimento, valorParcela,
+            //                              DataVencimento, result, TipoParcelamento,
+            //                              qtdParcelas, Observacoes);
+            //    despesa.Parcela = 1;
             //    for (int i = 2; i <= qtdParcelas; i++)
             //    {
-            //        dataVencimento = dataVencimento.AddMonths(1);
-            //        despesa = new Despesa(tipo, formaRecebimento, valorParcela,
-            //                              dataVencimento, new DateTime(), tipoParcelamento,
-            //                              qtdParcelas, observacoes);
-            //        despesa.parcela = i;
+            //        DataVencimento = DataVencimento.AddMonths(1);
+            //        despesa = new Despesa(Tipo, FormaRecebimento, valorParcela,
+            //                              DataVencimento, new DateTime(), TipoParcelamento,
+            //                              qtdParcelas, Observacoes);
+            //        despesa.Parcela = i;
             //        dao.Insert(despesa);
             //    }
             //}
             //else
             //{
-            //    despesa = new Despesa(tipo, formaRecebimento, valor,
-            //                              dataVenc, result, tipoParcelamento,
-            //                              0, observacoes);
+            //    despesa = new Despesa(Tipo, FormaRecebimento, Valor,
+            //                              dataVenc, result, TipoParcelamento,
+            //                              0, Observacoes);
             //    dao.Insert(despesa);
             //}
         }

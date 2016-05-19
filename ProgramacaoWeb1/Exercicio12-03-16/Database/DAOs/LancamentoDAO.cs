@@ -31,7 +31,7 @@ namespace Exercicio12_03_16.Database.DAOs
             listaLancamentos.AddRange(despesaDAO.FiltrarDespesas(dataIni, dataFim));
             listaLancamentos.AddRange(receitaDAO.FiltrarReceitas(dataIni, dataFim));
 
-            listaLancamentos.OrderBy(x => x.dataVencimento);
+            listaLancamentos.OrderBy(x => x.DataVencimento);
 
             return listaLancamentos;
         }
@@ -44,7 +44,7 @@ namespace Exercicio12_03_16.Database.DAOs
             listaLancamentos.AddRange(despesaDAO.FiltrarDespesasVencidas(dataIni, dataFim));
             listaLancamentos.AddRange(receitaDAO.FiltrarReceitasVencidas(dataIni, dataFim));
 
-            listaLancamentos.OrderBy(x => x.dataVencimento);
+            listaLancamentos.OrderBy(x => x.DataVencimento);
 
             return listaLancamentos;
         }
@@ -56,7 +56,7 @@ namespace Exercicio12_03_16.Database.DAOs
             listaLancamentos.AddRange(despesaDAO.FiltrarDespesasVencProximo(dataIni, dataFim));
             listaLancamentos.AddRange(receitaDAO.FiltrarReceitasVencProximo(dataIni, dataFim));
 
-            listaLancamentos.OrderBy(x => x.dataVencimento);
+            listaLancamentos.OrderBy(x => x.DataVencimento);
 
             return listaLancamentos;
         }
@@ -97,10 +97,10 @@ namespace Exercicio12_03_16.Database.DAOs
             {
                 if (item is Receita)
                 {
-                    totalReceita += item.valor;
+                    totalReceita += item.Valor;
                 } else
                 {
-                    totalDespesa += item.valor;
+                    totalDespesa += item.Valor;
                 }
             }
 

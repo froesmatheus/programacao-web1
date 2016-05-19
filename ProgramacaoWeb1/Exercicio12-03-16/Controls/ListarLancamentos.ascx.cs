@@ -28,7 +28,7 @@ namespace Exercicio12_03_16.Controls
             lancamentos = new List<Lancamento>();
             lancamentos.AddRange(receitas);
             lancamentos.AddRange(despesas);
-            lancamentos = lancamentos.OrderBy(x => x.dataVencimento).ToList();
+            lancamentos = lancamentos.OrderBy(x => x.DataVencimento).ToList();
 
             DateTime dataIni = DateTime.Today;
             DateTime dataFim = dataIni.AddDays(qtdDias * -1);
@@ -39,8 +39,8 @@ namespace Exercicio12_03_16.Controls
         private void filtrarGridView(DateTime dataIni, DateTime dataFim)
         {
             var listaFiltrada = lancamentos
-                                    .Where(x => x.dataVencimento <= dataIni && x.dataVencimento >= dataFim)
-                                    .OrderBy(x => x.dataVencimento);
+                                    .Where(x => x.DataVencimento <= dataIni && x.DataVencimento >= dataFim)
+                                    .OrderBy(x => x.DataVencimento);
 
 
             grdLancamentos.DataSource = listaFiltrada;
@@ -60,7 +60,7 @@ namespace Exercicio12_03_16.Controls
             double total = 0.0;
             foreach (var item in lista)
             {
-                total += item.valor;
+                total += item.Valor;
             }
             return total;
         }
@@ -83,14 +83,14 @@ namespace Exercicio12_03_16.Controls
                 }
 
                 Lancamento lanc = e.Row.DataItem as Lancamento;
-                if (lanc.dataRecebimento == DateTime.Parse("01/01/0001"))
+                if (lanc.DataRecebimento == DateTime.Parse("01/01/0001"))
                 {
                     e.Row.Cells[1].Text = "------";
                 }
 
-                if (lanc.tipoParcelamento == Lancamento.PARCELADO)
+                if (lanc.TipoParcelamento == Lancamento.PARCELADO)
                 {
-                    e.Row.Cells[4].Text = lanc.parcela + "/" + lanc.qtParcelas;
+                    e.Row.Cells[4].Text = lanc.Parcela + "/" + lanc.QtdParcelas;
                 }
             }
         }

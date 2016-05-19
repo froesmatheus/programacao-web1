@@ -10,16 +10,16 @@ namespace Exercicio12_03_16.Models
         public const string UNICO = "Único";
         public const string PARCELADO = "Parcelado";
 
-
-        public string tipo { get; set; }
-        public string formaRecebimento { get; set; }
-        public float valor { get; set; }
-        public DateTime dataVencimento { get; set; }
-        public DateTime dataRecebimento { get; set; }
-        public string tipoParcelamento { get; set; }
-        public int qtParcelas { get; set; }
-        public int parcela { get; set; }
-        public string observacoes { get; set; }
+        public int Id { get; set; }
+        public string Tipo { get; set; }
+        public string FormaRecebimento { get; set; }
+        public float Valor { get; set; }
+        public DateTime DataVencimento { get; set; }
+        public DateTime DataRecebimento { get; set; }
+        public string TipoParcelamento { get; set; }
+        public int QtdParcelas { get; set; }
+        public int Parcela { get; set; }
+        public string Observacoes { get; set; }
 
         public Lancamento()
         {
@@ -30,14 +30,14 @@ namespace Exercicio12_03_16.Models
                        DateTime dataVencimento, DateTime dataRecebimento,
                        string tipoParcelamento, int qtdParcelas, string observacoes)
         {
-            this.tipo = tipo;
-            this.formaRecebimento = formaRecebimento;
-            this.valor = valor;
-            this.dataVencimento = dataVencimento;
-            this.dataRecebimento = dataRecebimento;
-            this.tipoParcelamento = tipoParcelamento;
-            this.qtParcelas = qtdParcelas;
-            this.observacoes = observacoes;
+            this.Tipo = tipo;
+            this.FormaRecebimento = formaRecebimento;
+            this.Valor = valor;
+            this.DataVencimento = dataVencimento;
+            this.DataRecebimento = dataRecebimento;
+            this.TipoParcelamento = tipoParcelamento;
+            this.QtdParcelas = qtdParcelas;
+            this.Observacoes = observacoes;
         }
     }
 }
