@@ -32,19 +32,20 @@
 
 
             <asp:Panel GroupingText="Meus Dados" runat="server" Width="800px">
-                <asp:FormView ID="FormView2" runat="server" AllowPaging="True" DataSourceID="ObjectDataSource1">
+                <asp:FormView ID="FormView2" runat="server" AllowPaging="True" DataSourceID="ObjectDataSource1" style="margin-top: 0px" Width="789px">
                     <EditItemTemplate>
                         <div class="container">
+                            <asp:TextBox ID="TextBox1" Text='<%# Bind("Id") %>' runat="server" Width="250px" MaxLength="255" />
                             <p>
                                 <label>Nome: </label>
-                                <asp:TextBox ID="tbxNome" Text='<%# Bind("nome") %>' runat="server" Width="250px" MaxLength="255" />
+                                <asp:TextBox ID="tbxNome" Text='<%# Bind("Nome") %>' runat="server" Width="250px" MaxLength="255" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbxNome"
                                     ErrorMessage="Campo obrigatório (Nome)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                             </p>
 
                             <p>
                                 <label>Data de aniversário: </label>
-                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("dataNasc") %>' runat="server" Width="250px" TextMode="Date" />
+                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("DataNasc") %>' runat="server" Width="250px" TextMode="Date" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxDataNasc"
                                     ErrorMessage="Campo obrigatório (Data de aniversário)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator1" runat="server" Display="None"
@@ -54,7 +55,7 @@
 
                             <p>
                                 <label>Email: </label>
-                                <asp:TextBox ID="tbxEmail" Text='<%# Bind("email") %>' runat="server" Width="250px" />
+                                <asp:TextBox ID="tbxEmail" Text='<%# Bind("Email") %>' runat="server" Width="250px" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbxEmail"
                                     ErrorMessage="Campo obrigatório (Email)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="tbxConfirmEmail"
@@ -72,7 +73,7 @@
 
                             <p>
                                 <label>Senha: </label>
-                                <asp:TextBox ID="tbxSenha" runat="server" Text='<%# Bind("senha") %>' TextMode="Password" Width="250px" />
+                                <asp:TextBox ID="tbxSenha" runat="server" Text='<%# Bind("Senha") %>' TextMode="Password" Width="250px" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbxSenha"
                                     ErrorMessage="Campo obrigatório (Senha)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="tbxConfirmSenha"
@@ -98,14 +99,14 @@
                         <div class="container">
                             <p>
                                 <label>Nome: </label>
-                                <asp:TextBox ID="tbxNome" Text='<%# Bind("nome") %>' runat="server" Width="250px" MaxLength="255" />
+                                <asp:TextBox ID="tbxNome" Text='<%# Bind("Nome") %>' runat="server" Width="250px" MaxLength="255" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbxNome"
                                     ErrorMessage="Campo obrigatório (Nome)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                             </p>
 
                             <p>
                                 <label>Data de aniversário: </label>
-                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("dataNasc") %>' runat="server" Width="250px" TextMode="Date" />
+                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("DataNasc") %>' runat="server" Width="250px" TextMode="Date" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxDataNasc"
                                     ErrorMessage="Campo obrigatório (Data de aniversário)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator1" runat="server" Display="None"
@@ -115,7 +116,7 @@
 
                             <p>
                                 <label>Email: </label>
-                                <asp:TextBox ID="tbxEmail" Text='<%# Bind("email") %>' runat="server" Width="250px" />
+                                <asp:TextBox ID="tbxEmail" Text='<%# Bind("Email") %>' runat="server" Width="250px" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbxEmail"
                                     ErrorMessage="Campo obrigatório (Email)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="tbxConfirmEmail"
@@ -133,7 +134,7 @@
 
                             <p>
                                 <label>Senha: </label>
-                                <asp:TextBox ID="tbxSenha" runat="server" Text='<%# Bind("senha") %>' TextMode="Password" Width="250px" />
+                                <asp:TextBox ID="tbxSenha" runat="server" Text='<%# Bind("Senha") %>' TextMode="Password" Width="250px" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbxSenha"
                                     ErrorMessage="Campo obrigatório (Senha)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="tbxConfirmSenha"
@@ -161,19 +162,19 @@
 
                     <ItemTemplate>
                         id:
-                        <asp:Label ID="idLabel" runat="server" Text='<%# Bind("id") %>' />
+                        <asp:Label ID="idLabel" runat="server" Text='<%# Bind("Id") %>' />
                         <br />
                         nome:
-                        <asp:Label ID="nomeLabel" runat="server" Text='<%# Bind("nome") %>' />
+                        <asp:Label ID="nomeLabel" runat="server" Text='<%# Bind("Nome") %>' />
                         <br />
                         dataNasc:
-                        <asp:Label ID="dataNascLabel" runat="server" Text='<%# Bind("dataNasc") %>' />
+                        <asp:Label ID="dataNascLabel" runat="server" Text='<%# Bind("DataNasc") %>' />
                         <br />
                         email:
-                        <asp:Label ID="emailLabel" runat="server" Text='<%# Bind("email") %>' />
+                        <asp:Label ID="emailLabel" runat="server" Text='<%# Bind("Email") %>' />
                         <br />
                         senha:
-                        <asp:Label ID="senhaLabel" runat="server" Text='<%# Bind("senha") %>' />
+                        <asp:Label ID="senhaLabel" runat="server" Text='<%# Bind("Senha") %>' />
                         <br />
                         <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
                         &nbsp;<asp:LinkButton ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />

@@ -25,10 +25,10 @@ namespace Exercicio12_03_16.Database
                                                             VALUES (@Nome, @DataNasc, @Email, @Senha)";
             SqlCommand sql = new SqlCommand(str, cn);
 
-            sql.Parameters.Add(new SqlParameter("@Nome", cliente.nome));
-            sql.Parameters.Add(new SqlParameter("@DataNasc", cliente.dataNasc));
-            sql.Parameters.Add(new SqlParameter("@Email", cliente.email));
-            sql.Parameters.Add(new SqlParameter("@Senha", cliente.senha));
+            sql.Parameters.Add(new SqlParameter("@Nome", cliente.Nome));
+            sql.Parameters.Add(new SqlParameter("@DataNasc", cliente.DataNasc));
+            sql.Parameters.Add(new SqlParameter("@Email", cliente.Email));
+            sql.Parameters.Add(new SqlParameter("@Senha", cliente.Senha));
 
             cn.Open();
             sql.ExecuteNonQuery();
@@ -43,7 +43,7 @@ namespace Exercicio12_03_16.Database
 
             SqlCommand sql = new SqlCommand(str, cn);
 
-            sql.Parameters.Add(new SqlParameter("@Id", cliente.id));
+            sql.Parameters.Add(new SqlParameter("@Id", cliente.Id));
 
             cn.Open();
             sql.ExecuteNonQuery();
@@ -62,11 +62,11 @@ namespace Exercicio12_03_16.Database
                             where Id = @Id";
             SqlCommand sql = new SqlCommand(str, cn);
 
-            sql.Parameters.Add(new SqlParameter("@Nome", cliente.nome));
-            sql.Parameters.Add(new SqlParameter("@DataNasc", cliente.dataNasc));
-            sql.Parameters.Add(new SqlParameter("@Email", cliente.email));
-            sql.Parameters.Add(new SqlParameter("@Senha", cliente.senha));
-            sql.Parameters.Add(new SqlParameter("@Id", cliente.id));
+            sql.Parameters.Add(new SqlParameter("@Nome", cliente.Nome));
+            sql.Parameters.Add(new SqlParameter("@DataNasc", cliente.DataNasc));
+            sql.Parameters.Add(new SqlParameter("@Email", cliente.Email));
+            sql.Parameters.Add(new SqlParameter("@Senha", cliente.Senha));
+            sql.Parameters.Add(new SqlParameter("@Id", cliente.Id));
 
             cn.Open();
             sql.ExecuteNonQuery();
@@ -91,11 +91,11 @@ namespace Exercicio12_03_16.Database
             while (sdr.Read())
             {
                 Cliente cliente = new Cliente();
-                cliente.id = int.Parse(sdr["Id"].ToString());
-                cliente.nome = sdr["Nome"].ToString();
-                cliente.dataNasc = DateTime.Parse(sdr["DataNasc"].ToString());
-                cliente.email = sdr["Email"].ToString();
-                cliente.senha = sdr["Senha"].ToString();
+                cliente.Id = int.Parse(sdr["Id"].ToString());
+                cliente.Nome = sdr["Nome"].ToString();
+                cliente.DataNasc = DateTime.Parse(sdr["DataNasc"].ToString());
+                cliente.Email = sdr["Email"].ToString();
+                cliente.Senha = sdr["Senha"].ToString();
 
                 lista.Add(cliente);
             }

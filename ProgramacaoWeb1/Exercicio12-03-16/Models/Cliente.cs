@@ -8,19 +8,19 @@ namespace Exercicio12_03_16
 {
     public class Cliente
     {
-        public int id { get; set; }
-        public string nome { get; set; }
-        public DateTime dataNasc { get; set; }
-        public string email { get; set; }
-        public string senha { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public DateTime DataNasc { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
 
 
         public Cliente(string nome, DateTime dataNasc, string email, string senha)
         {
-            this.nome = nome;
-            this.dataNasc = dataNasc;
-            this.email = email;
-            this.senha = senha;
+            this.Nome = nome;
+            this.DataNasc = dataNasc;
+            this.Email = email;
+            this.Senha = senha;
         }
 
         public Cliente()
