@@ -9,15 +9,18 @@
     </head>
     <body>
         <div>
-            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
 
-            <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.Despesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDespesas" TypeName="Exercicio12_03_16.Database.DespesaDAO" DeleteMethod="Delete" UpdateMethod="Update"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.Despesa" 
+                InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" 
+                SelectMethod="GetDespesas" TypeName="Exercicio12_03_16.Database.DespesaDAO" 
+                DeleteMethod="Delete" UpdateMethod="Update" OnDeleting="ObjectDataSource2_Deleting" OnInserting="ObjectDataSource2_Inserting"></asp:ObjectDataSource>
 
             <asp:Panel GroupingText="Cadastro de Despesas" Style="padding: 10px;" Width="989px" runat="server" Height="603px">
-                <asp:FormView ID="FormView1" runat="server" AllowPaging="True" DataSourceID="ObjectDataSource2" Width="981px">
+                <asp:FormView ID="FormView1" DataKeyNames="Id" runat="server" AllowPaging="True" DataSourceID="ObjectDataSource2" Width="981px" OnItemDeleting="FormView1_ItemDeleting" OnItemInserted="FormView1_ItemInserted" OnItemInserting="FormView1_ItemInserting1">
                     <EditItemTemplate>
                         <p>
+                            <asp:HiddenField runat="server" ID="hidden" Value='<%# Bind("Id") %>' />
                             <label>Tipo de Despesa: </label>
                             <asp:DropDownList ID="drpDownTipoDespesa" Text='<%# Bind("Tipo") %>' runat="server" Height="26px" Width="209px" DataSourceID="ObjectDataSource1" DataTextField="tipoDespesa" DataValueField="tipoDespesa"></asp:DropDownList>
                             <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetTiposDespesa" TypeName="Exercicio12_03_16.Database.DAOs.TipoDespesaDAO" DataObjectTypeName="Exercicio12_03_16.Models.TipoDespesa" InsertMethod="Insert" UpdateMethod="Update"></asp:ObjectDataSource>

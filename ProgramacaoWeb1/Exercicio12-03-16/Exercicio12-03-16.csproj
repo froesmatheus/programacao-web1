@@ -116,7 +116,6 @@
     <Content Include="Pages\CadastrarDespesa.aspx" />
     <Content Include="Pages\CadastrarReceita.aspx" />
     <Content Include="Pages\ConsultarExtrato.aspx" />
-    <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\GerenciarTipoDespesas.aspx" />
     <Content Include="packages.config" />
     <Content Include="MasterPage.Master" />
@@ -192,13 +191,6 @@
     </Compile>
     <Compile Include="Pages\ConsultarExtrato.aspx.designer.cs">
       <DependentUpon>ConsultarExtrato.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\GerenciarTipoDespesas.aspx.cs">
       <DependentUpon>GerenciarTipoDespesas.aspx</DependentUpon>

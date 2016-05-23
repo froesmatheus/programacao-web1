@@ -40,7 +40,5 @@ namespace Exercicio12_03_16
         {
             Response.Redirect("Default.aspx", true);
         }
-
-
     }
 }

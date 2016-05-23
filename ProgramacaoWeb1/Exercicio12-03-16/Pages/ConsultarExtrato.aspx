@@ -12,7 +12,6 @@
     </head>
     <body>
         <div>
-            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
             <asp:Panel runat="server" GroupingText="Filtro do Extrato" Width="619px">
                 <p>
@@ -52,7 +51,7 @@
                     <asp:Label runat="server" ID="tbxSaldo" Text="Saldo R$ 0,00" />
                 </p>
 
-                <asp:GridView ID="grdExtrato" runat="server" Style="margin: 20px;" AutoGenerateColumns="False" OnRowDataBound="grdExtrato_RowDataBound" Enabled="False" DataSourceID="ObjectDataSource1">
+                <asp:GridView ID="grdExtrato" runat="server" Style="margin: 20px;" AutoGenerateColumns="False" OnRowDataBound="grdExtrato_RowDataBound" Enabled="False" DataSourceID="ObjectDataSource1" OnDataBound="grdExtrato_DataBound">
                     <Columns>
                         <asp:BoundField HeaderText="Valor (R$)" DataField="valor" DataFormatString="{0:N2}">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -69,7 +68,9 @@
                         <asp:BoundField HeaderText="Pgto" DataField="tipoParcelamento">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
-                        <asp:BoundField HeaderText="Saldo Parcial" />
+                        <asp:BoundField HeaderText="Saldo Parcial" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                        </asp:BoundField>
                     </Columns>
                 </asp:GridView>
                 <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetLancamentos" TypeName="Exercicio12_03_16.Database.DAOs.LancamentoDAO">

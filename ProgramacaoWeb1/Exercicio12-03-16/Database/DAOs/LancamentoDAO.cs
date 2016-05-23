@@ -65,6 +65,17 @@ namespace Exercicio12_03_16.Database.DAOs
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Lancamento> GetLancamentos(DateTime dataInicial, DateTime dataFinal, string tpFiltro)
         {
+            if (dataInicial.Equals("01/01/01")) {
+                DateTime hoje = DateTime.Today;
+                DateTime primeiroDiaMes = new DateTime(hoje.Year, hoje.Month, 1);
+                DateTime ultimoDiaMes = primeiroDiaMes.AddMonths(1).AddDays(-1);
+
+                dataInicial = primeiroDiaMes;
+                dataFinal = ultimoDiaMes;
+            }
+            
+
+
             if (String.IsNullOrEmpty(tpFiltro))
             {
                 return FiltrarLancamentos(dataInicial, dataFinal);

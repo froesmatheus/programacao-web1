@@ -106,5 +106,28 @@ namespace Exercicio12_03_16.Pages
         {
 
         }
+
+        protected void FormView1_ItemDeleting(object sender, FormViewDeleteEventArgs e)
+        {
+
+        }
+
+        protected void ObjectDataSource2_Deleting(object sender, ObjectDataSourceMethodEventArgs e)
+        {
+
+        }
+
+        protected void ObjectDataSource2_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
+        {
+        }
+
+        protected void FormView1_ItemInserting1(object sender, FormViewInsertEventArgs e)
+        {
+        }
+
+        protected void FormView1_ItemInserted(object sender, FormViewInsertedEventArgs e)
+        {
+            
+        }
     }
 }

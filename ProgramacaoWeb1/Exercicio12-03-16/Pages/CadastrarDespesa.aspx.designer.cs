@@ -13,15 +13,6 @@ namespace Exercicio12_03_16.Pages {
     public partial class CadastrarDespesa {
         
         /// <summary>
-        /// btnVoltar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnVoltar;
-        
-        /// <summary>
         /// ObjectDataSource2 control.
         /// </summary>
         /// <remarks>

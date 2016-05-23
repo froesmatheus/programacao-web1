@@ -9,8 +9,10 @@
     </asp:ContentPlaceHolder>
 
     <style>
-        #divMenu {
+        #divMenu {            margin-left: 82px;
         }
+        
+
     </style>
 </head>
 <body>
@@ -28,6 +30,9 @@
                 </Items>
             </asp:Menu>
         </div>
+
+        <br />
+
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>

@@ -8,7 +8,7 @@ namespace Exercicio12_03_16.Models
     public class Lancamento
     {
         public const string UNICO = "Único";
-        public const string PARCELADO = "Parcelado";
+        public const string PARCELADO = "Dividido";
 
         public int Id { get; set; }
         public string Tipo { get; set; }
@@ -30,6 +30,22 @@ namespace Exercicio12_03_16.Models
                        DateTime dataVencimento, DateTime dataRecebimento,
                        string tipoParcelamento, int qtdParcelas, string observacoes)
         {
+            this.Tipo = tipo;
+            this.FormaRecebimento = formaRecebimento;
+            this.Valor = valor;
+            this.DataVencimento = dataVencimento;
+            this.DataRecebimento = dataRecebimento;
+            this.TipoParcelamento = tipoParcelamento;
+            this.QtdParcelas = qtdParcelas;
+            this.Observacoes = observacoes;
+        }
+
+
+        public Lancamento(int id, string tipo, string formaRecebimento, float valor,
+                       DateTime dataVencimento, DateTime dataRecebimento,
+                       string tipoParcelamento, int qtdParcelas, string observacoes)
+        {
+            this.Id = id;
             this.Tipo = tipo;
             this.FormaRecebimento = formaRecebimento;
             this.Valor = valor;

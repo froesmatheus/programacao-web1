@@ -68,7 +68,10 @@ namespace Exercicio12_03_16
 
         protected void btnEditar_Click(object sender, ImageClickEventArgs e)
         {
+            //TextBox tbxCategoria = (TextBox) FormView1.FindControl("tbxCategoria");
+            //tbxCategoria.Text = (((ImageButton)sender).CommandArgument); 
             FormView1.ChangeMode(FormViewMode.Edit);
+            FormView1.PageIndex = grdDespesas.SelectedIndex;
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
@@ -91,6 +94,12 @@ namespace Exercicio12_03_16
         protected void btnVoltar_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("Default.aspx", true);
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            FormView1.ChangeMode(FormViewMode.Edit);
+            FormView1.PageIndex = grdDespesas.SelectedIndex;
         }
     }
 }

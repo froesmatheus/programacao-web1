@@ -12,6 +12,13 @@ namespace Exercicio12_03_16.Models
 
         }
 
+        public Despesa(int id, string tipo, string formaRecebimento, float valor,
+                DateTime dataVencimento, DateTime dataRecebimento,
+                string tipoParcelamento, int qtdParcelas, string observacoes)
+
+     : base(id, tipo, formaRecebimento, valor, dataVencimento, dataRecebimento, tipoParcelamento, qtdParcelas, observacoes)
+        { }
+
         public Despesa(string tipo, string formaRecebimento, float valor,
                 DateTime dataVencimento, DateTime dataRecebimento,
                 string tipoParcelamento, int qtdParcelas, string observacoes)

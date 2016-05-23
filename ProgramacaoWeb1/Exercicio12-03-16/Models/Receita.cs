@@ -12,6 +12,16 @@ namespace Exercicio12_03_16.Models
         {
 
         }
+        public Receita(int id, string tipo, string formaRecebimento, float valor,
+               DateTime dataVencimento, DateTime dataRecebimento,
+               string tipoParcelamento, int qtdParcelas, string observacoes)
+
+   : base(id, tipo, formaRecebimento, valor, dataVencimento, dataRecebimento, tipoParcelamento, qtdParcelas, observacoes)
+
+        {
+
+        }
+
         public Receita(string tipo, string formaRecebimento, float valor,
                DateTime dataVencimento, DateTime dataRecebimento,
                string tipoParcelamento, int qtdParcelas, string observacoes)

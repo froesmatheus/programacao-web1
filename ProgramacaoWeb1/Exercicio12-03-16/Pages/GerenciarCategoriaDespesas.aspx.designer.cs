@@ -13,15 +13,6 @@ namespace Exercicio12_03_16 {
     public partial class GerenciarDespesas {
         
         /// <summary>
-        /// btnVoltar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnVoltar;
-        
-        /// <summary>
         /// FormView1 control.
         /// </summary>
         /// <remarks>

@@ -25,6 +25,12 @@ namespace Exercicio12_03_16.Database
         [DataObjectMethod(DataObjectMethodType.Insert)]
         public void Insert(Despesa despesa)
         {
+            if (despesa.TipoParcelamento == Lancamento.PARCELADO)
+            {
+                InsertParcelado(despesa);
+                return;
+            }
+
             string str =
                 @"INSERT INTO Despesas 
                         (FormaRecebimento, Valor, DataVencimento, DataRecebimento, TipoParcelamento, QtdParcelas, Parcela, Observacoes, Tipo)
@@ -47,6 +53,61 @@ namespace Exercicio12_03_16.Database
             sql.ExecuteNonQuery();
             cn.Close();
         }
+
+        private void InsertParcelado(Despesa desp)
+        {
+            float valorParcela = desp.Valor / desp.QtdParcelas;
+            DateTime DataVencimento = desp.DataVencimento;
+
+            desp.Valor = valorParcela;
+            desp.Parcela = 1;
+            InsertParcela(desp);
+            for (int i = 2; i <= desp.QtdParcelas; i++)
+            {
+                DataVencimento = DataVencimento.AddMonths(1);
+                desp = new Despesa(desp.Tipo, desp.FormaRecebimento, valorParcela,
+                                      DataVencimento, new DateTime(), desp.TipoParcelamento,
+                                      desp.QtdParcelas, desp.Observacoes);
+                desp.Parcela = i;
+                InsertParcela(desp);
+            }
+
+        }
+
+        private void InsertParcela(Despesa desp)
+        {
+            string str =
+                @"INSERT INTO Despesas 
+                        (FormaRecebimento, Valor, DataVencimento, DataRecebimento, TipoParcelamento, QtdParcelas, Parcela, Observacoes, Tipo)
+                VALUES  (@FormaRecebimento, @Valor, @DataVencimento, @DataRecebimento, @TipoParcelamento, @QtdParcelas, @Parcela, @Observacoes, @Tipo)";
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@FormaRecebimento", desp.FormaRecebimento));
+            sql.Parameters.Add(new SqlParameter("@Valor", desp.Valor));
+            sql.Parameters.Add(new SqlParameter("@DataVencimento", desp.DataVencimento));
+
+            if (desp.DataRecebimento.Equals(DateTime.Parse("01/01/0001 00:00:00")))
+            {
+                sql.Parameters.Add(new SqlParameter("@DataRecebimento", DBNull.Value));
+            } else
+            {
+                sql.Parameters.Add(new SqlParameter("@DataRecebimento", desp.DataRecebimento));
+            }
+
+            sql.Parameters.Add(new SqlParameter("@TipoParcelamento", desp.TipoParcelamento));
+            sql.Parameters.Add(new SqlParameter("@QtdParcelas", desp.QtdParcelas));
+            sql.Parameters.Add(new SqlParameter("@Parcela", desp.Parcela));
+            sql.Parameters.Add(new SqlParameter("@Observacoes", desp.Observacoes));
+            sql.Parameters.Add(new SqlParameter("@Tipo", tpDespesaDao.GetTipoDespesaId(desp.Tipo)));
+
+
+            cn.Open();
+            sql.ExecuteNonQuery();
+            cn.Close();
+        }
+
+
 
         [DataObjectMethod(DataObjectMethodType.Delete)]
         public void Delete(Despesa despesa)
@@ -99,7 +160,20 @@ namespace Exercicio12_03_16.Database
         {
             List<Despesa> listaDespesas = new List<Despesa>();
 
-            string str = "select * from Despesas";
+            string str = @"select d.Id, 
+                                  FormaRecebimento, 
+                                  Valor, 
+                                  DataVencimento, 
+                                  DataRecebimento, 
+                                  TipoParcelamento, 
+                                  QtdParcelas, 
+                                  Parcela, 
+                                  Observacoes, 
+                                  TipoDespesa, 
+                                  cd.Categoria 
+                                    from Despesas d 
+                                        join TipoDespesa t on d.Tipo = t.Id 
+                                        join CategoriaDespesa cd on t.Categoria = cd.Id";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
@@ -110,15 +184,21 @@ namespace Exercicio12_03_16.Database
             while (sdr.Read())
             {
                 Despesa despesa = new Despesa();
+                despesa.Id = int.Parse(sdr["Id"].ToString());
                 despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
                 despesa.Valor = float.Parse(sdr["Valor"].ToString());
                 despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
-                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+
+                DateTime datRec;
+                DateTime.TryParse(sdr["DataRecebimento"].ToString(), out datRec);
+
+                despesa.DataRecebimento = datRec;
+
                 despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
                 despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
                 despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
                 despesa.Observacoes = sdr["Observacoes"] as string;
-                despesa.Tipo = sdr["Tipo"] as string;
+                despesa.Tipo = sdr["TipoDespesa"].ToString() + "/" + sdr["Categoria"].ToString();
 
                 listaDespesas.Add(despesa);
             }
@@ -134,7 +214,24 @@ namespace Exercicio12_03_16.Database
         {
             List<Despesa> listaDespesas = new List<Despesa>();
 
-            string str = "select * from Despesas where DataVencimento >= @DataIni and DataVencimento <= @DataFim and DataRecebimento = @DataNull";
+
+            string str = @"select d.Id, 
+                                  FormaRecebimento, 
+                                  Valor, 
+                                  DataVencimento, 
+                                  DataRecebimento, 
+                                  TipoParcelamento, 
+                                  QtdParcelas, 
+                                  Parcela, 
+                                  Observacoes, 
+                                  TipoDespesa, 
+                                  cd.Categoria 
+                                    from Despesas d 
+                                        join TipoDespesa t on d.Tipo = t.Id 
+                                        join CategoriaDespesa cd on t.Categoria = cd.Id
+                                        where DataVencimento >= @DataIni and DataVencimento <= @DataFim and DataRecebimento = @DataNull";
+           
+            //str = "select * from Despesas where DataVencimento >= @DataIni and DataVencimento <= @DataFim and DataRecebimento = @DataNull";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
@@ -152,12 +249,17 @@ namespace Exercicio12_03_16.Database
                 despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
                 despesa.Valor = float.Parse(sdr["Valor"].ToString());
                 despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
-                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+
+                DateTime datRec;
+                DateTime.TryParse(sdr["DataRecebimento"].ToString(), out datRec);
+
+                despesa.DataRecebimento = datRec;
+
                 despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
                 despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
                 despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
                 despesa.Observacoes = sdr["Observacoes"] as string;
-                despesa.Tipo = sdr["Tipo"] as string;
+                despesa.Tipo = sdr["TipoDespesa"].ToString() + "/" + sdr["Categoria"].ToString();
 
                 listaDespesas.Add(despesa);
             }
@@ -173,7 +275,22 @@ namespace Exercicio12_03_16.Database
         {
             List<Despesa> listaDespesas = new List<Despesa>();
 
-            string str = "select * from Despesas where DataVencimento >= @DataIni and DataVencimento <= @DataFim";
+            string str = @"select d.Id, 
+                                  FormaRecebimento, 
+                                  Valor, 
+                                  DataVencimento, 
+                                  DataRecebimento, 
+                                  TipoParcelamento, 
+                                  QtdParcelas, 
+                                  Parcela, 
+                                  Observacoes, 
+                                  TipoDespesa, 
+                                  cd.Categoria 
+                                    from Despesas d 
+                                        join TipoDespesa t on d.Tipo = t.Id 
+                                        join CategoriaDespesa cd on t.Categoria = cd.Id
+                                            where DataVencimento >= @DataIni and DataVencimento <= @DataFim";
+            //str = "select * from Despesas where DataVencimento >= @DataIni and DataVencimento <= @DataFim";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
@@ -190,12 +307,17 @@ namespace Exercicio12_03_16.Database
                 despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
                 despesa.Valor = float.Parse(sdr["Valor"].ToString());
                 despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
-                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+
+                DateTime datRec;
+                DateTime.TryParse(sdr["DataRecebimento"].ToString(), out datRec);
+
+                despesa.DataRecebimento = datRec;
+
                 despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
                 despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
                 despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
                 despesa.Observacoes = sdr["Observacoes"] as string;
-                despesa.Tipo = sdr["Tipo"] as string;
+                despesa.Tipo = sdr["TipoDespesa"].ToString() + "/" + sdr["Categoria"].ToString();
 
                 listaDespesas.Add(despesa);
             }
@@ -210,7 +332,23 @@ namespace Exercicio12_03_16.Database
         {
             List<Despesa> listaDespesas = new List<Despesa>();
 
-            string str = "select * from Despesas where DataVencimento <= @DataFim and DataRecebimento = @DataNull";
+            string str = @"select d.Id, 
+                                  FormaRecebimento, 
+                                  Valor, 
+                                  DataVencimento, 
+                                  DataRecebimento, 
+                                  TipoParcelamento, 
+                                  QtdParcelas, 
+                                  Parcela, 
+                                  Observacoes, 
+                                  TipoDespesa, 
+                                  cd.Categoria 
+                                    from Despesas d 
+                                        join TipoDespesa t on d.Tipo = t.Id 
+                                        join CategoriaDespesa cd on t.Categoria = cd.Id
+                                            where DataVencimento <= @DataFim and DataRecebimento = @DataNull";
+            
+            //str = "select * from Despesas where DataVencimento <= @DataFim and DataRecebimento = @DataNull";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
@@ -227,12 +365,17 @@ namespace Exercicio12_03_16.Database
                 despesa.FormaRecebimento = sdr["FormaRecebimento"] as string;
                 despesa.Valor = float.Parse(sdr["Valor"].ToString());
                 despesa.DataVencimento = (DateTime)sdr["DataVencimento"];
-                despesa.DataRecebimento = (DateTime)sdr["DataRecebimento"];
+
+                DateTime datRec;
+                DateTime.TryParse(sdr["DataRecebimento"].ToString(), out datRec);
+
+                despesa.DataRecebimento = datRec;
+
                 despesa.TipoParcelamento = sdr["TipoParcelamento"] as string;
                 despesa.QtdParcelas = int.Parse(sdr["QtdParcelas"].ToString());
                 despesa.Parcela = int.Parse(sdr["Parcela"].ToString());
                 despesa.Observacoes = sdr["Observacoes"] as string;
-                despesa.Tipo = sdr["Tipo"] as string;
+                despesa.Tipo = sdr["TipoDespesa"].ToString() + "/" + sdr["Categoria"].ToString();
 
                 listaDespesas.Add(despesa);
             }

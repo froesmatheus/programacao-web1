@@ -21,7 +21,7 @@ namespace Exercicio12_03_16.Pages
             lancamentosTR = new List<Lancamento>();
             lancamentos = new List<Lancamento>();
 
-            if (!IsPostBack)
+            if (!IsPostBack || String.IsNullOrEmpty(tbxDataIni.Text) || String.IsNullOrEmpty(tbxDataFim.Text))
             {
                 DateTime hoje = DateTime.Today;
                 DateTime primeiroDiaMes = new DateTime(hoje.Year, hoje.Month, 1);
@@ -35,16 +35,6 @@ namespace Exercicio12_03_16.Pages
         {
             
         }
-        private void AtualizarEstatisticas(List<Lancamento> listaFiltrada)
-        {
-            double totalReceita = GetTotalCusto(listaFiltrada.Where(x => x is Receita).ToList());
-            double totalDespesa = GetTotalCusto(listaFiltrada.Where(x => x is Despesa).ToList());
-            tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceita);
-            tbxTotalDespesa.Text = String.Format("Total de Despesas R$ {0:0.00}", totalDespesa);
-
-            tbxSaldo.Text = String.Format("Saldo R$ {0:0.00}", (totalReceita - totalDespesa));
-        }
-
 
         public double GetSaldoParcial(List<Lancamento> lista)
         {
@@ -105,6 +95,30 @@ namespace Exercicio12_03_16.Pages
         protected void btnLimparFiltro_Click(object sender, EventArgs e)
         {
             rdLancamentosFiltro.ClearSelection();
+        }
+
+        protected void grdExtrato_DataBound(object sender, EventArgs e)
+        {
+            double saldo = 0.0;
+            double totalDespesas = 0.0;
+            double totalReceitas = 0.0;
+            foreach(GridViewRow row in grdExtrato.Rows)
+            {
+                if (row.BackColor == System.Drawing.Color.Green)
+                {
+                    totalReceitas += double.Parse(row.Cells[0].Text);
+                } else
+                {
+                    totalDespesas += double.Parse(row.Cells[0].Text);
+                }
+            }
+
+            saldo = totalReceitas - totalDespesas;
+
+            tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceitas);
+            tbxTotalDespesa.Text = String.Format("Total de Despesas R$ {0:0.00}", totalDespesas);
+
+            tbxSaldo.Text = String.Format("Saldo R$ {0:0.00}", saldo);
         }
     }
 }

@@ -9,13 +9,12 @@
     </head>
     <body>
         <div>
-            <asp:ImageButton CausesValidation="false" ID="btnVoltar" runat="server" ImageUrl="~/Images/voltar.png" Style="margin: 5px;" OnClick="btnVoltar_Click" />
 
 
             <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.Receita" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetReceitas" TypeName="Exercicio12_03_16.Database.DAOs.ReceitaDAO" DeleteMethod="Delete" UpdateMethod="Update"></asp:ObjectDataSource>
 
             <asp:Panel GroupingText="Cadastro de Receitas" Style="padding: 10px;" Width="989px" runat="server" Height="603px">
-                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource2" Width="994px" AllowPaging="True">
+                <asp:FormView ID="FormView1" DataKeyNames="Id" runat="server" DataSourceID="ObjectDataSource2" Width="994px" AllowPaging="True">
 
 
                     <EditItemTemplate>
