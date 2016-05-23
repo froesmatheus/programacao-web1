@@ -117,5 +117,10 @@ namespace Exercicio12_03_16.Pages
         {
             Response.Redirect("Default.aspx", true);
         }
+
+        protected void grdReceitas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FormView1.PageIndex = grdReceitas.SelectedIndex;
+        }
     }
 }

@@ -71,8 +71,9 @@ namespace Exercicio12_03_16
             //TextBox tbxCategoria = (TextBox) FormView1.FindControl("tbxCategoria");
             //tbxCategoria.Text = (((ImageButton)sender).CommandArgument); 
             FormView1.ChangeMode(FormViewMode.Edit);
-            FormView1.PageIndex = grdDespesas.SelectedIndex;
         }
+
+
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
@@ -99,6 +100,10 @@ namespace Exercicio12_03_16
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
             FormView1.ChangeMode(FormViewMode.Edit);
+        }
+
+        protected void grdDespesas_SelectedIndexChanged(object sender, EventArgs e)
+        {
             FormView1.PageIndex = grdDespesas.SelectedIndex;
         }
     }

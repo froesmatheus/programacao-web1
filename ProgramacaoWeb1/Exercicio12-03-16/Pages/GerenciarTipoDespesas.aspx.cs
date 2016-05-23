@@ -123,5 +123,10 @@ namespace Exercicio12_03_16
         {
             e.NewValues[0] = categoriasDAO.Get(e.NewValues[0].ToString());
         }
+
+        protected void grdDespesas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FormView1.PageIndex = grdDespesas.SelectedIndex;
+        }
     }
 }

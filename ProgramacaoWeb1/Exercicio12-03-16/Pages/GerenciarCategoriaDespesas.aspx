@@ -74,13 +74,8 @@
 
                     <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
 
-                    <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
+                    <asp:GridView ID="grdDespesas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" OnSelectedIndexChanged="grdDespesas_SelectedIndexChanged">
                         <Columns>
-                            <asp:TemplateField ShowHeader="False">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select" OnClick="LinkButton1_Click" Text="Select"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
                             <asp:BoundField HeaderText="Categoria" DataField="categoria" SortExpression="categoria">
                                 <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" ForeColor="Black" />
@@ -91,7 +86,7 @@
                             </asp:BoundField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" CommandName='<%# Eval("id") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="18px" />
+                                    <asp:ImageButton ID="btnEditar" CommandName='Select' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="18px" />
                                 </ItemTemplate>
                                 <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />

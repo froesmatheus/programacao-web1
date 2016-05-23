@@ -105,7 +105,7 @@
                     <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
                 </p>
 
-                <asp:GridView ID="grdReceitas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" Style="margin: 10px;" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" AllowPaging="True">
+                <asp:GridView ID="grdReceitas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" Style="margin: 10px;" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" AllowPaging="True" OnSelectedIndexChanged="grdReceitas_SelectedIndexChanged">
                     <Columns>
                         <asp:BoundField HeaderText="Tipo de Receita" DataField="tipoReceita" SortExpression="tipoReceita">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -118,7 +118,7 @@
                         </asp:BoundField>
                         <asp:TemplateField ShowHeader="False">
                             <ItemTemplate>
-                                <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Images/editar.png" Width="19px" CausesValidation="false" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("tipoReceita") %>' OnClick="btnEditar_Click" />
+                                <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Images/editar.png" Width="19px" CausesValidation="false" CommandName='Select' CommandArgument='<%# Eval("tipoReceita") %>' OnClick="btnEditar_Click" />
                             </ItemTemplate>
                             <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />

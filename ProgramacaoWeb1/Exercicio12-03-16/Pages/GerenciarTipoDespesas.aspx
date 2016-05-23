@@ -23,7 +23,7 @@
                         <asp:Parameter Name="query" Type="String" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
-                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" OnItemInserting="FormView1_ItemInserting" AllowPaging="True" OnItemUpdating="FormView1_ItemUpdating" Width="641px">
+                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" AllowPaging="True" Width="641px" OnItemInserting="FormView1_ItemInserting" OnItemUpdating="FormView1_ItemUpdating">
 
 
 
@@ -131,7 +131,7 @@
 
 
                 <p>
-                    <asp:GridView ID="grdDespesas" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Style="margin: 10px;" Width="582px" DataSourceID="ObjectDataSource1">
+                    <asp:GridView ID="grdDespesas" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Style="margin: 10px;" Width="582px" DataSourceID="ObjectDataSource1" OnSelectedIndexChanged="grdDespesas_SelectedIndexChanged">
                         <Columns>
                             <asp:TemplateField HeaderText="Categoria">
                                 <ItemTemplate>
@@ -146,7 +146,7 @@
                             </asp:BoundField>
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnEditar" runat="server" CausesValidation="false" CommandArgument='<%# Eval("categoria.categoria") %>' CommandName='<%# Eval("tipoDespesa") %>' Height="19px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="19px" />
+                                    <asp:ImageButton ID="btnEditar" runat="server" CausesValidation="false" CommandArgument='<%# Eval("categoria.categoria") %>' CommandName='Select' Height="19px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="19px" />
                                 </ItemTemplate>
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
