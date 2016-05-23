@@ -46,14 +46,14 @@
 
                         <p>
                             <label>Data de vencimento: </label>
-                            <asp:TextBox Text='<%# Bind("DataVencimento") %>' ID="tbxDataVenc" TextMode="Date" runat="server" MaxLength="255"></asp:TextBox>
+                            <asp:TextBox Text='<%# Bind("DataVencimento", "{0:d}") %>' ID="tbxDataVenc" TextMode="Date" runat="server" MaxLength="255"></asp:TextBox>
                             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="tbxDataVenc" ErrorMessage="Data inválida" ForeColor="Red" Operator="GreaterThan" ValueToCompare="01/01/1900"></asp:CompareValidator>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxDataVenc" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
                         </p>
 
                         <p>
                             <label>Data de pagamento: </label>
-                            <asp:TextBox Text='<%# Bind("DataRecebimento") %>' ID="tbxDataRecebimento" TextMode="Date" runat="server" MaxLength="255"></asp:TextBox>
+                            <asp:TextBox Text='<%# Bind("DataRecebimento", "{0:d}") %>' ID="tbxDataRecebimento" TextMode="Date" runat="server" MaxLength="255"></asp:TextBox>
                             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="tbxDataRecebimento" ErrorMessage="Data inválida" ForeColor="Red" ValueToCompare="01/01/1900" Operator="GreaterThan"></asp:CompareValidator>
                         </p>
 
@@ -194,10 +194,10 @@
                     <asp:Label ID="valorLabel" runat="server" Text='<%# Bind("Valor") %>' />
                         <br />
                         Data de Vencimento:
-                    <asp:Label ID="dataVencimentoLabel" runat="server" Text='<%# Bind("DataVencimento") %>' />
+                    <asp:Label ID="dataVencimentoLabel" runat="server" Text='<%# Bind("DataVencimento", "{0:d}") %>' />
                         <br />
                         Data de Recebimento:
-                    <asp:Label ID="dataRecebimentoLabel" runat="server" Text='<%# Bind("DataRecebimento") %>' />
+                    <asp:Label ID="dataRecebimentoLabel" runat="server" Text='<%# Bind("DataRecebimento", "{0:d}") %>' />
                         <br />
                         Tipo de Parcelamento:
                     <asp:Label ID="tipoParcelamentoLabel" runat="server" Text='<%# Bind("TipoParcelamento") %>' />

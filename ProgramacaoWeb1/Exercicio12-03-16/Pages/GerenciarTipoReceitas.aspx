@@ -16,7 +16,7 @@
         <div>
 
             <asp:Panel GroupingText="Manutenção de Tipo de Receita" Width="650px" runat="server">
-                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="632px" Height="103px" AllowPaging="True">
+                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="632px" Height="103px">
 
 
                     <EditItemTemplate>

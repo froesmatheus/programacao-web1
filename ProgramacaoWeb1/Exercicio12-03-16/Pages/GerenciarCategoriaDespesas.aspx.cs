@@ -106,5 +106,10 @@ namespace Exercicio12_03_16
         {
             FormView1.PageIndex = grdDespesas.SelectedIndex;
         }
+
+        protected void InsertButton_Click(object sender, EventArgs e)
+        {
+            FormView1.ChangeMode(FormViewMode.Insert);
+        }
     }
 }

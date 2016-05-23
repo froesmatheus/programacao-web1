@@ -112,14 +112,13 @@
     <Content Include="Controls\ListarLancamentos.ascx" />
     <Content Include="Global.asax" />
     <Content Include="Images\voltar.png" />
-    <Content Include="MeuRelatorio.aspx" />
+    <Content Include="Relatorios\MeuRelatorio.aspx" />
     <Content Include="Pages\CadastrarDespesa.aspx" />
     <Content Include="Pages\CadastrarReceita.aspx" />
     <Content Include="Pages\ConsultarExtrato.aspx" />
     <Content Include="Pages\GerenciarTipoDespesas.aspx" />
     <Content Include="packages.config" />
     <Content Include="MasterPage.Master" />
-    <Content Include="TestesControl.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\CadastrarCliente.aspx" />
@@ -152,11 +151,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MeuRelatorio.aspx.cs">
+    <Compile Include="Relatorios\MeuRelatorio.aspx.cs">
       <DependentUpon>MeuRelatorio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MeuRelatorio.aspx.designer.cs">
+    <Compile Include="Relatorios\MeuRelatorio.aspx.designer.cs">
       <DependentUpon>MeuRelatorio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Despesa.cs" />
@@ -223,13 +222,6 @@
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestesControl.aspx.cs">
-      <DependentUpon>TestesControl.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestesControl.aspx.designer.cs">
-      <DependentUpon>TestesControl.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config">

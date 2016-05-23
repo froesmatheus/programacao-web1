@@ -22,7 +22,7 @@
         <div>
 
             <asp:Panel runat="server" GroupingText="Categoria de Despesas" Width="560px">
-                <label>&nbsp;</label><asp:FormView ID="FormView1" runat="server" AllowPaging="True" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="531px">
+                <label>&nbsp;</label><asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="531px">
                     <EditItemTemplate>
                         <label>Categoria: </label>
                         <asp:TextBox ID="tbxCategoria" Text='<%# Bind("categoria") %>' runat="server" Width="250px" MaxLength="255" />

@@ -21,45 +21,7 @@ namespace Exercicio12_03_16.Pages
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
-            //if (btnCadastrar.Text.Equals("Salvar"))
-            //{
-            //    TipoReceita rec = dao.GetTipoReceita(btnCadastrar.CommandArgument, btnCadastrar.CommandName);
-            //    if (rec != null)
-            //    {
-            //        rec.tipoReceita = tbxTxtReceita.Text;
-            //        rec.categoria = drpDownCategoriaReceita.SelectedValue;
-            //        btnCancelar.Visible = false;
-            //        btnCadastrar.Text = "Cadastrar";
-            //        dao.Update(rec);
-            //        grdReceitas.DataBind();
-            //        tbxTxtReceita.Text = String.Empty;
-            //        return;
-            //    }
-
-            //}
-
-
-
-            //TipoReceita tipoExistente = dao.GetTipoReceita(tbxTxtReceita.Text.Trim().ToLower(), drpDownCategoriaReceita.SelectedValue);
-            //if (tipoExistente != null)
-            //{
-            //    tbxTxtReceita.Text = String.Empty;
-            //    string script = "<script> alert(\"Essa receita já existe\");</script>";
-            //    ScriptManager.RegisterStartupScript(this, typeof(Page), "AlertCategoriaExistente", script, false);
-            //    tbxTxtReceita.Focus();
-            //    return;
-            //}
-
-
-            //string tipoReceitaStr = tbxTxtReceita.Text;
-            //string categoriaTipoReceita = drpDownCategoriaReceita.SelectedItem.ToString();
-
-            //TipoReceita tipoReceita = new TipoReceita(tipoReceitaStr, categoriaTipoReceita);
-            //dao.Insert(tipoReceita);
-            //grdReceitas.DataBind();
-
-            //tbxTxtReceita.Text = String.Empty;
-            //tbxTxtReceita.Focus();
+            
 
         }
 
