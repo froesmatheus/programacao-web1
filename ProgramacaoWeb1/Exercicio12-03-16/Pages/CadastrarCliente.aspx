@@ -27,11 +27,30 @@
         </style>
     </head>
     <body>
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+
+        <ajaxToolkit:ModalPopupExtender 
+            ID="ModalPopupExtender1" 
+            PopupControlID="ModalPanel"
+            CancelControlID="btnFechar"
+            TargetControlID="labelModal"
+            DropShadow="true"
+            runat="server" />
+
+        <asp:Label ID="labelModal" runat="server"/>
+
+        <asp:Panel ID="ModalPanel" runat="server" BackColor="#0033cc" Style="padding: 16px;">
+            <asp:Label ForeColor="#ffffff" Font-Bold="true" Font-Size="Medium" ID="LabelMessage" runat="server" />
+            <br />
+            <br />
+            <asp:Button CausesValidation="false" ID="btnFechar" runat="server" Text="OK" />
+        </asp:Panel>
+
+
         <div>
 
-
-            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.Cliente" DeleteMethod="Delete" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetClientes" TypeName="Exercicio12_03_16.Database.ClienteDAO" UpdateMethod="Update"></asp:ObjectDataSource>
-
+            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.Cliente" DeleteMethod="Delete" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetClientes" TypeName="Exercicio12_03_16.Database.ClienteDAO" UpdateMethod="Update" OnInserted="ObjectDataSource1_Inserted"></asp:ObjectDataSource>
 
             <asp:Panel GroupingText="Meus Dados" runat="server" Width="800px">
                 <asp:FormView ID="FormView2" DataKeyNames="Id" runat="server" AllowPaging="True" DataSourceID="ObjectDataSource1" Style="margin-top: 0px" Width="789px">
@@ -46,7 +65,7 @@
 
                             <p>
                                 <label>Data de aniversário: </label>
-                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("DataNasc") %>' runat="server" Width="250px" TextMode="Date" />
+                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("DataNasc", "{0:d}") %>' runat="server" Width="250px" TextMode="Date" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxDataNasc"
                                     ErrorMessage="Campo obrigatório (Data de aniversário)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator1" runat="server" Display="None"
@@ -118,7 +137,7 @@
 
                             <p>
                                 <label>Data de aniversário: </label>
-                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("DataNasc") %>' runat="server" Width="250px" TextMode="Date" />
+                                <asp:TextBox ID="tbxDataNasc" Text='<%# Bind("DataNasc", "{0:d}") %>' runat="server" Width="250px" TextMode="Date" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbxDataNasc"
                                     ErrorMessage="Campo obrigatório (Data de aniversário)" ForeColor="Red"> *</asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="CompareValidator1" runat="server" Display="None"
@@ -177,7 +196,7 @@
                         <asp:Label ID="nomeLabel" runat="server" Text='<%# Bind("Nome") %>' />
                         <br />
                         Data de Nascimento:
-                        <asp:Label ID="dataNascLabel" runat="server" Text='<%# Bind("DataNasc") %>' />
+                        <asp:Label ID="dataNascLabel" runat="server" Text='<%# Bind("DataNasc", "{0:d}") %>' />
                         <br />
                         Email:
                         <asp:Label ID="emailLabel" runat="server" Text='<%# Bind("Email") %>' />
@@ -190,6 +209,11 @@
                         &nbsp;&nbsp;<asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Atualizar" />
                         &nbsp;&nbsp;<asp:LinkButton ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Excluir" />
                         &nbsp;
+
+                        <ajaxToolkit:ConfirmButtonExtender ID="cbe" runat="server"
+                            TargetControlID="DeleteButton"
+                            ConfirmText="Você tem certeza que deseja excluir esse cliente?" />
+
                     </ItemTemplate>
                 </asp:FormView>
 

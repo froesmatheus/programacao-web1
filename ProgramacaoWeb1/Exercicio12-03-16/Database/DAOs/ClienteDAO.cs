@@ -19,8 +19,13 @@ namespace Exercicio12_03_16.Database
 
 
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void Insert(Cliente cliente)
+        public int Insert(Cliente cliente)
         {
+            if (GetCliente(cliente.Email) != null)
+            {
+                return -1;
+            }
+
             string str = @"INSERT INTO Clientes (Nome, DataNasc, Email, Senha)
                                                             VALUES (@Nome, @DataNasc, @Email, @Senha)";
             SqlCommand sql = new SqlCommand(str, cn);
@@ -31,8 +36,10 @@ namespace Exercicio12_03_16.Database
             sql.Parameters.Add(new SqlParameter("@Senha", cliente.Senha));
 
             cn.Open();
-            sql.ExecuteNonQuery();
+            int rows = sql.ExecuteNonQuery();
             cn.Close();
+
+            return rows;
         }
 
         [DataObjectMethod(DataObjectMethodType.Delete)]
@@ -87,7 +94,7 @@ namespace Exercicio12_03_16.Database
             cn.Open();
 
             SqlDataReader sdr = sql.ExecuteReader();
-            
+
             while (sdr.Read())
             {
                 Cliente cliente = new Cliente();
@@ -105,5 +112,37 @@ namespace Exercicio12_03_16.Database
 
             return lista;
         }
+
+        public Cliente GetCliente(String email)
+        {
+            string str = "select * from Clientes where Email = @Email";
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@Email", email));
+
+
+            cn.Open();
+
+            SqlDataReader sdr = sql.ExecuteReader();
+
+            Cliente cliente = null;
+            if (sdr.Read())
+            {
+                cliente = new Cliente();
+                cliente.Id = int.Parse(sdr["Id"].ToString());
+                cliente.Nome = sdr["Nome"].ToString();
+                cliente.DataNasc = DateTime.Parse(sdr["DataNasc"].ToString());
+                cliente.Email = sdr["Email"].ToString();
+                cliente.Senha = sdr["Senha"].ToString();
+            }
+
+            cn.Close();
+            sdr.Close();
+
+            return cliente;
+        }
+
+
     }
 }

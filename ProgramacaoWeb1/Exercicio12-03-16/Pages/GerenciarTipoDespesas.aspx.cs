@@ -128,5 +128,19 @@ namespace Exercicio12_03_16
         {
             FormView1.PageIndex = grdDespesas.SelectedIndex;
         }
+
+        protected void ObjectDataSource1_Inserted(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            Label label = (Label)ModalPopupExtender1.FindControl("LabelMessage");
+            if (int.Parse(e.ReturnValue.ToString()) > 0)
+            {
+                label.Text = "Tipo de Despesa adicionado com sucesso";
+            }
+            else
+            {
+                label.Text = "Tipo de Despesa já existe";
+            }
+            ModalPopupExtender1.Show();
+        }
     }
 }

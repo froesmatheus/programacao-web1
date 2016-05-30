@@ -20,8 +20,13 @@ namespace Exercicio12_03_16.Database.DAOs
 
 
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void Insert(TipoReceita tipoReceita)
+        public int Insert(TipoReceita tipoReceita)
         {
+            if (GetTipoReceita(tipoReceita.tipoReceita) != null)
+            {
+                return -1;
+            }
+
             string str = @"INSERT INTO TipoReceita (TipoReceita, Categoria, Status)
                                                             VALUES (@TipoReceita, @Categoria, @Status)";
             SqlCommand sql = new SqlCommand(str, cn);
@@ -31,8 +36,10 @@ namespace Exercicio12_03_16.Database.DAOs
             sql.Parameters.Add(new SqlParameter("@Status", tipoReceita.status));
 
             cn.Open();
-            sql.ExecuteNonQuery();
+            int rows = sql.ExecuteNonQuery();
             cn.Close();
+
+            return rows;
         }
 
         public TipoReceita GetTipoReceita(string tpReceita)
@@ -95,6 +102,10 @@ namespace Exercicio12_03_16.Database.DAOs
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<TipoReceita> GetTiposReceita(string categoriaReceita, string query)
         {
+            if (categoriaReceita.Equals("null") && !String.IsNullOrEmpty(query))
+            {
+                return FiltrarTiposReceita(query);
+            }
             List<TipoReceita> listaTipos = new List<TipoReceita>();
 
             string str = @"select Id, TipoReceita, Categoria, Status from TipoReceita 
@@ -148,6 +159,61 @@ namespace Exercicio12_03_16.Database.DAOs
 
             return listaTipos;
         }
+
+
+        public List<TipoReceita> FiltrarTiposReceita(string query)
+        {
+            List<TipoReceita> listaTipos = new List<TipoReceita>();
+
+            string str = @"select * 
+                            from TipoReceita 
+                            where TipoReceita like '%'+@Query+'%'";
+
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@Query", query));
+
+            cn.Open();
+
+            SqlDataReader sdr = sql.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                TipoReceita tipoReceita = new TipoReceita();
+                tipoReceita.id = int.Parse(sdr["Id"].ToString());
+                tipoReceita.categoria = sdr["Categoria"].ToString();
+                tipoReceita.tipoReceita = sdr["TipoReceita"].ToString();
+
+                if (int.Parse(sdr["Status"].ToString()) == 0)
+                {
+                    tipoReceita.status = CategoriaDespesa.Status.ATIVO;
+                }
+                else
+                {
+                    tipoReceita.status = CategoriaDespesa.Status.DESATIVADO;
+                }
+
+                listaTipos.Add(tipoReceita);
+            }
+            sdr.Close();
+            cn.Close();
+
+            return listaTipos;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         [DataObjectMethod(DataObjectMethodType.Select)]

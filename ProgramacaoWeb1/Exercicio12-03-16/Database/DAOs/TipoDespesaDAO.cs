@@ -19,8 +19,13 @@ namespace Exercicio12_03_16.Database.DAOs
         }
 
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void Insert(TipoDespesa tipoDespesa)
+        public int Insert(TipoDespesa tipoDespesa)
         {
+            if (GetTipoDespesa(tipoDespesa.categoria.categoria, tipoDespesa.tipoDespesa) != null)
+            {
+                return -1;
+            }
+
             string str = @"INSERT INTO TipoDespesa (TipoDespesa, Caracteristica, Categoria)
                                                             VALUES (@TipoDespesa, @Caracteristica, @Categoria)";
             SqlCommand sql = new SqlCommand(str, cn);
@@ -30,13 +35,19 @@ namespace Exercicio12_03_16.Database.DAOs
             sql.Parameters.Add(new SqlParameter("@Categoria", tipoDespesa.categoria.id));
 
             cn.Open();
-            sql.ExecuteNonQuery();
+            int rows = sql.ExecuteNonQuery();
             cn.Close();
+
+            return rows;
         }
 
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<TipoDespesa> GetTiposDespesa(string categoria, string query)
         {
+            if (categoria.Equals("null") && !String.IsNullOrEmpty(query))
+            {
+                return FiltrarTiposDespesas(query);
+            }
             List<TipoDespesa> listaTipos = new List<TipoDespesa>();
 
             string str = @"select t.Id, c.Categoria, TipoDespesa, t.Status, t.Caracteristica 
@@ -90,6 +101,52 @@ namespace Exercicio12_03_16.Database.DAOs
 
             return listaTipos;
         }
+
+
+
+        public List<TipoDespesa> FiltrarTiposDespesas(string query)
+        {
+            List<TipoDespesa> listaTipos = new List<TipoDespesa>();
+
+            string str = @"select t.Id, c.Categoria, TipoDespesa, t.Status, t.Caracteristica 
+                            from TipoDespesa t join CategoriaDespesa c on t.Categoria = c.Id
+                            where TipoDespesa like '%'+@Query+'%'";
+
+
+            SqlCommand sql = new SqlCommand(str, cn);
+
+            sql.Parameters.Add(new SqlParameter("@Query", query));
+
+            cn.Open();
+
+            SqlDataReader sdr = sql.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                TipoDespesa tipoDespesa = new TipoDespesa();
+                tipoDespesa.id = int.Parse(sdr["Id"].ToString());
+                tipoDespesa.categoria = new CategoriaDespesa(sdr["Categoria"].ToString());
+                tipoDespesa.caracteristica = sdr["Caracteristica"].ToString();
+                tipoDespesa.tipoDespesa = sdr["TipoDespesa"].ToString();
+
+                if (int.Parse(sdr["Status"].ToString()) == 0)
+                {
+                    tipoDespesa.status = CategoriaDespesa.Status.ATIVO;
+                }
+                else
+                {
+                    tipoDespesa.status = CategoriaDespesa.Status.DESATIVADO;
+                }
+
+                listaTipos.Add(tipoDespesa);
+            }
+            sdr.Close();
+            cn.Close();
+
+            return listaTipos;
+        }
+
+
 
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<TipoDespesa> GetTiposDespesa()

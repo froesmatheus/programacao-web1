@@ -23,7 +23,7 @@
                         <asp:Parameter Name="query" Type="String" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
-                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" AllowPaging="True" Width="641px" OnItemInserting="FormView1_ItemInserting" OnItemUpdating="FormView1_ItemUpdating">
+                <asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="641px" OnItemInserting="FormView1_ItemInserting" OnItemUpdating="FormView1_ItemUpdating">
 
 
 
@@ -139,9 +139,13 @@
                                         <%# Eval("categoria.categoria") %>
                                     </p>
                                 </ItemTemplate>
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
                             </asp:TemplateField>
-                            <asp:BoundField DataField="tipoDespesa" HeaderText="Tipo" />
+                            <asp:BoundField DataField="tipoDespesa" HeaderText="Tipo">
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
+                            </asp:BoundField>
                             <asp:BoundField DataField="status" HeaderText="Status">
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:BoundField>
                             <asp:TemplateField ShowHeader="False">
@@ -149,6 +153,7 @@
                                     <asp:ImageButton ID="btnEditar" runat="server" CausesValidation="false" CommandArgument='<%# Eval("categoria.categoria") %>' CommandName='Select' Height="19px" ImageUrl="~/Images/editar.png" OnClick="btnEditar_Click" Width="19px" />
                                 </ItemTemplate>
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                             <asp:TemplateField>
@@ -158,11 +163,12 @@
                                 <ItemTemplate>
                                     <asp:ImageButton ID="btnDesativar" runat="server" CausesValidation="false" CommandArgument='<%# Eval("categoria.categoria") %>' CommandName='<%# Eval("tipoDespesa") %>' Height="19px" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" OnClientClick="if (!confirmacao()) return false;" />
                                 </ItemTemplate>
+                                <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.TipoDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetTiposDespesa" TypeName="Exercicio12_03_16.Database.DAOs.TipoDespesaDAO" UpdateMethod="Update">
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.TipoDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetTiposDespesa" TypeName="Exercicio12_03_16.Database.DAOs.TipoDespesaDAO" UpdateMethod="Update" OnInserted="ObjectDataSource1_Inserted">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="drpDownCategorias2" Name="categoria" PropertyName="SelectedValue" Type="String" />
                             <asp:ControlParameter ControlID="tbxTpDespesa" Name="query" PropertyName="Text" Type="String" />
@@ -171,6 +177,27 @@
                 </p>
             </asp:Panel>
         </div>
+
+
+
+        <asp:ScriptManager ID="ScriptManager" runat="server" />
+        <ajaxToolkit:ModalPopupExtender
+            ID="ModalPopupExtender1"
+            PopupControlID="ModalPanel"
+            CancelControlID="btnFechar"
+            TargetControlID="labelModal"
+            DropShadow="true"
+            runat="server" />
+
+        <asp:Label ID="labelModal" runat="server" />
+
+        <asp:Panel ID="ModalPanel" runat="server" BackColor="#0033cc" Style="padding: 16px;">
+            <asp:Label ForeColor="#ffffff" Font-Bold="true" Font-Size="Medium" ID="LabelMessage" runat="server" />
+            <br />
+            <br />
+            <asp:Button CausesValidation="false" ID="btnFechar" runat="server" Text="OK" />
+        </asp:Panel>
+
     </body>
     </html>
 </asp:Content>

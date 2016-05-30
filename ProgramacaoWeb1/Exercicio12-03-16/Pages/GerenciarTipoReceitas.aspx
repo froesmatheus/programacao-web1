@@ -36,7 +36,7 @@
                                 <asp:ListItem>Transferência entre Contas</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategoriaReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                       </p>     
+                        </p>
                         <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Atualizar" />
                         &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
                     </EditItemTemplate>
@@ -56,10 +56,10 @@
                                 <asp:ListItem>Transferência entre Contas</asp:ListItem>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpDownCategoriaReceita" ForeColor="Red"> * Campo obrigatório</asp:RequiredFieldValidator>
-                       </p>     
-                       
-                            <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Adicionar" />
-                            &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
+                        </p>
+
+                        <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Adicionar" />
+                        &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancelar" />
                     </InsertItemTemplate>
 
 
@@ -108,12 +108,15 @@
                 <asp:GridView ID="grdReceitas" runat="server" Width="509px" ShowHeaderWhenEmpty="True" Style="margin: 10px;" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" AllowPaging="True" OnSelectedIndexChanged="grdReceitas_SelectedIndexChanged">
                     <Columns>
                         <asp:BoundField HeaderText="Tipo de Receita" DataField="tipoReceita" SortExpression="tipoReceita">
+                            <HeaderStyle BackColor="Black" ForeColor="White" />
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
                         <asp:BoundField DataField="categoria" HeaderText="Categoria" SortExpression="categoria">
+                            <HeaderStyle BackColor="Black" ForeColor="White" />
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
                         <asp:BoundField HeaderText="Status" DataField="status">
+                            <HeaderStyle BackColor="Black" ForeColor="White" />
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:BoundField>
                         <asp:TemplateField ShowHeader="False">
@@ -121,6 +124,7 @@
                                 <asp:ImageButton ID="btnEditar" runat="server" Height="19px" ImageUrl="~/Images/editar.png" Width="19px" CausesValidation="false" CommandName='Select' CommandArgument='<%# Eval("tipoReceita") %>' OnClick="btnEditar_Click" />
                             </ItemTemplate>
                             <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                            <HeaderStyle BackColor="Black" ForeColor="White" />
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:TemplateField>
                         <asp:TemplateField>
@@ -131,11 +135,12 @@
                                 <asp:ImageButton ID="btnDesativar" runat="server" Height="19px" ImageUrl="~/Images/desativar.png" OnClientClick="if (!confirmacao()) return false;"
                                     CausesValidation="false" CommandName='<%# Eval("categoria") %>' CommandArgument='<%# Eval("tipoReceita") %>' OnClick="btnDesativar_Click" />
                             </ItemTemplate>
+                            <HeaderStyle BackColor="Black" ForeColor="White" />
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.TipoReceita" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetTiposReceita" TypeName="Exercicio12_03_16.Database.DAOs.TipoReceitaDAO" UpdateMethod="Update">
+                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.TipoReceita" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetTiposReceita" TypeName="Exercicio12_03_16.Database.DAOs.TipoReceitaDAO" UpdateMethod="Update" OnInserted="ObjectDataSource1_Inserted">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="drpDownCategoriaReceita2" Name="categoriaReceita" PropertyName="SelectedValue" Type="String" />
                         <asp:ControlParameter ControlID="tbxReceita" Name="query" PropertyName="Text" Type="String" />
@@ -145,6 +150,25 @@
                 </p>
             </asp:Panel>
         </div>
+
+        <asp:ScriptManager ID="ScriptManager" runat="server" />
+
+        <ajaxToolkit:ModalPopupExtender
+            ID="ModalPopupExtender1"
+            PopupControlID="ModalPanel"
+            CancelControlID="btnFechar"
+            TargetControlID="labelModal"
+            DropShadow="true"
+            runat="server" />
+
+        <asp:Label ID="labelModal" runat="server" />
+
+        <asp:Panel ID="ModalPanel" runat="server" BackColor="#0033cc" Style="padding: 16px;">
+            <asp:Label ForeColor="#ffffff" Font-Bold="true" Font-Size="Medium" ID="LabelMessage" runat="server" />
+            <br />
+            <br />
+            <asp:Button CausesValidation="false" ID="btnFechar" runat="server" Text="OK" />
+        </asp:Panel>
     </body>
     </html>
 </asp:Content>

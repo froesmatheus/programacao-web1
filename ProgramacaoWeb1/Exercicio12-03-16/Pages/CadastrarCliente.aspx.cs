@@ -40,5 +40,19 @@ namespace Exercicio12_03_16
         {
             Response.Redirect("Default.aspx", true);
         }
+
+        protected void ObjectDataSource1_Inserted(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            Label label = (Label)ModalPopupExtender1.FindControl("LabelMessage");
+            if (int.Parse(e.ReturnValue.ToString()) > 0)
+            {
+                label.Text = "Cliente adicionado com sucesso";
+            }
+            else
+            {
+                label.Text = "Cliente já existe";
+            }
+            ModalPopupExtender1.Show();
+        }
     }
 }

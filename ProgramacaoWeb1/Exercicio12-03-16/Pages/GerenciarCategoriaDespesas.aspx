@@ -14,13 +14,31 @@
 
         <script type="text/javascript">
             function confirmacao() {
-                return confirm("Você realmente deseja desativar essa categoria?");
+                return confirm("Você realmente deseja alterar o status dessa categoria?");
             }
         </script>
     </head>
     <body>
-        <div>
 
+        <ajaxToolkit:ModalPopupExtender 
+            ID="ModalPopupExtender1" 
+            PopupControlID="ModalPanel"
+            CancelControlID="btnFechar"
+            TargetControlID="labelModal"
+            DropShadow="true"
+            runat="server" />
+
+        <asp:Label ID="labelModal" runat="server"/>
+
+        <asp:Panel ID="ModalPanel" runat="server" BackColor="#0033cc" Style="padding: 16px;">
+            <asp:Label ForeColor="#ffffff" Font-Bold="true" Font-Size="Medium" ID="LabelMessage" runat="server" />
+            <br />
+            <br />
+            <asp:Button CausesValidation="false" ID="btnFechar" runat="server" Text="OK" />
+        </asp:Panel>
+
+        <div>
+            <asp:ScriptManager ID="ScriptManager1" runat="server" />
             <asp:Panel runat="server" GroupingText="Categoria de Despesas" Width="560px">
                 <label>&nbsp;</label><asp:FormView ID="FormView1" runat="server" DataSourceID="ObjectDataSource1" DefaultMode="Insert" Width="531px">
                     <EditItemTemplate>
@@ -70,6 +88,19 @@
                 <p>
                     <label>Categoria: </label>
                     <asp:TextBox ID="tbxBuscarDepesa" runat="server" Width="250px" MaxLength="255" Style="margin-right: 5px" />
+
+                    <ajaxToolkit:AutoCompleteExtender
+                        runat="server"
+                        ID="autoComplete1"
+                        TargetControlID="tbxBuscarDepesa"
+                        ServiceMethod="GetCompletionList"
+                        ServicePath="~/Servico.asmx"
+                        MinimumPrefixLength="1"
+                        CompletionInterval="1000"
+                        EnableCaching="true"
+                        DelimiterCharacters=";" />
+
+
                     <asp:Button runat="server" ID="btnFiltrar0" Text="Filtrar" CausesValidation="False" OnClick="btnFiltrar_Click" />
 
                     <asp:Button ID="btnExcluirFiltro" Style="margin-left: 5px;" Visible="false" runat="server" CausesValidation="False" OnClick="btnExcluirFiltro_Click" Text="X" />
@@ -93,7 +124,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="btnDesativar" CommandName='<%# Eval("id") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" Width="18px" />
+                                    <asp:ImageButton ID="btnDesativar" CommandName='<%# Eval("id") %>' CommandArgument='<%# Eval("categoria") %>' CausesValidation="false" runat="server" Height="17px" OnClientClick="if (!confirmacao()) return false;" ImageUrl="~/Images/desativar.png" OnClick="btnDesativar_Click" Width="18px" />
                                 </ItemTemplate>
                                 <HeaderStyle BackColor="Black" ForeColor="White" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
@@ -101,7 +132,8 @@
                         </Columns>
                     </asp:GridView>
 
-                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.CategoriaDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCategorias" TypeName="Exercicio12_03_16.Database.DAOs.CategoriaDespesaDAO" UpdateMethod="Update">
+                   
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="Exercicio12_03_16.CategoriaDespesa" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCategorias" TypeName="Exercicio12_03_16.Database.DAOs.CategoriaDespesaDAO" UpdateMethod="Update" OnInserted="ObjectDataSource1_Inserted">
                         <SelectParameters>
                             <asp:ControlParameter ControlID="tbxBuscarDepesa" DefaultValue="" Name="query" PropertyName="Text" Type="String" />
                         </SelectParameters>
@@ -110,6 +142,10 @@
                 </p>
             </asp:Panel>
         </div>
+
+
+
+
     </body>
     </html>
 </asp:Content>

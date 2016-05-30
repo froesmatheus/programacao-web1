@@ -111,5 +111,19 @@ namespace Exercicio12_03_16
         {
             FormView1.ChangeMode(FormViewMode.Insert);
         }
+
+        protected void ObjectDataSource1_Inserted(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            Label label = (Label)ModalPopupExtender1.FindControl("LabelMessage");
+            if (int.Parse(e.ReturnValue.ToString()) > 0)
+            {
+                label.Text = "Categoria adicionada com sucesso";
+            }
+            else
+            {
+                label.Text = "Categoria já existe";
+            }
+            ModalPopupExtender1.Show();
+        }
     }
 }

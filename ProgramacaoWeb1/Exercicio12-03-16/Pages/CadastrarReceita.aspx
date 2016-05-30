@@ -9,8 +9,6 @@
     </head>
     <body>
         <div>
-
-
             <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.Receita" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetReceitas" TypeName="Exercicio12_03_16.Database.DAOs.ReceitaDAO" DeleteMethod="Delete" UpdateMethod="Update"></asp:ObjectDataSource>
 
             <asp:Panel GroupingText="Cadastro de Receitas" Style="padding: 10px;" Width="989px" runat="server" Height="603px">

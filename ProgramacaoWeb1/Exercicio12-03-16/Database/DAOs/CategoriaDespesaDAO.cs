@@ -19,8 +19,13 @@ namespace Exercicio12_03_16.Database.DAOs
 
 
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void Insert(CategoriaDespesa categoriaDespesa)
+        public int Insert(CategoriaDespesa categoriaDespesa)
         {
+            if (Get(categoriaDespesa.categoria) != null)
+            {
+                return -1;
+            } 
+
             string str = @"INSERT INTO CategoriaDespesa (Categoria, Status)
                                                             VALUES (@Categoria, @Status)";
             SqlCommand sql = new SqlCommand(str, cn);
@@ -29,18 +34,20 @@ namespace Exercicio12_03_16.Database.DAOs
             sql.Parameters.Add(new SqlParameter("@Status", categoriaDespesa.status));
 
             cn.Open();
-            sql.ExecuteNonQuery();
+            int rows =sql.ExecuteNonQuery();
             cn.Close();
+
+            return rows;
         }
 
         [DataObjectMethod(DataObjectMethodType.Select)]
         public CategoriaDespesa Get(string categoria)
         {
-            string str = "select * from CategoriaDespesa where Categoria = @Categoria";
+            string str = "select * from CategoriaDespesa where lower(Categoria) = lower(@Categoria)";
 
             SqlCommand sql = new SqlCommand(str, cn);
 
-            sql.Parameters.Add(new SqlParameter("@Categoria", categoria));
+            sql.Parameters.Add(new SqlParameter("@Categoria", categoria.Trim()));
 
             cn.Open();
             SqlDataReader sdr = sql.ExecuteReader();
