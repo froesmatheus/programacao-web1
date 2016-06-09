@@ -22,6 +22,15 @@ namespace Exercicio12_03_16.Pages {
         protected global::System.Web.UI.WebControls.FormView FormView1;
         
         /// <summary>
+        /// autoComplete1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender autoComplete1;
+        
+        /// <summary>
         /// tbxReceita control.
         /// </summary>
         /// <remarks>

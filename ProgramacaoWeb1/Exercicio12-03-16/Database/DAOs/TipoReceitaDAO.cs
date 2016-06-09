@@ -167,12 +167,12 @@ namespace Exercicio12_03_16.Database.DAOs
 
             string str = @"select * 
                             from TipoReceita 
-                            where TipoReceita like '%'+@Query+'%'";
+                            where lower(TipoReceita) like '%'+@Query+'%'";
 
 
             SqlCommand sql = new SqlCommand(str, cn);
 
-            sql.Parameters.Add(new SqlParameter("@Query", query));
+            sql.Parameters.Add(new SqlParameter("@Query", query.ToLower()));
 
             cn.Open();
 

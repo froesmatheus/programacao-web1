@@ -116,6 +116,7 @@
     <Content Include="Controls\ListarLancamentos.ascx" />
     <Content Include="Global.asax" />
     <Content Include="Images\voltar.png" />
+    <Content Include="Pages\ExtratoRelatorio.aspx" />
     <Content Include="Relatorios\MeuRelatorio.aspx" />
     <Content Include="Pages\CadastrarDespesa.aspx" />
     <Content Include="Pages\CadastrarReceita.aspx" />
@@ -143,6 +144,7 @@
     <Compile Include="Database\DAOs\ClienteDAO.cs" />
     <Compile Include="Database\ConnectionFactory.cs" />
     <Compile Include="Database\DAOs\DespesaDAO.cs" />
+    <Compile Include="Database\DAOs\ExtratoDAO.cs" />
     <Compile Include="Database\DAOs\LancamentoDAO.cs" />
     <Compile Include="Database\DAOs\ReceitaDAO.cs" />
     <Compile Include="Database\DAOs\TipoDespesaDAO.cs" />
@@ -154,6 +156,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExtratoRelatorio.aspx.cs">
+      <DependentUpon>ExtratoRelatorio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ExtratoRelatorio.aspx.designer.cs">
+      <DependentUpon>ExtratoRelatorio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Relatorios\MeuRelatorio.aspx.cs">
       <DependentUpon>MeuRelatorio.aspx</DependentUpon>
@@ -259,6 +268,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Relatorios\RelatorioExtrato.rdlc" />
     <EmbeddedResource Include="Relatorios\Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>

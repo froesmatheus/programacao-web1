@@ -8,11 +8,31 @@
         <title></title>
     </head>
     <body>
+        <asp:ScriptManager ID="ScriptManager" runat="server" />
+        <ajaxToolkit:ModalPopupExtender 
+            ID="ModalPopupExtender1" 
+            PopupControlID="ModalPanel"
+            CancelControlID="btnFechar"
+            TargetControlID="labelModal"
+            DropShadow="true"
+            runat="server" />
+
+        <asp:Label ID="labelModal" runat="server"/>
+
+        <asp:Panel ID="ModalPanel" runat="server" BackColor="#0033cc" Style="padding: 16px;">
+            <asp:Label ForeColor="#ffffff" Font-Bold="true" Font-Size="Medium" ID="LabelMessage" runat="server" />
+            <br />
+            <br />
+            <asp:Button CausesValidation="false" ID="btnFechar" runat="server" Text="OK" />
+        </asp:Panel>
+
+
+
         <div>
-            <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.Receita" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetReceitas" TypeName="Exercicio12_03_16.Database.DAOs.ReceitaDAO" DeleteMethod="Delete" UpdateMethod="Update"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" DataObjectTypeName="Exercicio12_03_16.Models.Receita" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetReceitas" TypeName="Exercicio12_03_16.Database.DAOs.ReceitaDAO" DeleteMethod="Delete" UpdateMethod="Update" OnInserted="ObjectDataSource2_Inserted" OnInserting="ObjectDataSource2_Inserting"></asp:ObjectDataSource>
 
             <asp:Panel GroupingText="Cadastro de Receitas" Style="padding: 10px;" Width="989px" runat="server" Height="603px">
-                <asp:FormView ID="FormView1" DataKeyNames="Id" runat="server" DataSourceID="ObjectDataSource2" Width="994px" AllowPaging="True">
+                <asp:FormView ID="FormView1" DataKeyNames="Id" runat="server" DataSourceID="ObjectDataSource2" Width="994px" AllowPaging="True" OnItemInserting="FormView1_ItemInserting">
 
 
                     <EditItemTemplate>

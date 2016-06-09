@@ -98,7 +98,25 @@ namespace Exercicio12_03_16.Database.DAOs
             return null;
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Lancamento> GetExtrato(DateTime dataInicial, DateTime dataFinal, string tpFiltro)
+        {
+            List<Lancamento> lancs = GetLancamentos(dataInicial, dataFinal, tpFiltro);
 
+            foreach (Lancamento lanc in lancs)
+            {
+                if (lanc.TipoParcelamento == Lancamento.PARCELADO)
+                {
+                    lanc.Observacoes = lanc.Parcela + "/" + lanc.QtdParcelas;
+                } else
+                {
+                    lanc.Observacoes = "Único";
+                }
+            }
+
+            return lancs;
+        }
+ 
         public void AtualizarEstatisticas(List<Lancamento> lancamentos, out double custoReceita, out double custoDespesa)
         {
             double totalReceita = 0.0;

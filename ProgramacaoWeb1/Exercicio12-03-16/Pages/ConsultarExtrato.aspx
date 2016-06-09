@@ -73,6 +73,7 @@
                         </asp:BoundField>
                     </Columns>
                 </asp:GridView>
+                <asp:Button ID="btnImprimir" runat="server" OnClick="btnImprimir_Click" Text="Imprimir" />
                 <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetLancamentos" TypeName="Exercicio12_03_16.Database.DAOs.LancamentoDAO">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="tbxDataIni" Name="dataInicial" PropertyName="Text" Type="DateTime" />

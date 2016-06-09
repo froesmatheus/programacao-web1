@@ -40,5 +40,39 @@ namespace Exercicio12_03_16.Pages
         {
             Response.Redirect("Default.aspx", true);
         }
+
+        protected void ObjectDataSource2_Inserted(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+
+            e.ExceptionHandled = true;
+            Label label = (Label)ModalPopupExtender1.FindControl("LabelMessage");
+            if (e.Exception != null)
+            {
+                label.Text = "Erro!: " + e.Exception.InnerException.Message;
+            } else if (int.Parse(e.ReturnValue.ToString()) > 0)
+            {
+                label.Text = "Receita adicionada com sucesso";
+            }
+            else
+            {
+                label.Text = "Erro!";
+            }
+
+            
+            ModalPopupExtender1.Show();
+        }
+
+        protected void ObjectDataSource2_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
+        {
+
+        }
+
+        protected void FormView1_ItemInserting(object sender, FormViewInsertEventArgs e)
+        {
+            if (e.Values[4].Equals(""))
+            {
+                e.Values[4] = DateTime.Parse("01/01/0001");
+            }
+        }
     }
 }

@@ -33,7 +33,20 @@ namespace Exercicio12_03_16.Pages
 
         protected void btnPesquisar_Click(object sender, EventArgs e)
         {
-            
+            DateTime dataIni = DateTime.Parse("01/01/01");
+            if (!String.IsNullOrEmpty(tbxDataIni.Text))
+            {
+                dataIni = DateTime.Parse(tbxDataIni.Text);
+            }
+            DateTime dataFim = DateTime.Parse("01/01/01");
+            if (!String.IsNullOrEmpty(tbxDataFim.Text))
+            {
+                dataFim = DateTime.Parse(tbxDataFim.Text);
+            }
+
+            Session["dataInicial"] = dataIni;
+            Session["dataFinal"] = dataFim;
+            Session["tpFiltro"] = rdLancamentosFiltro.SelectedValue;
         }
 
         public double GetSaldoParcial(List<Lancamento> lista)
@@ -116,9 +129,32 @@ namespace Exercicio12_03_16.Pages
             saldo = totalReceitas - totalDespesas;
 
             tbxTotalReceita.Text = String.Format("Total de Receitas R$ {0:0.00}", totalReceitas);
+            Session["tbxReceitas"] = tbxTotalReceita.Text;
             tbxTotalDespesa.Text = String.Format("Total de Despesas R$ {0:0.00}", totalDespesas);
+            Session["tbxDespesas"] = tbxTotalDespesa.Text;
 
             tbxSaldo.Text = String.Format("Saldo R$ {0:0.00}", saldo);
+            Session["tbxSaldo"] = tbxSaldo.Text;
+        }
+
+        protected void btnImprimir_Click(object sender, EventArgs e)
+        {
+            DateTime dataIni = DateTime.Parse("01/01/01");
+            if (!String.IsNullOrEmpty(tbxDataIni.Text))
+            {
+                dataIni = DateTime.Parse(tbxDataIni.Text);
+            }
+            DateTime dataFim = DateTime.Parse("01/01/01");
+            if (!String.IsNullOrEmpty(tbxDataFim.Text))
+            {
+                dataFim = DateTime.Parse(tbxDataFim.Text);
+            }
+
+            Session["dataInicial"] = dataIni;
+            Session["dataFinal"] = dataFim;
+            Session["tpFiltro"] = rdLancamentosFiltro.SelectedValue;
+
+            Response.Redirect("ExtratoRelatorio.aspx", true);
         }
     }
 }

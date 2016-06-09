@@ -65,7 +65,7 @@
 
                     <ItemTemplate>
                         id:
-                            <asp:Label ID="idLabel" runat="server" Text='<%# Bind("id") %>' />
+                            <asp:Label ID="idLabel" Visible="false" runat="server" Text='<%# Bind("id") %>' />
                         <br />
                         tipoReceita:
                             <asp:Label ID="tipoReceitaLabel" runat="server" Text='<%# Bind("tipoReceita") %>' />
@@ -87,6 +87,17 @@
             <br />
 
             <asp:Panel runat="server" GroupingText="Lista Tipo Receita" Width="648px">
+                <ajaxToolkit:AutoCompleteExtender
+                    runat="server"
+                    ID="autoComplete1"
+                    TargetControlID="tbxReceita"
+                    ServiceMethod="GetTiposReceita"
+                    ServicePath="~/Servico.asmx"
+                    MinimumPrefixLength="1"
+                    CompletionInterval="1000"
+                    EnableCaching="true"
+                    DelimiterCharacters=";" />
+
 
                 <p>
                     <label>Tipo de Receita: </label>

@@ -23,13 +23,12 @@ namespace Exercicio12_03_16.Database.DAOs
 
 
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void Insert(Receita receita)
+        public int Insert(Receita receita)
         {
-
             if (receita.TipoParcelamento == Lancamento.PARCELADO)
             {
                 InsertParcelado(receita);
-                return;
+                return 1;
             }
 
             string str =
@@ -42,7 +41,13 @@ namespace Exercicio12_03_16.Database.DAOs
             sql.Parameters.Add(new SqlParameter("@FormaRecebimento", receita.FormaRecebimento));
             sql.Parameters.Add(new SqlParameter("@Valor", receita.Valor));
             sql.Parameters.Add(new SqlParameter("@DataVencimento", receita.DataVencimento));
-            sql.Parameters.Add(new SqlParameter("@DataRecebimento", receita.DataRecebimento));
+            if (receita.DataRecebimento.Equals(DateTime.Parse("01/01/0001")))
+            {
+                sql.Parameters.Add(new SqlParameter("@DataRecebimento", DBNull.Value));
+            } else
+            {
+                sql.Parameters.Add(new SqlParameter("@DataRecebimento", receita.DataRecebimento));
+            }
             sql.Parameters.Add(new SqlParameter("@TipoParcelamento", receita.TipoParcelamento));
             sql.Parameters.Add(new SqlParameter("@QtdParcelas", receita.QtdParcelas));
             sql.Parameters.Add(new SqlParameter("@Parcela", receita.Parcela));
@@ -51,10 +56,18 @@ namespace Exercicio12_03_16.Database.DAOs
 
 
             cn.Open();
-            sql.ExecuteNonQuery();
-            cn.Close();
-        }
+            int rows = -1;
+            try
+            {
+                rows = sql.ExecuteNonQuery();
+            } finally
+            {
+                cn.Close();
+            }
 
+
+            return rows;
+        }
         private void InsertParcelado(Receita receita)
         {
             float valorParcela = receita.Valor / receita.QtdParcelas;
@@ -230,7 +243,7 @@ namespace Exercicio12_03_16.Database.DAOs
                            from Receitas r 
                            join TipoReceita t on r.Tipo = t.Id 
                            where DataVencimento >= @DataIni and DataVencimento <= @DataFim and DataRecebimento = @DataNull";
-            
+
 
             //str = "select * from Receitas where DataVencimento >= @DataIni and DataVencimento <= @DataFim and DataRecebimento = @DataNull";
 
